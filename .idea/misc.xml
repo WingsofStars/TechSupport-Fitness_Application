@@ -3,11 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/rjuarez/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/activity_main.xml" value="0.268" />
+        <entry key="..\:/Users/ndelbridge/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/drawable/ic_launcher_background.xml" value="0.307" />
+        <entry key="..\:/Users/ndelbridge/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/activity_cardio_display_screen.xml" value="0.3740942028985507" />
+        <entry key="..\:/Users/ndelbridge/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/activity_main.xml" value="0.3740942028985507" />
+        <entry key="..\:/Users/ndelbridge/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/activity_new_user_screen.xml" value="0.3740942028985507" />
+        <entry key="..\:/Users/ndelbridge/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/activity_settings.xml" value="0.3740942028985507" />
+        <entry key="..\:/Users/ndelbridge/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/activity_tracking_screen.xml" value="0.3740942028985507" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
