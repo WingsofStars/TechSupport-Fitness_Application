@@ -11,10 +11,14 @@ import android.widget.EditText;
 import android.widget.PopupMenu;
 import android.widget.PopupWindow;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class MainActivity extends AppCompatActivity {
     static SharedPreferences prefs; // uses small save files know as "Shared Prefrences"
     public AlertDialog.Builder dBuilder;
     public AlertDialog dialogue;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
