@@ -24,6 +24,8 @@
         <activity
             android:name=".newUserScreen"
             android:exported="true" />
+        <activity android:name=".stickerWallScreen"
+            android:exported="true"/>
         <activity
             android:name=".trackingScreen"
             android:exported="true" />
@@ -33,6 +35,8 @@
         <activity
             android:name=".settings"
             android:exported="true" />
+        <activity android:name=".discRackScreen"
+            android:exported="true"/>
         <activity
             android:name=".MainActivity"
             android:exported="true" >
