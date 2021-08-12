@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.EditText;
 import android.widget.PopupMenu;
 import android.widget.PopupWindow;
@@ -18,12 +19,13 @@ public class MainActivity extends AppCompatActivity {
     static SharedPreferences prefs; // uses small save files know as "Shared Prefrences"
     public AlertDialog.Builder dBuilder;
     public AlertDialog dialogue;
-
+    static TextView TV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
+        TV = findViewById(R.id.xpBar);
 
 
         prefs = getSharedPreferences("prefs", MODE_PRIVATE);
@@ -91,5 +93,10 @@ public class MainActivity extends AppCompatActivity {
 //        editor.putInt("UserId", id);
 //        editor.putString("Password", givenPassword);//needs to be scrambled
 //        editor.putBoolean("LoggedIn", true);
+    }
+
+    public void goToCollectionScreen(View v){
+        Intent goToCollection = new Intent(MainActivity.this, stickerWallScreen.class);
+        startActivity(goToCollection);
     }
 }
