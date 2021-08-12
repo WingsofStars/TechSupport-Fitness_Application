@@ -6,14 +6,17 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
     public SharedPreferences prefs; // uses small save files know as "Shared Prefrences"
+    static TextView TV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
+        TV = findViewById(R.id.xpBar);
 
 
         prefs = getSharedPreferences("prefs", MODE_PRIVATE);
@@ -49,5 +52,10 @@ public class MainActivity extends AppCompatActivity {
     public void goToTrackingScreen(View v){
         Intent goToSettings = new Intent(MainActivity.this, trackingScreen.class);
         startActivity(goToSettings);
+    }
+
+    public void goToCollectionScreen(View v){
+        Intent goToCollection = new Intent(MainActivity.this, stickerWallScreen.class);
+        startActivity(goToCollection);
     }
 }
