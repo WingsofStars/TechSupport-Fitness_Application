@@ -7,21 +7,19 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.EditText;
 import android.widget.PopupMenu;
 import android.widget.PopupWindow;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-    public SharedPreferences prefs; // uses small save files know as "Shared Prefrences"
-    static TextView TV;
-     // uses small save files know as "Shared Prefrences"
+    static SharedPreferences prefs; // uses small save files know as "Shared Preferences"
     public AlertDialog.Builder dBuilder;
     public AlertDialog dialogue;
-
+    static TextView TV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,10 +40,9 @@ public class MainActivity extends AppCompatActivity {
 //        }
 
 
-        boolean doesUserExist = prefs.getBoolean("Exists", false); //Checks for user account if it doesn't exists, it creates a SP(Shared Preference) saying it Doesn't
-        if(!doesUserExist){
-            Intent goToCreateUser = new Intent(getApplicationContext(), newUserScreen.class);
-            startActivity(goToCreateUser); // Got to the create user Screen
+        boolean isUserLoggedIn = prefs.getBoolean("LoggedIn", false); //checks for user account if it doesn't exists, it creates a SP(Shared Preference) saying it Doesn't
+        if(!isUserLoggedIn){
+            openLoginScreen();
         }
     }
 
