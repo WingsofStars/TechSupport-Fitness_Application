@@ -3,7 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/ndelbridge/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/drawable/bluecirclebutton.xml" value="0.1" />
+        <entry key="..\:/Users/ndelbridge/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/drawable/circleButton.xml" value="0.1" />
+        <entry key="..\:/Users/ndelbridge/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/drawable/enterbutton.xml" value="0.1" />
+        <entry key="..\:/Users/ndelbridge/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/activity_cardio_display_screen.xml" value="0.36" />
+        <entry key="..\:/Users/ndelbridge/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/activity_new_user_screen.xml" value="0.22395833333333334" />
+        <entry key="..\:/Users/ndelbridge/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/activity_settings.xml" value="0.22395833333333334" />
         <entry key="..\:/Users/ndelbridge/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/activity_tracking_screen.xml" value="0.25" />
+        <entry key="..\:/Users/ndelbridge/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/home.xml" value="0.22395833333333334" />
         <entry key="..\:/Users/ndelbridge/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/loginpopup.xml" value="0.268" />
         <entry key="..\:/Users/ndelbridge/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/menu/login_popup.xml" value="0.22395833333333334" />
       </map>
