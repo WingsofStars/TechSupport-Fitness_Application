@@ -7,11 +7,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.PopupMenu;
 import android.widget.PopupWindow;
 
 public class MainActivity extends AppCompatActivity {
-    public SharedPreferences prefs; // uses small save files know as "Shared Prefrences"
+    static SharedPreferences prefs; // uses small save files know as "Shared Prefrences"
     public AlertDialog.Builder dBuilder;
     public AlertDialog dialogue;
 
@@ -66,5 +67,25 @@ public class MainActivity extends AppCompatActivity {
         dBuilder.setView(loginPopup);
         dialogue = dBuilder.create();
         dialogue.show();
+    }
+
+    public void attemptLogin(View V){
+        EditText givenUsernameView = findViewById(R.id.userNameText);
+        EditText givenPasswordView = findViewById(R.id.passwordText);
+
+        String givenUserName = givenUsernameView.getText().toString();
+        String givenPassword = givenPasswordView.getText().toString();
+
+        //Run these given values through a sql query
+
+        int id = 0;
+
+
+        //When everything is logged in:
+//        SharedPreferences.Editor editor = prefs.edit();
+//        editor.putString("Username", givenUserName);
+//        editor.putInt("UserId", id);
+//        editor.putString("Password", givenPassword);//needs to be scrambled
+//        editor.putBoolean("LoggedIn", true);
     }
 }
