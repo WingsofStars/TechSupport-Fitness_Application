@@ -16,7 +16,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity {
-    static SharedPreferences prefs; // uses small save files know as "Shared Prefrences"
+    static SharedPreferences prefs; // uses small save files know as "Shared Preferences"
     public AlertDialog.Builder dBuilder;
     public AlertDialog dialogue;
     static TextView TV;
