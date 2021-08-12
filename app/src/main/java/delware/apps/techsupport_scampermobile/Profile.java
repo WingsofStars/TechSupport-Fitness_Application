@@ -11,7 +11,7 @@ public class Profile {
     private int XP;
 
     public Profile() {}
-
+    //profile constructor
     public Profile(int profileID, String userName, String password, String Height, String Weight, int level, int XP) {
         this.profileID = profileID;
         this.userName = userName;
