@@ -8,16 +8,18 @@ public class Profile {
     private String Height;
     private String Weight;
     private int level;
+    private int XP;
 
     public Profile() {}
 
-    public Profile(int profileID, String userName, String password, String Height, String Weight, int level) {
+    public Profile(int profileID, String userName, String password, String Height, String Weight, int level, int XP) {
         this.profileID = profileID;
         this.userName = userName;
         this.password = password;
         this.Height = Height;
         this.Weight = Weight;
         this.level = level;
+        this.XP = XP;
     }
 
     /*public int getProfileID() {
@@ -27,6 +29,10 @@ public class Profile {
     public void setProfileID(int profileID) {
         this.profileID = profileID;
     }*/
+
+    public int getUserID(){return profileID;}
+
+    public void setUserID(int profileID){this.profileID = profileID;}
 
     public String getUserName() {
         return userName;
@@ -66,5 +72,11 @@ public class Profile {
 
     public void setLevel(int level) {
         this.level = level;
+    }
+
+    public int getXP() {return XP;}
+
+    public void setXP(int XP) {
+        this.XP = XP;
     }
 }
