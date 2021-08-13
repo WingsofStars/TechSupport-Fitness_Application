@@ -7,8 +7,10 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import delware.apps.techsupport_scampermobile.Screens.cardioDisplayScreen;
+import delware.apps.techsupport_scampermobile.Screens.newUserScreen;
+import delware.apps.techsupport_scampermobile.Screens.settings;
+import delware.apps.techsupport_scampermobile.Screens.trackingScreen;
 
 public class MainActivity extends AppCompatActivity {
     public SharedPreferences prefs; // uses small save files know as "Shared Prefrences"
