@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="delware.apps.techsupport_scampermobile">
+    package="delware.apps.techsupport_scampermobile" >
 
     <application
         android:allowBackup="true"
@@ -8,10 +8,24 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.TechSupport_ScamperMobile">
+        android:theme="@style/Theme.TechSupport_ScamperMobile" >
+        <activity
+            android:name=".Dev_Settings"
+            android:exported="true" />
+        <activity
+            android:name=".Statistics"
+            android:exported="true" />
+        <activity
+            android:name=".Game_Settings"
+            android:exported="true" />
+        <activity
+            android:name=".Profile_Settings"
+            android:exported="true" />
         <activity
             android:name=".Screens.newUserScreen"
             android:exported="true" />
+        <activity android:name=".stickerWallScreen"
+            android:exported="true"/>
         <activity
             android:name=".Screens.trackingScreen"
             android:exported="true" />
@@ -21,9 +35,11 @@
         <activity
             android:name=".Screens.settings"
             android:exported="true" />
+        <activity android:name=".discRackScreen"
+            android:exported="true"/>
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
