@@ -1,4 +1,4 @@
-package delware.apps.techsupport_scampermobile;
+package delware.apps.techsupport_scampermobile.Screens;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,6 +9,9 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+
+import delware.apps.techsupport_scampermobile.MainActivity;
+import delware.apps.techsupport_scampermobile.R;
 
 public class settings extends AppCompatActivity {
 

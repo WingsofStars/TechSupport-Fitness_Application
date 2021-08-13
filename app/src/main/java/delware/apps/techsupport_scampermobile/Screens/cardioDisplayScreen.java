@@ -1,4 +1,4 @@
-package delware.apps.techsupport_scampermobile;
+package delware.apps.techsupport_scampermobile.Screens;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,12 +6,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-public class trackingScreen extends AppCompatActivity {
+import delware.apps.techsupport_scampermobile.MainActivity;
+import delware.apps.techsupport_scampermobile.R;
+
+public class cardioDisplayScreen extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tracking_screen);
+        setContentView(R.layout.activity_cardio_display_screen);
     }
 
     //    THIS IS AN IMPORTANT FUNCTION TO EXIT THE CURRENT INTENT AND GO BACK TO THE PREVIOUS ACTIVITY
