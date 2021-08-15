@@ -4,21 +4,12 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/cbelfry/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/activity_main.xml" value="0.245018115942029" />
-        <entry key="..\:/Users/ndelbridge/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/drawable/addlogpopupbuttons.xml" value="0.4615" />
-        <entry key="..\:/Users/ndelbridge/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/drawable/bluecirclebutton.xml" value="0.4615" />
-        <entry key="..\:/Users/ndelbridge/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/activity_cardio_display_screen.xml" value="0.5239583333333333" />
-        <entry key="..\:/Users/ndelbridge/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/activity_dev_settings.xml" value="0.5239583333333333" />
-        <entry key="..\:/Users/ndelbridge/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/activity_new_user_screen.xml" value="0.2537840565085772" />
-        <entry key="..\:/Users/ndelbridge/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/activity_settings.xml" value="0.5239583333333333" />
-        <entry key="..\:/Users/ndelbridge/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/activity_tracking_screen.xml" value="0.4901041666666667" />
-        <entry key="..\:/Users/ndelbridge/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/adapter_view_layout.xml" value="0.5239583333333333" />
-        <entry key="..\:/Users/ndelbridge/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/addlogpopup.xml" value="0.4466666666666667" />
-        <entry key="..\:/Users/ndelbridge/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/loginpopup.xml" value="0.2537840565085772" />
-        <entry key="..\:/Users/ndelbridge/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/row.xml" value="0.5239583333333333" />
+        <entry key="..\:/Users/cbelfry/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/activity_new_user_screen.xml" value="0.3" />
+        <entry key="..\:/Users/cbelfry/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/loginpopup.xml" value="0.3" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_16_PREVIEW" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
