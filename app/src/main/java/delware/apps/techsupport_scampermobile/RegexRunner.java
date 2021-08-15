@@ -4,7 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class RegexRunner {
-    final String regexUserName = "/^([\\w_]{4,12})$/gm";
+    final String regexUserName = "^([\\w_]{4,12})$";
     final String regexPassword = "^((?=(?:.*[A-Z]){1,})(?=(?:.*[a-z]){3,})(?=(?:.*[0-9]){1,})(?=(?:.*[@#$%!^&+=()}-]){1,}).{1,})$";
     private  static Matcher matcher(String strLine, String strRegex) {
         Pattern p = null;

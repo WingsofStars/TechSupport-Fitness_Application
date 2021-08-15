@@ -10,8 +10,13 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+import delware.apps.techsupport_scampermobile.Dev_Settings;
+import delware.apps.techsupport_scampermobile.Game_Settings;
 import delware.apps.techsupport_scampermobile.MainActivity;
+import delware.apps.techsupport_scampermobile.Profile_Settings;
 import delware.apps.techsupport_scampermobile.R;
+import delware.apps.techsupport_scampermobile.SimpleListAdapter;
+import delware.apps.techsupport_scampermobile.Statistics;
 
 public class settings extends AppCompatActivity {
 
@@ -44,15 +49,15 @@ public class settings extends AppCompatActivity {
                     startActivity(goToProfileSettings);
                 }
                 else if(id == submenuItems.indexOf(GAME)){
-                    Intent goToGame = new Intent(getApplicationContext(),Game_Settings.class);
+                    Intent goToGame = new Intent(getApplicationContext(), Game_Settings.class);
                     startActivity(goToGame);
                 }
                 else if(id == submenuItems.indexOf(STATISTICS)){
-                    Intent goToStats = new Intent(getApplicationContext(),Statistics.class);
+                    Intent goToStats = new Intent(getApplicationContext(), Statistics.class);
                     startActivity(goToStats);
                 }
                 else if(id == submenuItems.indexOf(DEV)){
-                    Intent goToDev = new Intent(getApplicationContext(),Dev_Settings.class);
+                    Intent goToDev = new Intent(getApplicationContext(), Dev_Settings.class);
                     startActivity(goToDev);
                 }
 

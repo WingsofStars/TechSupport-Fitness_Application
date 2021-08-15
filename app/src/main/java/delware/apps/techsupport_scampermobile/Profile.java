@@ -1,25 +1,35 @@
 package delware.apps.techsupport_scampermobile;
 
 
+import delware.apps.techsupport_scampermobile.Screens.newUserScreen;
+
 public class Profile {
     private int profileID;
     private String userName;
     private String password;
-    private String Height;
-    private String Weight;
+    private double Height;
+    private double Weight;
     private int level;
     private int XP;
 
     public Profile() {}
     //profile constructor
-    public Profile(int profileID, String userName, String password, String Height, String Weight, int level, int XP) {
+    public Profile(int profileID, String userName, String password, double height, double weight, int level, int XP) {
         this.profileID = profileID;
         this.userName = userName;
         this.password = password;
-        this.Height = Height;
-        this.Weight = Weight;
+        this.Height = height;
+        this.Weight = weight;
         this.level = level;
         this.XP = XP;
+    }
+
+    public static Profile Create(String userName, String password, double height, double weight, int level, int xp)
+    {
+        // add data to database
+        int id = newUserScreen.db.addNewUser(userName, password, height, weight, level, xp);
+        // create profile
+        return new Profile(id, userName, password, height, weight, level, xp);
     }
 
     /*public int getProfileID() {
@@ -50,19 +60,19 @@ public class Profile {
         this.password = password;
     }
 
-    public String getHeight() {
+    public double getHeight() {
         return Height;
     }
 
-    public void setHeight(String height) {
+    public void setHeight(double height) {
         Height = height;
     }
 
-    public String getWeight() {
+    public double getWeight() {
         return Weight;
     }
 
-    public void setWeight(String weight) {
+    public void setWeight(double weight) {
         Weight = weight;
     }
 
