@@ -3,11 +3,20 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/cbelfry/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/activity_main.xml" value="0.245018115942029" />
+        <entry key="..\:/Users/JBaker/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/activity_cardio_display_screen.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/JBaker/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/activity_collection_disc_rack.xml" value="0.245018115942029" />
+        <entry key="..\:/Users/JBaker/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/activity_collection_sticker_wall.xml" value="0.245018115942029" />
+        <entry key="..\:/Users/JBaker/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/Users/JBaker/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/activity_new_user_screen.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/JBaker/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/activity_settings.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/JBaker/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/activity_tracking_screen.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/JBaker/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/home.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/JBaker/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/loginpopup.xml" value="0.245018115942029" />
+        <entry key="..\:/Users/JBaker/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/row.xml" value="0.245018115942029" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -20,12 +21,14 @@ public class MainActivity extends AppCompatActivity {
     public AlertDialog.Builder dBuilder;
     public AlertDialog dialogue;
     static TextView TV;
+    MediaPlayer mp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
         TV = findViewById(R.id.xpBar);
+        mp = MediaPlayer.create(this, R.raw.duckquack);
 
 
         prefs = getSharedPreferences("prefs", MODE_PRIVATE);
@@ -98,5 +101,9 @@ public class MainActivity extends AppCompatActivity {
     public void goToCollectionScreen(View v){
         Intent goToCollection = new Intent(MainActivity.this, stickerWallScreen.class);
         startActivity(goToCollection);
+    }
+
+    public void playSound(View v) {
+        mp.start();
     }
 }
