@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
         String givenUserName = givenUsernameView.getText().toString();
         String givenPassword = givenPasswordView.getText().toString();
 
-        //Run these given values through a sql query
+        //Run These given values through a sql query
 
         int id = 0;
 
