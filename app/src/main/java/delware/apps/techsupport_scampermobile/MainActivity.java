@@ -9,13 +9,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.EditText;
-import android.widget.PopupMenu;
-import android.widget.PopupWindow;
 
 import delware.apps.techsupport_scampermobile.Screens.cardioDisplayScreen;
 import delware.apps.techsupport_scampermobile.Screens.newUserScreen;
 import delware.apps.techsupport_scampermobile.Screens.settings;
 import delware.apps.techsupport_scampermobile.Screens.trackingScreen;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     static SharedPreferences prefs; // uses small save files know as "Shared Preferences"
