@@ -30,7 +30,7 @@
             android:name=".Screens.trackingScreen"
             android:exported="true" />
         <activity
-            android:name=".Screens.cardioDisplayScreen"
+            android:name=".cardioDisplayScreen"
             android:exported="true" />
         <activity
             android:name=".Screens.settings"
