@@ -1,10 +1,13 @@
-package delware.apps.techsupport_scampermobile;
+package delware.apps.techsupport_scampermobile.Screens;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
+import delware.apps.techsupport_scampermobile.MainActivity;
+import delware.apps.techsupport_scampermobile.R;
 
 public class trackingScreen extends AppCompatActivity {
 

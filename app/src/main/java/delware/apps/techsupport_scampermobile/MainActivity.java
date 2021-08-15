@@ -12,6 +12,10 @@ import android.widget.EditText;
 import android.widget.PopupMenu;
 import android.widget.PopupWindow;
 
+import delware.apps.techsupport_scampermobile.Screens.cardioDisplayScreen;
+import delware.apps.techsupport_scampermobile.Screens.newUserScreen;
+import delware.apps.techsupport_scampermobile.Screens.settings;
+import delware.apps.techsupport_scampermobile.Screens.trackingScreen;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
