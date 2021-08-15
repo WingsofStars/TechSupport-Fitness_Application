@@ -2,5 +2,15 @@
     <string name="app_name">TechSupport_ScamperMobile</string>
     <string name="GoBack">Go Back</string>
     <string name="Signup"><u>Sign Up Here</u></string>
-
+    <string-array name="CardioType">
+        <item>All</item>
+        <item>Running/Walking</item>
+        <item>Cycling</item>
+        <item>Elliptical</item>
+    </string-array>
+    <string-array name="CardioTypeSelection">
+        <item>Running/Walking</item>
+        <item>Cycling</item>
+        <item>Elliptical</item>
+    </string-array>
 </resources>

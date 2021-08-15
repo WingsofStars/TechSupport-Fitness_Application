@@ -1,16 +1,21 @@
 package delware.apps.techsupport_scampermobile;
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import androidx.constraintlayout.solver.state.State;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class DBHandler extends SQLiteOpenHelper{
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "UsersDB";
+    private static final String DATABASE_NAME = "UsersDB.db";
     private static final String TABLE_USERS = "Users";
     //Columns names
     private static final String KEY_ID = "UserId";
@@ -24,13 +29,32 @@ public class DBHandler extends SQLiteOpenHelper{
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
+
+    public static final String RUN_LOGS = " Run_Logs";
+    public static final String HOURS = "HOURS";
+    public static final String MINUTES = "Minutes";
+    public static final String CALORIES = "Calories";
+    public static final String DATE = "Date";
+    public static final String DISTANCE = "Distance";
+    public static final String CARDIO_TYPE = "Cardio_Type";
+
+    static SharedPreferences prefs;
+
+
     @Override
     //creates the user database
     public void onCreate(SQLiteDatabase db) {
+        //USerTable
         String CREATE_USER_TABLE = "CREATE TABLE " + TABLE_USERS + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + KEY_NAME + " TEXT, " + KEY_PASSWORD + "TEXT, " + KEY_WEIGHT + "TEXT, " + KEY_HEIGHT + "TEXT, "
                 + KEY_lEVEL + "INTEGER, " + KEY_XP + "INTEGER);";
         db.execSQL(CREATE_USER_TABLE);
+        //RunLogs Tbale
+    String createLogTable = "Create Table" + RUN_LOGS + " (ID INTEGER Primary Key AutoIncrement, " + DISTANCE + " Real," + HOURS + " int, " + MINUTES + " real, " + CALORIES + " int, " + DATE + " Text," +CARDIO_TYPE + " Text," +KEY_ID + " int, " + "FOREIGN KEY ("+KEY_ID+") REFERENCES "+TABLE_USERS+"("+KEY_ID+"))";
+        db.execSQL(createLogTable);
+
+
+
     }
 
     @Override
@@ -115,5 +139,139 @@ public class DBHandler extends SQLiteOpenHelper{
         db.delete(TABLE_USERS,KEY_ID + " =?",
                 new String[]{String.valueOf(profile.getUserID())});
         db.close();
+    }
+
+
+    public ArrayList<RunLog> getAllLogs(){
+
+
+        ArrayList<RunLog> returnList = new ArrayList<>();
+        String queryString = "Select * from " + RUN_LOGS +" Where "+KEY_ID+" =" + MainActivity.currerntID;//where id = id
+        SQLiteDatabase db = this.getReadableDatabase(); // Open Database
+        Cursor cursor = db.rawQuery(queryString, null);
+        if(cursor.moveToFirst()){
+            do {
+                float distance = cursor.getFloat(1);
+                int hours = cursor.getInt(2);
+                float minutes = cursor.getFloat(3);
+                int calories = cursor.getInt(4);
+                String date = cursor.getString(5);
+                String type = cursor.getString(6);
+                RunLog runlog = new RunLog(distance,hours,minutes,calories,date,type);
+                returnList.add(runlog);
+            }while (cursor.moveToNext());
+        }
+        else {
+            //oh well
+        }
+        cursor.close();
+        db.close();
+        return returnList;
+    }
+    public ArrayList<RunLog> getAllLogs(String cardioType){
+
+        if(cardioType.equalsIgnoreCase("All")) {
+            ArrayList<RunLog> returnList = new ArrayList<>();
+            String queryString = "Select * from " + RUN_LOGS + " Where " + KEY_ID + " =" + MainActivity.currerntID ;//where id = id
+            SQLiteDatabase db = this.getReadableDatabase(); // Open Database
+            Cursor cursor = db.rawQuery(queryString, null);
+            if (cursor.moveToFirst()) {
+                do {
+                    float distance = cursor.getFloat(1);
+                    int hours = cursor.getInt(2);
+                    float minutes = cursor.getFloat(3);
+                    int calories = cursor.getInt(4);
+                    String date = cursor.getString(5);
+                    String type = cursor.getString(6);
+                    RunLog runlog = new RunLog(distance, hours, minutes, calories, date, type);
+                    returnList.add(runlog);
+                } while (cursor.moveToNext());
+            } else {
+                //oh well
+            }
+            cursor.close();
+            db.close();
+            return returnList;
+        }
+        else{
+            ArrayList<RunLog> returnList = new ArrayList<>();
+            String queryString = "Select * from " + RUN_LOGS + " Where " + KEY_ID + " =" + MainActivity.currerntID+ " and " + CARDIO_TYPE + " = \"" + cardioType + "\"";//where id = id
+            SQLiteDatabase db = this.getReadableDatabase(); // Open Database
+            Cursor cursor = db.rawQuery(queryString, null);
+            if (cursor.moveToFirst()) {
+                do {
+                    float distance = cursor.getFloat(1);
+                    int hours = cursor.getInt(2);
+                    float minutes = cursor.getFloat(3);
+                    int calories = cursor.getInt(4);
+                    String date = cursor.getString(5);
+                    String type = cursor.getString(6);
+                    RunLog runlog = new RunLog(distance, hours, minutes, calories, date, type);
+                    returnList.add(runlog);
+                } while (cursor.moveToNext());
+            } else {
+                //oh well
+            }
+            cursor.close();
+            db.close();
+            return returnList;
+        }
+    }
+
+
+    public boolean addLog(RunLog runlog){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(CARDIO_TYPE, runlog.getCardioType());
+        cv.put(DISTANCE, runlog.getDistance());
+        cv.put(HOURS, runlog.getHours());
+        cv.put(MINUTES, runlog.getMinutes());
+        cv.put(CALORIES, runlog.getCalories());
+        cv.put(DATE, runlog.getDate());
+        cv.put(KEY_ID, MainActivity.currerntID);
+        long insert = db.insert(RUN_LOGS, null, cv);
+        if (insert == 1){
+            return false;
+        }
+        else{
+            return true;
+        }
+
+    }
+
+    public int size(String cardioType){
+        int size = 0;
+        if(cardioType.equalsIgnoreCase("All")){
+        String queryString = "Select * from " + RUN_LOGS + " where " + KEY_ID+ " = "+ MainActivity.currerntID ;
+        SQLiteDatabase db = this.getReadableDatabase(); // Open Database
+        Cursor cursor = db.rawQuery(queryString, null);
+        if(cursor.moveToFirst()){
+            do {
+                size++;
+            }while (cursor.moveToNext());
+        }
+        else {
+            //oh well
+        }
+        cursor.close();
+        db.close();
+        return size;
+    }
+        else {
+            String queryString = "Select * from " + RUN_LOGS + " where " + KEY_ID+ " = "+ MainActivity.currerntID +" and " + CARDIO_TYPE + " = \"" + cardioType + "\"";
+            SQLiteDatabase db = this.getReadableDatabase(); // Open Database
+            Cursor cursor = db.rawQuery(queryString, null);
+            if(cursor.moveToFirst()){
+                do {
+                    size++;
+                }while (cursor.moveToNext());
+            }
+            else {
+                //oh well
+            }
+            cursor.close();
+            db.close();
+            return size;
+        }
     }
 }
