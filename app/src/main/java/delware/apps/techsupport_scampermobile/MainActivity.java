@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.EditText;
 
-import delware.apps.techsupport_scampermobile.Screens.cardioDisplayScreen;
 import delware.apps.techsupport_scampermobile.Screens.newUserScreen;
 import delware.apps.techsupport_scampermobile.Screens.settings;
 import delware.apps.techsupport_scampermobile.Screens.trackingScreen;
