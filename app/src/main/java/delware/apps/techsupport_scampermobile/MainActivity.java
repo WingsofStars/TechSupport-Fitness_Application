@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 //        }
 
 
-        boolean isUserLoggedIn = prefs.getBoolean("LoggedIn", false); //checks for user account if it doesn't exists, it creates a SP(Shared Preference) saying it Doesn't
+        boolean isUserLoggedIn = prefs.getBoolean("LoggedIn", false); //Checks for user account if it doesn't exists, it creates a SP(Shared Preference) saying it Doesn't
         if(!isUserLoggedIn){
             openLoginScreen();
         }
