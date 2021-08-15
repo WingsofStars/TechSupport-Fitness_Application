@@ -40,7 +40,7 @@ public class DBHandler extends SQLiteOpenHelper{
         onCreate(db);
 
     }
-    //adding new user
+    //adding new user :)
     public int addNewUser(String userName, String password, double height, double weight, int level, int xp){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
