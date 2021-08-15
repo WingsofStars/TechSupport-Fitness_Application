@@ -1,4 +1,4 @@
-package delware.apps.techsupport_scampermobile.Screens;
+package delware.apps.techsupport_scampermobile;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,13 +15,12 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import delware.apps.techsupport_scampermobile.MainActivity;
 import delware.apps.techsupport_scampermobile.R;
 
-public class cardioDisplayScreen extends AppCompatActivity {
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 public class cardioDisplayScreen extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
