@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.PopupMenu;
 import android.widget.PopupWindow;
 
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -20,11 +21,16 @@ public class MainActivity extends AppCompatActivity {
     public AlertDialog.Builder dBuilder;
     public AlertDialog dialogue;
     static TextView TV;
+    static String currerntID;
+    public static DBHandler databaseHandler;
+    static ArrayList<RunLog> RunLogs = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
+
+        databaseHandler = new DBHandler(MainActivity.this);
         TV = findViewById(R.id.xpBar);
 
 
@@ -44,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         if(!isUserLoggedIn){
             openLoginScreen();
         }
+        currerntID = String.valueOf(prefs.getInt("id", 0));
     }
 
 
