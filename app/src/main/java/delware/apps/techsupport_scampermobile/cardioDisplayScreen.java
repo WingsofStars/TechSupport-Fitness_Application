@@ -102,14 +102,17 @@ int Position2;
                 Toast.makeText(this, parent.getItemAtPosition(position).toString() + " selected", Toast.LENGTH_LONG).show();
 
             }
-            else {
-                Position2 = position;
-            }
+        }
+        else {
+            Position2 = position;
+            System.out.println(Position2);
+            System.out.println(position);
+        }
 
         }
 
 
-    }
+
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
