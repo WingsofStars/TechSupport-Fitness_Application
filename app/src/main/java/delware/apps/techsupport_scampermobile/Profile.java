@@ -12,7 +12,7 @@ public class Profile {
     private int level;
     private int XP;
 
-    public Profile() {}
+    public Profile() {profileID = -1;}
     //profile constructor
     public Profile(int profileID, String userName, String password, double height, double weight, int level, int XP) {
         this.profileID = profileID;
@@ -23,7 +23,7 @@ public class Profile {
         this.level = level;
         this.XP = XP;
     }
-
+    //Gives an ID to the profile and returns it also calling the database handler
     public static Profile Create(String userName, String password, double height, double weight, int level, int xp)
     {
         // add data to database

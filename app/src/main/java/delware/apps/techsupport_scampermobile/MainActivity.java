@@ -20,8 +20,9 @@ public class MainActivity extends AppCompatActivity {
     public AlertDialog.Builder dBuilder;
     public AlertDialog dialogue;
     static TextView TV;
-    static String currerntID;
+    static String currentID;
     public static DBHandler databaseHandler;
+    public Utils utils;
     static ArrayList<RunLog> RunLogs = new ArrayList<>();
 
     @Override
@@ -49,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         if(!isUserLoggedIn){
             openLoginScreen();
         }
-        currerntID = String.valueOf(prefs.getInt("id", 0));
+        currentID = String.valueOf(prefs.getInt("id", 0));
     }
 
 
@@ -81,24 +82,31 @@ public class MainActivity extends AppCompatActivity {
         dialogue.show();
     }
 
-    public void attemptLogin(View V){
-        EditText givenUsernameView = findViewById(R.id.userNameText);
-        EditText givenPasswordView = findViewById(R.id.passwordText);
+    public void attemptLogin(View v){
+        TextView textViewException = findViewById(R.id.txtViewException);
+        EditText givenUsernameView = findViewById(R.id.txtLoginUsername);
+        EditText givenPasswordView = findViewById(R.id.txtLoginPassword);
 
         String givenUserName = givenUsernameView.getText().toString();
         String givenPassword = givenPasswordView.getText().toString();
+        String encLoginPassword = utils.getSha256Hash(givenPassword);
+        Profile p = databaseHandler.getUserByUsername(givenUserName, encLoginPassword);
 
-        //Run These given values through a sql query
+        int id = p.getUserID();
 
-        int id = 0;
+        if(id == -1)
+        {
+            textViewException.setText("Invalid Information");
+            return;
+        }
 
 
         //When everything is logged in:
-//        SharedPreferences.Editor editor = prefs.edit();
-//        editor.putString("Username", givenUserName);
-//        editor.putInt("UserId", id);
-//        editor.putString("Password", givenPassword);//needs to be scrambled
-//        editor.putBoolean("LoggedIn", true);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("Username", givenUserName);
+        editor.putInt("UserId", id);
+        editor.putString("Password", encLoginPassword);//needs to be scrambled
+        editor.putBoolean("LoggedIn", true);
     }
 
     public void goToCollectionScreen(View v){

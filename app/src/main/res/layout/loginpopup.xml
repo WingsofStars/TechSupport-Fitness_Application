@@ -8,19 +8,21 @@
 
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/btnLogin"
         android:layout_width="265dp"
         android:layout_height="69dp"
         android:layout_marginTop="4dp"
+        android:onClick="attemptLogin"
         android:text="Login"
+        android:textColor="#3E2723"
         app:layout_constraintBottom_toTopOf="@+id/textView5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/tvException"
         app:layout_constraintVertical_bias="0.786" />
 
     <EditText
-        android:id="@+id/passwordText"
+        android:id="@+id/txtLoginPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="19dp"
@@ -28,17 +30,18 @@
         android:ems="10"
         android:hint="Enter Password"
         android:inputType="textPassword"
+        android:minHeight="48dp"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textColorHint="@color/lightGrey"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        android:textColorHint="#546E7A"
+        app:layout_constraintBottom_toTopOf="@+id/tvException"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userNameText" />
+        app:layout_constraintTop_toBottomOf="@+id/txtLoginUsername" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/tvException"
         android:layout_width="287dp"
         android:layout_height="0dp"
         android:layout_marginBottom="255dp"
@@ -48,10 +51,10 @@
         app:layout_constraintBottom_toTopOf="@+id/textView4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordText" />
+        app:layout_constraintTop_toBottomOf="@+id/txtLoginPassword" />
 
     <EditText
-        android:id="@+id/userNameText"
+        android:id="@+id/txtLoginUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="164dp"
@@ -60,10 +63,11 @@
         android:hint="Enter Username"
         android:inputType="textPersonName"
         android:maxLength="12"
+        android:minHeight="48dp"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textColorHint="@color/lightGrey"
-        app:layout_constraintBottom_toTopOf="@+id/passwordText"
+        android:textColorHint="#546E7A"
+        app:layout_constraintBottom_toTopOf="@+id/txtLoginPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -78,7 +82,7 @@
         app:layout_constraintBottom_toTopOf="@+id/textView5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/tvException" />
 
     <TextView
         android:id="@+id/textView5"
@@ -86,9 +90,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="31dp"
         android:layout_marginBottom="96dp"
+        android:minHeight="48dp"
         android:onClick="goToNewUserScreen"
         android:text="@string/Signup"
-        android:textColor="@color/lightBlue"
+        android:textColor="#0277BD"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/textView4"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
