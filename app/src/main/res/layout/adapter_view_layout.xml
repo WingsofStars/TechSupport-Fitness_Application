@@ -16,6 +16,7 @@
         android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
+        android:fontFamily="@font/prompt"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardiotype1" />
 
@@ -30,6 +31,7 @@
         android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
+        android:fontFamily="@font/prompt"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/speed1" />
 
@@ -44,6 +46,7 @@
         android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
+        android:fontFamily="@font/prompt"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/distance2" />
 
@@ -55,6 +58,7 @@
         android:layout_marginTop="8dp"
         android:text="Distance"
         android:textAlignment="center"
+        android:fontFamily="@font/prompt"
         android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -65,6 +69,7 @@
         android:id="@+id/date"
         android:layout_width="251dp"
         android:layout_height="42dp"
+        android:fontFamily="@font/prompt"
         android:layout_marginTop="61dp"
 
         android:text="Date"
@@ -82,6 +87,7 @@
     <TextView
         android:id="@+id/cardiotype1"
         android:layout_width="251dp"
+        android:fontFamily="@font/prompt"
         android:layout_height="32dp"
 
         android:layout_marginTop="8dp"

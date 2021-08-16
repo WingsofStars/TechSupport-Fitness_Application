@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".newUserScreen">
+    tools:context=".Screens.newUserScreen">
 
     <Button
         android:id="@+id/btnCreateUser"
@@ -16,7 +16,8 @@
         android:text="Create User"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:fontFamily="@font/prompt"/>
 
     <EditText
         android:id="@+id/txtUsername"
@@ -24,6 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="84dp"
         android:backgroundTint="@color/lightGrey"
+        android:fontFamily="@font/prompt"
         android:ems="10"
         android:hint="Enter Username"
         android:inputType="textPersonName"
@@ -45,8 +47,10 @@
         android:hint="Enter Password"
         android:inputType="textPassword"
         android:minHeight="48dp"
+        android:fontFamily="@font/prompt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
+        android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtUsername" />
 
@@ -62,6 +66,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtPassword"
+        android:fontFamily="@font/prompt"
         app:layout_constraintVertical_bias="0.293" />
 
     <EditText
@@ -72,19 +77,23 @@
         android:hint="Weight:"
         android:inputType="numberDecimal"
         android:minHeight="48dp"
+        android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/btnCreateUser"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/txtPassword"
+        android:fontFamily="@font/prompt"/>
 
     <TextView
         android:id="@+id/txtViewException"
         android:layout_width="206dp"
         android:layout_height="56dp"
+        android:textAlignment="center"
         android:layout_marginBottom="72dp"
         app:layout_constraintBottom_toTopOf="@+id/btnCreateUser"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:fontFamily="@font/prompt"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
