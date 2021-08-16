@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.EditText;
 
@@ -22,7 +23,9 @@ public class MainActivity extends AppCompatActivity {
     static TextView TV;
     static String currerntID;
     public static DBHandler databaseHandler;
+    public Utils utils;
     static ArrayList<RunLog> RunLogs = new ArrayList<>();
+    public Button btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,25 +84,42 @@ public class MainActivity extends AppCompatActivity {
         dialogue.show();
     }
 
-    public void attemptLogin(View V){
-        EditText givenUsernameView = findViewById(R.id.userNameText);
-        EditText givenPasswordView = findViewById(R.id.passwordText);
+        btn = (Button)loginPopup.findViewById(R.id.btnLogin);
 
-        String givenUserName = givenUsernameView.getText().toString();
-        String givenPassword = givenPasswordView.getText().toString();
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TextView textViewException = loginPopup.findViewById(R.id.txtViewException);
+                EditText givenUsernameView = loginPopup.findViewById(R.id.txtLoginUsername);
+                EditText givenPasswordView = loginPopup.findViewById(R.id.txtLoginPassword);
 
-        //Run These given values through a sql query
+                String givenUserName = givenUsernameView.getText().toString();
+                String givenPassword = givenPasswordView.getText().toString();
+                String encLoginPassword = utils.getSha256Hash(givenPassword);
+                Profile p = databaseHandler.getUserByUsername(givenUserName, givenPassword);
 
-        int id = 0;
+                int id = p.getUserID();
+
+                if(id == -1)
+                {
+                    textViewException.setText("Invalid Information");
+                    return;
+                }
 
 
-        //When everything is logged in:
-//        SharedPreferences.Editor editor = prefs.edit();
-//        editor.putString("Username", givenUserName);
-//        editor.putInt("UserId", id);
-//        editor.putString("Password", givenPassword);//needs to be scrambled
-//        editor.putBoolean("LoggedIn", true);
+                //When everything is logged in:
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putString("Username", givenUserName);
+                editor.putInt("UserId", id);
+                editor.putBoolean("LoggedIn", true);
+                editor.apply();
+                dialogue.dismiss();
+            }
+        });
+
     }
+
+
 
     public void goToCollectionScreen(View v){
         Intent goToCollection = new Intent(MainActivity.this, stickerWallScreen.class);
