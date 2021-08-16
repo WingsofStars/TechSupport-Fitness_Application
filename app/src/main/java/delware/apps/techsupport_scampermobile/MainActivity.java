@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.EditText;
 
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     public static DBHandler databaseHandler;
     public Utils utils;
     static ArrayList<RunLog> RunLogs = new ArrayList<>();
+    public Button btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,9 +50,10 @@ public class MainActivity extends AppCompatActivity {
 
         boolean isUserLoggedIn = prefs.getBoolean("LoggedIn", false); //Checks for user account if it doesn't exists, it creates a SP(Shared Preference) saying it Doesn't
         if(!isUserLoggedIn){
+            currentID = String.valueOf(prefs.getInt("id", 0));
             openLoginScreen();
         }
-        currentID = String.valueOf(prefs.getInt("id", 0));
+
     }
 
 
@@ -80,34 +83,51 @@ public class MainActivity extends AppCompatActivity {
         dBuilder.setView(loginPopup);
         dialogue = dBuilder.create();
         dialogue.show();
+
+        btn = (Button)loginPopup.findViewById(R.id.btnLogin);
+
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String ErrorText = "Invalid Information";
+                Profile p;
+                int id;
+                TextView textViewException = loginPopup.findViewById(R.id.tvException);
+                EditText givenUsernameView = loginPopup.findViewById(R.id.txtLoginUsername);
+                EditText givenPasswordView = loginPopup.findViewById(R.id.txtLoginPassword);
+
+                String givenUserName = givenUsernameView.getText().toString();
+                String givenPassword = givenPasswordView.getText().toString();
+                String encLoginPassword = utils.getSha256Hash(givenPassword);
+                try {
+                    p = databaseHandler.getUserByUsername(givenUserName, givenPassword);
+
+                    id = p.getUserID();
+
+                    if (id == -1) {
+                        textViewException.setText(ErrorText);
+                        return;
+                    }
+                }
+                catch (Exception e){
+                    textViewException.setText("ERROR");
+                    return;
+                }
+
+
+                //When everything is logged in:
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putString("Username", givenUserName);
+                editor.putInt("UserId", id);
+                editor.putBoolean("LoggedIn", true);
+                editor.apply();
+                dialogue.dismiss();
+            }
+        });
+
     }
 
-    public void attemptLogin(View v){
-        TextView textViewException = findViewById(R.id.txtViewException);
-        EditText givenUsernameView = findViewById(R.id.txtLoginUsername);
-        EditText givenPasswordView = findViewById(R.id.txtLoginPassword);
 
-        String givenUserName = givenUsernameView.getText().toString();
-        String givenPassword = givenPasswordView.getText().toString();
-        String encLoginPassword = utils.getSha256Hash(givenPassword);
-        Profile p = databaseHandler.getUserByUsername(givenUserName, encLoginPassword);
-
-        int id = p.getUserID();
-
-        if(id == -1)
-        {
-            textViewException.setText("Invalid Information");
-            return;
-        }
-
-
-        //When everything is logged in:
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putString("Username", givenUserName);
-        editor.putInt("UserId", id);
-        editor.putString("Password", encLoginPassword);//needs to be scrambled
-        editor.putBoolean("LoggedIn", true);
-    }
 
     public void goToCollectionScreen(View v){
         Intent goToCollection = new Intent(MainActivity.this, stickerWallScreen.class);

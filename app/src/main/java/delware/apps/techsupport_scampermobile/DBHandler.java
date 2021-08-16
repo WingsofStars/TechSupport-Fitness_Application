@@ -1,4 +1,5 @@
 package delware.apps.techsupport_scampermobile;
+import static android.content.Context.MODE_PRIVATE;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,6 +7,8 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import androidx.constraintlayout.solver.state.State;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +47,7 @@ public class DBHandler extends SQLiteOpenHelper{
     public void onCreate(SQLiteDatabase db) {
         //UserTable
         String CREATE_USER_TABLE = "CREATE TABLE " + TABLE_USERS + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + KEY_NAME + " TEXT, " + KEY_PASSWORD + " TEXT, " + KEY_WEIGHT + " TEXT, " + KEY_HEIGHT + " TEXT, "
+                + KEY_NAME + " TEXT, " + KEY_PASSWORD + " TEXT, " +  KEY_HEIGHT + " TEXT, "  + KEY_WEIGHT + " TEXT, "
                 + KEY_LEVEL + " INTEGER, " + KEY_XP + " INTEGER);";
         db.execSQL(CREATE_USER_TABLE);
         //RunLogs Tbale
@@ -99,7 +102,7 @@ public class DBHandler extends SQLiteOpenHelper{
     }
 
     public Profile getUserByUsername(String username, String password){
-        String usernameQuery = "SELECT * FROM " + TABLE_USERS + " WHERE " + KEY_NAME + " =" + username;
+        String usernameQuery = "SELECT * FROM " + TABLE_USERS + " WHERE " + KEY_NAME + " = \"" + username + "\"";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(usernameQuery, null);
         if(cursor == null) {
@@ -202,10 +205,11 @@ public class DBHandler extends SQLiteOpenHelper{
         return returnList;
     }
     public ArrayList<RunLog> getAllLogs(String cardioType){
-
+        ArrayList<RunLog> returnList = new ArrayList<>();
+        ArrayList<RunLog> ReversereturnList = new ArrayList<>();
         if(cardioType.equalsIgnoreCase("All")) {
-            ArrayList<RunLog> returnList = new ArrayList<>();
-            String queryString = "Select * from " + RUN_LOGS + " Where " + KEY_ID + " =" + MainActivity.currentID;//where id = id
+
+            String queryString = "Select * from " + RUN_LOGS + " Where " + KEY_ID + " = " + MainActivity.currentID ;//where id = id
             SQLiteDatabase db = this.getReadableDatabase(); // Open Database
             Cursor cursor = db.rawQuery(queryString, null);
             if (cursor.moveToFirst()) {
@@ -224,11 +228,13 @@ public class DBHandler extends SQLiteOpenHelper{
             }
             cursor.close();
             db.close();
-            return returnList;
+
+            for (int i = 0; i < returnList.size(); i++) {
+                ReversereturnList.add(returnList.get((returnList.size()-1)-i));
+            }
         }
         else{
-            ArrayList<RunLog> returnList = new ArrayList<>();
-            String queryString = "Select * from " + RUN_LOGS + " Where " + KEY_ID + " =" + MainActivity.currentID + " and " + CARDIO_TYPE + " = \"" + cardioType + "\"";//where id = id
+            String queryString = "Select * from " + RUN_LOGS + " Where " + KEY_ID + " = " + MainActivity.currentID+ " and " + CARDIO_TYPE + " = \"" + cardioType + "\"";//where id = id
             SQLiteDatabase db = this.getReadableDatabase(); // Open Database
             Cursor cursor = db.rawQuery(queryString, null);
             if (cursor.moveToFirst()) {
@@ -247,9 +253,14 @@ public class DBHandler extends SQLiteOpenHelper{
             }
             cursor.close();
             db.close();
-            return returnList;
+            for (int i = 0; i < returnList.size(); i++) {
+                ReversereturnList.add(returnList.get((returnList.size()-1)-i));
+            }
+
         }
-    }
+        return ReversereturnList;
+        }
+
 
 
     public boolean addLog(RunLog runlog){
