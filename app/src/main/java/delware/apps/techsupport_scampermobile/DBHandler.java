@@ -1,5 +1,4 @@
 package delware.apps.techsupport_scampermobile;
-import static android.content.Context.MODE_PRIVATE;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -7,8 +6,6 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
-import androidx.constraintlayout.solver.state.State;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,12 +36,13 @@ public class DBHandler extends SQLiteOpenHelper{
     public static final String CARDIO_TYPE = "Cardio_Type";
 
     static SharedPreferences prefs;
+    static boolean usernameExists;
 
 
     @Override
     //creates the user database
     public void onCreate(SQLiteDatabase db) {
-        //USerTable
+        //UserTable
         String CREATE_USER_TABLE = "CREATE TABLE " + TABLE_USERS + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + KEY_NAME + " TEXT, " + KEY_PASSWORD + " TEXT, " + KEY_WEIGHT + " TEXT, " + KEY_HEIGHT + " TEXT, "
                 + KEY_LEVEL + " INTEGER, " + KEY_XP + " INTEGER);";
@@ -64,7 +62,7 @@ public class DBHandler extends SQLiteOpenHelper{
         onCreate(db);
 
     }
-    //adding new user :)
+    //adds the profile w/ the key id to the database
     public int addNewUser(String userName, String password, double height, double weight, int level, int xp){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -90,13 +88,33 @@ public class DBHandler extends SQLiteOpenHelper{
     }
 
     // Get profile from user id
-    public Profile getUser(int id){
+    public Profile getUserByID(int id){
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.query(TABLE_USERS, new String[] {KEY_ID,KEY_NAME,KEY_PASSWORD,KEY_WEIGHT,KEY_HEIGHT, KEY_LEVEL,KEY_XP}, KEY_ID + "=?",
                 new String[] { String.valueOf(id) }, null, null, null, null);
-        if (cursor != null)
-            cursor.moveToFirst();
+        if(cursor == null) return new Profile();
+        else cursor.moveToFirst();
 
+        return constructProfile(cursor);
+    }
+
+    public Profile getUserByUsername(String username, String password){
+        String usernameQuery = "SELECT * FROM " + TABLE_USERS + " WHERE " + KEY_NAME + " =" + username;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(usernameQuery, null);
+        if(cursor == null) {
+            return new Profile();}
+        else cursor.moveToFirst();
+
+        if(!password.equals(cursor.getString(2)))
+            return new Profile();
+
+        return constructProfile(cursor);
+    }
+
+    private Profile constructProfile(Cursor cursor)
+    {
+        int id = Integer.parseInt(cursor.getString(0));
         String userName = cursor.getString(1);
         String password = cursor.getString(2);
         double height = Double.parseDouble(cursor.getString(3)); // in feet
@@ -161,7 +179,7 @@ public class DBHandler extends SQLiteOpenHelper{
 
 
         ArrayList<RunLog> returnList = new ArrayList<>();
-        String queryString = "Select * from " + RUN_LOGS +" Where "+KEY_ID+" =" + MainActivity.currerntID;//where id = id
+        String queryString = "Select * from " + RUN_LOGS +" Where "+KEY_ID+" =" + MainActivity.currentID;//where id = id
         SQLiteDatabase db = this.getReadableDatabase(); // Open Database
         Cursor cursor = db.rawQuery(queryString, null);
         if(cursor.moveToFirst()){
@@ -184,11 +202,10 @@ public class DBHandler extends SQLiteOpenHelper{
         return returnList;
     }
     public ArrayList<RunLog> getAllLogs(String cardioType){
-        ArrayList<RunLog> returnList = new ArrayList<>();
-        ArrayList<RunLog> ReversereturnList = new ArrayList<>();
-        if(cardioType.equalsIgnoreCase("All")) {
 
-            String queryString = "Select * from " + RUN_LOGS + " Where " + KEY_ID + " =" + MainActivity.currerntID ;//where id = id
+        if(cardioType.equalsIgnoreCase("All")) {
+            ArrayList<RunLog> returnList = new ArrayList<>();
+            String queryString = "Select * from " + RUN_LOGS + " Where " + KEY_ID + " =" + MainActivity.currentID;//where id = id
             SQLiteDatabase db = this.getReadableDatabase(); // Open Database
             Cursor cursor = db.rawQuery(queryString, null);
             if (cursor.moveToFirst()) {
@@ -207,13 +224,11 @@ public class DBHandler extends SQLiteOpenHelper{
             }
             cursor.close();
             db.close();
-
-            for (int i = 0; i < returnList.size(); i++) {
-                ReversereturnList.add(returnList.get((returnList.size()-1)-i));
-            }
+            return returnList;
         }
         else{
-            String queryString = "Select * from " + RUN_LOGS + " Where " + KEY_ID + " =" + MainActivity.currerntID+ " and " + CARDIO_TYPE + " = \"" + cardioType + "\"";//where id = id
+            ArrayList<RunLog> returnList = new ArrayList<>();
+            String queryString = "Select * from " + RUN_LOGS + " Where " + KEY_ID + " =" + MainActivity.currentID + " and " + CARDIO_TYPE + " = \"" + cardioType + "\"";//where id = id
             SQLiteDatabase db = this.getReadableDatabase(); // Open Database
             Cursor cursor = db.rawQuery(queryString, null);
             if (cursor.moveToFirst()) {
@@ -232,14 +247,9 @@ public class DBHandler extends SQLiteOpenHelper{
             }
             cursor.close();
             db.close();
-            for (int i = 0; i < returnList.size(); i++) {
-                ReversereturnList.add(returnList.get((returnList.size()-1)-i));
-            }
-
+            return returnList;
         }
-        return ReversereturnList;
-        }
-
+    }
 
 
     public boolean addLog(RunLog runlog){
@@ -251,7 +261,7 @@ public class DBHandler extends SQLiteOpenHelper{
         cv.put(MINUTES, runlog.getMinutes());
         cv.put(CALORIES, runlog.getCalories());
         cv.put(DATE, runlog.getDate());
-        cv.put(KEY_ID, MainActivity.currerntID);
+        cv.put(KEY_ID, MainActivity.currentID);
         long insert = db.insert(RUN_LOGS, null, cv);
         if (insert == 1){
             return false;
@@ -265,7 +275,7 @@ public class DBHandler extends SQLiteOpenHelper{
     public int size(String cardioType){
         int size = 0;
         if(cardioType.equalsIgnoreCase("All")){
-        String queryString = "Select * from " + RUN_LOGS + " where " + KEY_ID+ " = "+ MainActivity.currerntID ;
+        String queryString = "Select * from " + RUN_LOGS + " where " + KEY_ID+ " = "+ MainActivity.currentID;
         SQLiteDatabase db = this.getReadableDatabase(); // Open Database
         Cursor cursor = db.rawQuery(queryString, null);
         if(cursor.moveToFirst()){
@@ -281,7 +291,7 @@ public class DBHandler extends SQLiteOpenHelper{
         return size;
     }
         else {
-            String queryString = "Select * from " + RUN_LOGS + " where " + KEY_ID+ " = "+ MainActivity.currerntID +" and " + CARDIO_TYPE + " = \"" + cardioType + "\"";
+            String queryString = "Select * from " + RUN_LOGS + " where " + KEY_ID+ " = "+ MainActivity.currentID +" and " + CARDIO_TYPE + " = \"" + cardioType + "\"";
             SQLiteDatabase db = this.getReadableDatabase(); // Open Database
             Cursor cursor = db.rawQuery(queryString, null);
             if(cursor.moveToFirst()){
