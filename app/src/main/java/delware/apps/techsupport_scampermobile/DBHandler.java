@@ -184,9 +184,10 @@ public class DBHandler extends SQLiteOpenHelper{
         return returnList;
     }
     public ArrayList<RunLog> getAllLogs(String cardioType){
-
+        ArrayList<RunLog> returnList = new ArrayList<>();
+        ArrayList<RunLog> ReversereturnList = new ArrayList<>();
         if(cardioType.equalsIgnoreCase("All")) {
-            ArrayList<RunLog> returnList = new ArrayList<>();
+
             String queryString = "Select * from " + RUN_LOGS + " Where " + KEY_ID + " =" + MainActivity.currerntID ;//where id = id
             SQLiteDatabase db = this.getReadableDatabase(); // Open Database
             Cursor cursor = db.rawQuery(queryString, null);
@@ -206,10 +207,12 @@ public class DBHandler extends SQLiteOpenHelper{
             }
             cursor.close();
             db.close();
-            return returnList;
+
+            for (int i = 0; i < returnList.size(); i++) {
+                ReversereturnList.add(returnList.get((returnList.size()-1)-i));
+            }
         }
         else{
-            ArrayList<RunLog> returnList = new ArrayList<>();
             String queryString = "Select * from " + RUN_LOGS + " Where " + KEY_ID + " =" + MainActivity.currerntID+ " and " + CARDIO_TYPE + " = \"" + cardioType + "\"";//where id = id
             SQLiteDatabase db = this.getReadableDatabase(); // Open Database
             Cursor cursor = db.rawQuery(queryString, null);
@@ -229,9 +232,14 @@ public class DBHandler extends SQLiteOpenHelper{
             }
             cursor.close();
             db.close();
-            return returnList;
+            for (int i = 0; i < returnList.size(); i++) {
+                ReversereturnList.add(returnList.get((returnList.size()-1)-i));
+            }
+
         }
-    }
+        return ReversereturnList;
+        }
+
 
 
     public boolean addLog(RunLog runlog){

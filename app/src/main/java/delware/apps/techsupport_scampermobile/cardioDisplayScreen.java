@@ -62,7 +62,7 @@ int Position2;
         typeSelector1 = findViewById(R.id.cardioType);
         typeSelector2 = findViewById(R.id.Type);
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.CardioType, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.CardioType, R.layout.spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         typeSelector1.setAdapter(adapter);
@@ -77,14 +77,14 @@ int Position2;
         Refresh();
 
 
-//        pulltoRefresh = findViewById(R.id.pulltoRefresh);
-//        pulltoRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                Refresh();
-//                pulltoRefresh.setRefreshing(false);
-//            }
-//        });
+        pulltoRefresh = findViewById(R.id.pulltoRefresh);
+        pulltoRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Refresh();
+                pulltoRefresh.setRefreshing(false);
+            }
+        });
     }
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -162,10 +162,17 @@ int Position2;
 
 
                 try {
+                    int Hours;
                     float Distance = Float.valueOf(distance.getText().toString());
                     int Calories = Integer.valueOf(calories.getText().toString());
                     float Minutes = Float.valueOf(minutes.getText().toString());
-                    int Hours = Integer.valueOf(hours.getText().toString());
+                    if(hours.getText().toString().equals("")){
+                        Hours = 0;
+                    }
+                    else {
+                        Hours = Integer.valueOf(hours.getText().toString());
+                    }
+
                     String Type = type.getItemAtPosition(Position2).toString();
                     String Date = date.getText().toString();
 
