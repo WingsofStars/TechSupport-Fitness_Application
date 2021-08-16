@@ -6,24 +6,26 @@ public class xpSystem {
 
     private String format = "%d / %d | Level %d";
 
-    public void xpCheck(int xpGain, int currentXP, int userLevel) {
-        int xpReq = levelValues[userLevel];
-        int xpAmount = xpGain + currentXP;
+    public void xpCheck(int xpGain, Profile user) {
+        int xpReq = levelValues[user.getLevel()];
+        int xpAmount = xpGain + user.getXP();
 
-        if(xpGain + currentXP > xpReq) {
-            xpRollOver(xpAmount, xpReq);
-        }else if(xpGain + currentXP == xpReq) {
-            //Levels up user
-            MainActivity.TV.setText(String.format(format, xpAmount, xpReq, userLevel ));
+        if(xpAmount > xpReq) {
+            xpRollOver(xpAmount, xpReq, user);
+        }else if(xpAmount == xpReq) {
+            user.setLevel(user.getLevel() + 1);
+            user.setXP(0);
+            MainActivity.TV.setText(String.format(format, 0, levelValues[user.getLevel()], user.getLevel() ));
         } else {
-            MainActivity.TV.setText(String.format(format, xpAmount, xpReq, userLevel ));
+            user.setXP(xpAmount);
+            MainActivity.TV.setText(String.format(format, xpAmount, xpReq, user.getLevel() ));
         }
     }
 
-    private void xpRollOver(int totalXp, int reqXP) {
+    private void xpRollOver(int totalXp, int reqXP, Profile user) {
         int remainderXP = totalXp - reqXP;
-        //Levels up user
-        //Extra xp goes to next level
-        //MainActivity.TV.setText(String.format(format, xpAmount, xpReq, userLevel ));
+        user.setLevel(user.getLevel() + 1);
+        user.setXP(remainderXP);
+        MainActivity.TV.setText(String.format(format, remainderXP, levelValues[user.getLevel()], user.getLevel() ));
     }
 }

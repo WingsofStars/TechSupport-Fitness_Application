@@ -13,8 +13,13 @@ import android.widget.EditText;
 import android.widget.PopupMenu;
 import android.widget.PopupWindow;
 
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import delware.apps.techsupport_scampermobile.Screens.newUserScreen;
+import delware.apps.techsupport_scampermobile.Screens.settings;
+import delware.apps.techsupport_scampermobile.Screens.trackingScreen;
 
 public class MainActivity extends AppCompatActivity {
     static SharedPreferences prefs; // uses small save files know as "Shared Preferences"
