@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -22,11 +21,16 @@ public class MainActivity extends AppCompatActivity {
     public AlertDialog dialogue;
     static TextView TV;
     MediaPlayer mp;
+    static String currerntID;
+    public static DBHandler databaseHandler;
+    static ArrayList<RunLog> RunLogs = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
+
+        databaseHandler = new DBHandler(MainActivity.this);
         TV = findViewById(R.id.xpBar);
         mp = MediaPlayer.create(this, R.raw.duckquack);
 
@@ -43,10 +47,11 @@ public class MainActivity extends AppCompatActivity {
 //        }
 
 
-        boolean isUserLoggedIn = prefs.getBoolean("LoggedIn", false); //checks for user account if it doesn't exists, it creates a SP(Shared Preference) saying it Doesn't
+        boolean isUserLoggedIn = prefs.getBoolean("LoggedIn", false); //Checks for user account if it doesn't exists, it creates a SP(Shared Preference) saying it Doesn't
         if(!isUserLoggedIn){
             openLoginScreen();
         }
+        currerntID = String.valueOf(prefs.getInt("id", 0));
     }
 
 
@@ -85,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
         String givenUserName = givenUsernameView.getText().toString();
         String givenPassword = givenPasswordView.getText().toString();
 
-        //Run these given values through a sql query
+        //Run These given values through a sql query
 
         int id = 0;
 

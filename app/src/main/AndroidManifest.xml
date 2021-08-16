@@ -22,18 +22,18 @@
             android:name=".Profile_Settings"
             android:exported="true" />
         <activity
-            android:name=".newUserScreen"
+            android:name=".Screens.newUserScreen"
             android:exported="true" />
         <activity android:name=".stickerWallScreen"
             android:exported="true"/>
         <activity
-            android:name=".trackingScreen"
+            android:name=".Screens.trackingScreen"
             android:exported="true" />
         <activity
             android:name=".cardioDisplayScreen"
             android:exported="true" />
         <activity
-            android:name=".settings"
+            android:name=".Screens.settings"
             android:exported="true" />
         <activity android:name=".discRackScreen"
             android:exported="true"/>
