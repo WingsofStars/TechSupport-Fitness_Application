@@ -102,7 +102,7 @@ public class DBHandler extends SQLiteOpenHelper{
     }
 
     public Profile getUserByUsername(String username, String password){
-        String usernameQuery = "SELECT * FROM " + TABLE_USERS + " WHERE " + KEY_NAME + " =" + username;
+        String usernameQuery = "SELECT * FROM " + TABLE_USERS + " WHERE " + KEY_NAME + " = \"" + username + "\"";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(usernameQuery, null);
         if(cursor == null) {
@@ -209,7 +209,7 @@ public class DBHandler extends SQLiteOpenHelper{
         ArrayList<RunLog> ReversereturnList = new ArrayList<>();
         if(cardioType.equalsIgnoreCase("All")) {
 
-            String queryString = "Select * from " + RUN_LOGS + " Where " + KEY_ID + " =" + MainActivity.currerntID ;//where id = id
+            String queryString = "Select * from " + RUN_LOGS + " Where " + KEY_ID + " = " + MainActivity.currentID ;//where id = id
             SQLiteDatabase db = this.getReadableDatabase(); // Open Database
             Cursor cursor = db.rawQuery(queryString, null);
             if (cursor.moveToFirst()) {
@@ -234,7 +234,7 @@ public class DBHandler extends SQLiteOpenHelper{
             }
         }
         else{
-            String queryString = "Select * from " + RUN_LOGS + " Where " + KEY_ID + " =" + MainActivity.currerntID+ " and " + CARDIO_TYPE + " = \"" + cardioType + "\"";//where id = id
+            String queryString = "Select * from " + RUN_LOGS + " Where " + KEY_ID + " = " + MainActivity.currentID+ " and " + CARDIO_TYPE + " = \"" + cardioType + "\"";//where id = id
             SQLiteDatabase db = this.getReadableDatabase(); // Open Database
             Cursor cursor = db.rawQuery(queryString, null);
             if (cursor.moveToFirst()) {

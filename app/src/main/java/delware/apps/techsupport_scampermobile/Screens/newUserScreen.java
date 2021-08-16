@@ -69,7 +69,7 @@ public class newUserScreen extends AppCompatActivity {
         }
 
         Log.d("Insert: ", "Inserting");
-        Profile p = Profile.Create(strUsername, encPassword, height, weight, 0, 0);
+        Profile p = Profile.Create(strUsername, strPassword, height, weight, 0, 0);
 
         SharedPreferences.Editor editor = prefs.edit(); // Editor for the SP's
         editor.putBoolean("Exists", true);// Marks the SP as the USer has been Created, so it won't show up on the next boot
