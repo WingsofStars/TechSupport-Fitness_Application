@@ -16,10 +16,12 @@ import delware.apps.techsupport_scampermobile.MainActivity;
 import delware.apps.techsupport_scampermobile.Profile;
 import delware.apps.techsupport_scampermobile.R;
 import delware.apps.techsupport_scampermobile.RegexRunner;
+import delware.apps.techsupport_scampermobile.Utils;
 
 public class newUserScreen extends AppCompatActivity {
     public SharedPreferences prefs;
     public static DBHandler db;
+    public Utils utils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +31,7 @@ public class newUserScreen extends AppCompatActivity {
 
         db = new DBHandler(this);
     }
-
+    //gets text from text box and runs it against regex and passes it to Profile
     public void createUser(View v){
         // Getting Variables from the EditTexts
         TextView txtException = findViewById(R.id.txtViewException);
@@ -40,6 +42,8 @@ public class newUserScreen extends AppCompatActivity {
 
         String strUsername = txtUsername.getText().toString();
         String strPassword = txtPassword.getText().toString();
+        //encrypts password
+        String encPassword = utils.getSha256Hash(strPassword);
 
         String strHeight = etHeight.getText().toString();
         String strWeight = etWeight.getText().toString();
@@ -65,7 +69,8 @@ public class newUserScreen extends AppCompatActivity {
         }
 
         Log.d("Insert: ", "Inserting");
-        Profile p = Profile.Create(strUsername, strPassword, height, weight, 0, 0);
+        Profile p = Profile.Create(strUsername, encPassword, height, weight, 0, 0);
+
         SharedPreferences.Editor editor = prefs.edit(); // Editor for the SP's
         editor.putBoolean("Exists", true);// Marks the SP as the USer has been Created, so it won't show up on the next boot
         exitIntent();

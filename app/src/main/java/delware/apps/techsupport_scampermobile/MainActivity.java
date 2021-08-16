@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     public AlertDialog.Builder dBuilder;
     public AlertDialog dialogue;
     static TextView TV;
-    static String currerntID;
+    static String currentID;
     public static DBHandler databaseHandler;
     public Utils utils;
     static ArrayList<RunLog> RunLogs = new ArrayList<>();
@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         if(!isUserLoggedIn){
             openLoginScreen();
         }
-        currerntID = String.valueOf(prefs.getInt("id", 0));
+        currentID = String.valueOf(prefs.getInt("id", 0));
     }
 
 
