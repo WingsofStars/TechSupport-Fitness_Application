@@ -105,7 +105,6 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString("Username", givenUserName);
         editor.putInt("UserId", id);
-        editor.putString("Password", encLoginPassword);//needs to be scrambled
         editor.putBoolean("LoggedIn", true);
     }
 

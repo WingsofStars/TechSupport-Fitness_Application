@@ -44,10 +44,10 @@ public class DBHandler extends SQLiteOpenHelper{
     public void onCreate(SQLiteDatabase db) {
         //UserTable
         String CREATE_USER_TABLE = "CREATE TABLE " + TABLE_USERS + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + KEY_NAME + " TEXT, " + KEY_PASSWORD + " TEXT, " + KEY_WEIGHT + " TEXT, " + KEY_HEIGHT + " TEXT, "
+                + KEY_NAME + " TEXT, " + KEY_PASSWORD + " TEXT, " + KEY_HEIGHT + " TEXT, " + KEY_WEIGHT + " TEXT, "
                 + KEY_LEVEL + " INTEGER, " + KEY_XP + " INTEGER);";
         db.execSQL(CREATE_USER_TABLE);
-        //RunLogs Tbale
+        //RunLogs Table
     String createLogTable = "Create Table" + RUN_LOGS + " (ID INTEGER Primary Key AutoIncrement, " + DISTANCE + " Real," + HOURS + " int, " + MINUTES + " real, " + CALORIES + " int, " + DATE + " Text," +CARDIO_TYPE + " Text," +KEY_ID + " int, " + "FOREIGN KEY ("+KEY_ID+") REFERENCES "+TABLE_USERS+"("+KEY_ID+"))";
         db.execSQL(createLogTable);
 
