@@ -13,4 +13,5 @@
         <item>Cycling</item>
         <item>Elliptical</item>
     </string-array>
+    <string name="ChangeInfo"><U>Change Information</U></string>
 </resources>

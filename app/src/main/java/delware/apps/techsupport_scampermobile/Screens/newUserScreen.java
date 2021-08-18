@@ -37,7 +37,7 @@ public class newUserScreen extends AppCompatActivity {
         TextView txtException = findViewById(R.id.txtViewException);
         EditText txtUsername = findViewById(R.id.txtUsername);
         EditText txtPassword = findViewById(R.id.txtPassword);
-        EditText etHeight = findViewById(R.id.Height);
+        EditText etHeight = findViewById(R.id.Height1);
         EditText etWeight = findViewById(R.id.Weight);
 
         String strUsername = txtUsername.getText().toString();

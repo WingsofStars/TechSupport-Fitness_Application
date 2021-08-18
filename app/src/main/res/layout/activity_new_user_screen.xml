@@ -20,6 +20,7 @@
         android:fontFamily="@font/prompt"/>
 
     <EditText
+        android:maxLength="12"
         android:id="@+id/txtUsername"
         android:backgroundTint="@color/lightGrey"
         android:textColor="@color/black"
@@ -59,7 +60,7 @@
         app:layout_constraintTop_toBottomOf="@+id/txtUsername" />
 
     <EditText
-        android:id="@+id/Height"
+        android:id="@+id/Height1"
         android:layout_width="97dp"
         android:layout_height="51dp"
         android:layout_marginTop="48dp"
