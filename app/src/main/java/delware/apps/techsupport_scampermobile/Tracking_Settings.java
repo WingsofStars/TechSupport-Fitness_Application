@@ -59,19 +59,48 @@ public class Tracking_Settings extends AppCompatActivity {
         locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
 
         sw_gps.setOnClickListener(v -> {
-            if (sw_gps.isChecked()){
-                //uses GPS - most accurate
-                locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-                tv_sensor.setText("Using GPS sensors");
+            @Override
+            public void onClick(View v) {
+                if (sw_gps.isChecked()){
+                    //uses GPS - most accurate
+                    locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+                    tv_sensor.setText("Using GPS sensors");
+                }
+                else {
+                    locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+                    tv_sensor.setText("Using Towers + WIFI");
+                }
             }
-            else {
-                locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
-                tv_sensor.setText("Using Towers + WIFI");
+
+        });
+
+        sw_locationupdates.setOnClickListener(v -> {
+            @Override
+            public void onClick(View v) {
+                if (sw_locationupdates.isChecked()) {
+                    startLocationUpdates();
+
+                }
+                else {
+                    stopLocationUpdates();
+
+                }
             }
         });
 
         updateGPS();
 
+    }
+
+    private void stopLocationUpdates() {
+        tv_updates.setText("Location is being tracked");
+        fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallBack, null);
+        updateGPS();
+    }
+
+    private void startLocationUpdates() {
+
+        tv_updates.setText("Location is NOT being tracked");
     }
 
     @Override
