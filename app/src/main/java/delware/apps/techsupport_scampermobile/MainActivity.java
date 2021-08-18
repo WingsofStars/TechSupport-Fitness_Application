@@ -23,14 +23,15 @@ import delware.apps.techsupport_scampermobile.Screens.settings;
 import delware.apps.techsupport_scampermobile.Screens.trackingScreen;
 
 public class MainActivity extends AppCompatActivity {
+
     static SharedPreferences prefs; // uses small save files know as "Shared Preferences"
     public AlertDialog.Builder dBuilder;
     public AlertDialog dialogue;
     static TextView TV;
+    public static String currentID;
     MediaPlayer mp;
     static String currentID;
     public static DBHandler databaseHandler;
-    public Utils utils;
     static ArrayList<RunLog> RunLogs = new ArrayList<>();
     public Button btn;
 
@@ -98,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                boolean isValidPassword = false;
                 String ErrorText = "Invalid Information";
                 Profile p;
                 int id;
@@ -107,15 +109,31 @@ public class MainActivity extends AppCompatActivity {
 
                 String givenUserName = givenUsernameView.getText().toString();
                 String givenPassword = givenPasswordView.getText().toString();
-                String encLoginPassword = utils.getSha256Hash(givenPassword);
+
                 try {
-                    p = databaseHandler.getUserByUsername(givenUserName, givenPassword);
+//                    p = databaseHandler.getUserByUsername(givenUserName, givenPassword);
+//
+//                    id = p.getUserID();
+//
+//                    if (id == -1) {
+//                        textViewException.setText(ErrorText);
+//                        return;
+//                    }
+                    p = databaseHandler.getUserByUsername(givenUserName);
+                    isValidPassword = PasswordUtils.verifyUserPassword(givenPassword, p.getPassword(), p.getSalt());
+                    if(isValidPassword){
+                        id = p.getUserID();
+                        SharedPreferences.Editor editor = prefs.edit();
+                        editor.putString("Username", givenUserName);
+                        editor.putInt("id", id);
+                        editor.putBoolean("LoggedIn", true);
+                        editor.apply();
+                        currentID = String.valueOf(prefs.getInt("id", 0));
 
-                    id = p.getUserID();
-
-                    if (id == -1) {
-                        textViewException.setText(ErrorText);
-                        return;
+                        dialogue.dismiss();
+                    }
+                    else {
+                        textViewException.setText("Provided Username or Password is invalid.");
                     }
                 }
                 catch (Exception e){
@@ -125,14 +143,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                 //When everything is logged in:
-                SharedPreferences.Editor editor = prefs.edit();
-                editor.putString("Username", givenUserName);
-                editor.putInt("id", id);
-                editor.putBoolean("LoggedIn", true);
-                editor.apply();
-                currentID = String.valueOf(prefs.getInt("id", 0));
 
-                dialogue.dismiss();
             }
         });
 
@@ -141,6 +152,10 @@ public class MainActivity extends AppCompatActivity {
     public void goToCollectionScreen(View v){
         Intent goToCollection = new Intent(MainActivity.this, stickerWallScreen.class);
         startActivity(goToCollection);
+    }
+
+    public void closePopUp(View v){
+        dialogue.dismiss();
     }
 
     public void playSound(View v) {

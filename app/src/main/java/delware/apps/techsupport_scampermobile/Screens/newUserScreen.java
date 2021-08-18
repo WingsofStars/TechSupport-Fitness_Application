@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import delware.apps.techsupport_scampermobile.DBHandler;
 import delware.apps.techsupport_scampermobile.MainActivity;
+import delware.apps.techsupport_scampermobile.PasswordUtils;
 import delware.apps.techsupport_scampermobile.Profile;
 import delware.apps.techsupport_scampermobile.R;
 import delware.apps.techsupport_scampermobile.RegexRunner;
@@ -21,7 +22,7 @@ import delware.apps.techsupport_scampermobile.Utils;
 public class newUserScreen extends AppCompatActivity {
     public SharedPreferences prefs;
     public static DBHandler db;
-    public Utils utils;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +44,8 @@ public class newUserScreen extends AppCompatActivity {
         String strUsername = txtUsername.getText().toString();
         String strPassword = txtPassword.getText().toString();
         //encrypts password
-        String encPassword = utils.getSha256Hash(strPassword);
+        String salt = PasswordUtils.getSalt(10);
+        String encPassword = PasswordUtils.generateSecurePassword(strPassword, salt);
 
         String strHeight = etHeight.getText().toString();
         String strWeight = etWeight.getText().toString();
@@ -69,10 +71,14 @@ public class newUserScreen extends AppCompatActivity {
         }
 
         Log.d("Insert: ", "Inserting");
-        Profile p = Profile.Create(strUsername, strPassword, height, weight, 0, 0);
+        Profile p = Profile.Create(strUsername, encPassword, salt, height, weight, 1, 0);
 
         SharedPreferences.Editor editor = prefs.edit(); // Editor for the SP's
-        editor.putBoolean("Exists", true);// Marks the SP as the USer has been Created, so it won't show up on the next boot
+        editor.putString("Username", strUsername);
+        editor.putInt("id", p.getUserID());
+        editor.putBoolean("LoggedIn", true);
+        editor.apply();
+        MainActivity.currentID = String.valueOf(prefs.getInt("id", 0));
         exitIntent();
         Toast.makeText(getApplicationContext(), "User Created", Toast.LENGTH_LONG).show();//Makes a dialogue box that says the user is created
     }
