@@ -73,8 +73,9 @@ public class DBHandler extends SQLiteOpenHelper{
         values.put(KEY_NAME, userName);
         values.put(KEY_PASSWORD, password);
         values.put(SALT, salt);
-        values.put(KEY_WEIGHT, height);
         values.put(KEY_HEIGHT, weight);
+        values.put(KEY_WEIGHT, height);
+
         values.put(KEY_LEVEL, level);
         values.put(KEY_XP, xp);
         //Inserts table columns
@@ -95,7 +96,7 @@ public class DBHandler extends SQLiteOpenHelper{
     // Get profile from user id
     public Profile getUserByID(int id){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.query(TABLE_USERS, new String[] {KEY_ID,KEY_NAME,KEY_PASSWORD,SALT,KEY_WEIGHT,KEY_HEIGHT, KEY_LEVEL,KEY_XP}, KEY_ID + "=?",
+        Cursor cursor = db.query(TABLE_USERS, new String[] {KEY_ID,KEY_NAME,KEY_PASSWORD,SALT, KEY_WEIGHT, KEY_HEIGHT, KEY_LEVEL,KEY_XP}, KEY_ID + "=?",
                 new String[] { String.valueOf(id) }, null, null, null, null);
         if(cursor == null) return new Profile();
         else cursor.moveToFirst();
