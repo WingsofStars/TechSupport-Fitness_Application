@@ -138,8 +138,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
-
     public void goToCollectionScreen(View v){
         Intent goToCollection = new Intent(MainActivity.this, stickerWallScreen.class);
         startActivity(goToCollection);
