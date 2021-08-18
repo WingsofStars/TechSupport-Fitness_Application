@@ -7,29 +7,40 @@ public class Profile {
     private int profileID;
     private String userName;
     private String password;
+    private String salt;
     private double Height;
     private double Weight;
     private int level;
     private int XP;
 
     public Profile() {profileID = -1;}
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
     //profile constructor
-    public Profile(int profileID, String userName, String password, double height, double weight, int level, int XP) {
+    public Profile(int profileID, String userName, String password, String salt, double height, double weight, int level, int XP) {
         this.profileID = profileID;
         this.userName = userName;
         this.password = password;
+        this.salt = salt;
         this.Height = height;
         this.Weight = weight;
         this.level = level;
         this.XP = XP;
     }
     //Gives an ID to the profile and returns it also calling the database handler
-    public static Profile Create(String userName, String password, double height, double weight, int level, int xp)
+    public static Profile Create(String userName, String password, String salt, double height, double weight, int level, int xp)
     {
         // add data to database
-        int id = newUserScreen.db.addNewUser(userName, password, height, weight, level, xp);
+        int id = newUserScreen.db.addNewUser(userName, password, salt, height, weight, level, xp);
         // create profile
-        return new Profile(id, userName, password, height, weight, level, xp);
+        return new Profile(id, userName, password,salt, height, weight, level, xp);
     }
 
     /*public int getProfileID() {

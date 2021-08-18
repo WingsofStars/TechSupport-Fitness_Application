@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import delware.apps.techsupport_scampermobile.Screens.newUserScreen;
 import delware.apps.techsupport_scampermobile.Screens.settings;
 import delware.apps.techsupport_scampermobile.Utils;
 import delware.apps.techsupport_scampermobile.R.layout.*;
@@ -37,6 +39,7 @@ public class Profile_Settings extends AppCompatActivity {
         Height2 = findViewById(R.id.height2);
         Weight = findViewById(R.id.Weight);
         btn = findViewById(R.id.button3);
+        TextView newUserTxt;
         if (MainActivity.prefs.getBoolean("LoggedIn", false)) {
             Profile profile = MainActivity.databaseHandler.getUserByID(Integer.valueOf(MainActivity.currentID));
             userNameTxt.setText(profile.getUserName());
@@ -86,6 +89,7 @@ public class Profile_Settings extends AppCompatActivity {
                     button.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            boolean isValidPassword = false;
                             String ErrorText = "Invalid Information";
                             Profile p;
                             int id;
@@ -95,16 +99,25 @@ public class Profile_Settings extends AppCompatActivity {
 
                             String givenUserName = givenUsernameView.getText().toString();
                             String givenPassword = givenPasswordView.getText().toString();
-                            String encLoginPassword = utils.getSha256Hash(givenPassword);
+                            //String encLoginPassword = utils.getSha256Hash(givenPassword);
                             try {
-                                p = MainActivity.databaseHandler.getUserByUsername(givenUserName, givenPassword);
-
+                                p = MainActivity.databaseHandler.getUserByUsername(givenUserName);
+                                isValidPassword = PasswordUtils.verifyUserPassword(givenPassword, p.getPassword(), p.getSalt());
                                 id = p.getUserID();
+                                if(isValidPassword){
+                                    SharedPreferences.Editor editor = MainActivity.prefs.edit();
+                                    editor.putString("Username", givenUserName);
+                                    editor.putInt("id", id);
+                                    editor.putBoolean("LoggedIn", true);
+                                    editor.apply();
+                                    MainActivity.currentID = String.valueOf(MainActivity.prefs.getInt("id", 0));
 
-                                if (id == -1) {
-                                    textViewException.setText(ErrorText);
-                                    return;
+                                    dialogue.dismiss();
                                 }
+                                else {
+                                    textViewException.setText("Provided Username or Password is invalid.");
+                                }
+
                             } catch (Exception e) {
                                 textViewException.setText("ERROR");
                                 return;
@@ -135,7 +148,8 @@ public class Profile_Settings extends AppCompatActivity {
 
 
 
-                    });
+                    }
+                    );
 
 
                 }
@@ -151,6 +165,10 @@ public class Profile_Settings extends AppCompatActivity {
             }
         });
 
+    }
+    public void goToNewUserScreen(View v){
+        Intent goToCreateUser = new Intent(getApplicationContext(), newUserScreen.class);
+        startActivity(goToCreateUser); // Got to the create user Screen
     }
 
             //    THIS IS AN IMPORTANT FUNCTION TO EXIT THE CURRENT INTENT AND GO BACK TO THE PREVIOUS ACTIVITY

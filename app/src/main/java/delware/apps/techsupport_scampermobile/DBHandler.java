@@ -21,6 +21,7 @@ public class DBHandler extends SQLiteOpenHelper{
     private static final String KEY_ID = "UserId";
     private static final String KEY_NAME = "Username";
     private static final String KEY_PASSWORD = "Password";
+    private static final String SALT = "Salt";
     private static final String KEY_WEIGHT = "Weight";
     private static final String KEY_HEIGHT = "Height";
     private static final String KEY_LEVEL = "Level";
@@ -47,7 +48,7 @@ public class DBHandler extends SQLiteOpenHelper{
     public void onCreate(SQLiteDatabase db) {
         //UserTable
         String CREATE_USER_TABLE = "CREATE TABLE " + TABLE_USERS + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + KEY_NAME + " TEXT, " + KEY_PASSWORD + " TEXT, " +  KEY_HEIGHT + " TEXT, "  + KEY_WEIGHT + " TEXT, "
+                + KEY_NAME + " TEXT, " + KEY_PASSWORD + " TEXT, " + SALT + " TEXT, "+  KEY_HEIGHT + " TEXT, "  + KEY_WEIGHT + " TEXT, "
                 + KEY_LEVEL + " INTEGER, " + KEY_XP + " INTEGER);";
         db.execSQL(CREATE_USER_TABLE);
         //RunLogs Tbale
@@ -66,11 +67,12 @@ public class DBHandler extends SQLiteOpenHelper{
 
     }
     //adds the profile w/ the key id to the database
-    public int addNewUser(String userName, String password, double height, double weight, int level, int xp){
+    public int addNewUser(String userName, String password, String salt, double height, double weight, int level, int xp){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, userName);
         values.put(KEY_PASSWORD, password);
+        values.put(SALT, salt);
         values.put(KEY_WEIGHT, height);
         values.put(KEY_HEIGHT, weight);
         values.put(KEY_LEVEL, level);
@@ -93,7 +95,7 @@ public class DBHandler extends SQLiteOpenHelper{
     // Get profile from user id
     public Profile getUserByID(int id){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.query(TABLE_USERS, new String[] {KEY_ID,KEY_NAME,KEY_PASSWORD,KEY_WEIGHT,KEY_HEIGHT, KEY_LEVEL,KEY_XP}, KEY_ID + "=?",
+        Cursor cursor = db.query(TABLE_USERS, new String[] {KEY_ID,KEY_NAME,KEY_PASSWORD,SALT,KEY_WEIGHT,KEY_HEIGHT, KEY_LEVEL,KEY_XP}, KEY_ID + "=?",
                 new String[] { String.valueOf(id) }, null, null, null, null);
         if(cursor == null) return new Profile();
         else cursor.moveToFirst();
@@ -101,16 +103,13 @@ public class DBHandler extends SQLiteOpenHelper{
         return constructProfile(cursor);
     }
 
-    public Profile getUserByUsername(String username, String password){
+    public Profile getUserByUsername(String username){
         String usernameQuery = "SELECT * FROM " + TABLE_USERS + " WHERE " + KEY_NAME + " = \"" + username + "\"";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(usernameQuery, null);
         if(cursor == null) {
             return new Profile();}
         else cursor.moveToFirst();
-
-        if(!password.equals(cursor.getString(2)))
-            return new Profile();
 
         return constructProfile(cursor);
     }
@@ -120,11 +119,12 @@ public class DBHandler extends SQLiteOpenHelper{
         int id = Integer.parseInt(cursor.getString(0));
         String userName = cursor.getString(1);
         String password = cursor.getString(2);
-        double height = Double.parseDouble(cursor.getString(3)); // in feet
-        double weight = Double.parseDouble(cursor.getString(4));
-        int level = Integer.parseInt(cursor.getString(5));
-        int xp = Integer.parseInt(cursor.getString(6));
-        return new Profile(id, userName, password, height, weight, level, xp);
+        String salt = cursor.getString(3);
+        double height = Double.parseDouble(cursor.getString(4)); // in feet
+        double weight = Double.parseDouble(cursor.getString(5));
+        int level = Integer.parseInt(cursor.getString(6));
+        int xp = Integer.parseInt(cursor.getString(7));
+        return new Profile(id, userName, password,salt, height, weight, level, xp);
     }
 
     public List<Profile>getAllProfiles(){
