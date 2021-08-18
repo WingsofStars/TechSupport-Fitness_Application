@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
             currentID = String.valueOf(prefs.getInt("id", 0));
             openLoginScreen();
         }
+        currentID = String.valueOf(prefs.getInt("id", 0));
 
     }
 
@@ -118,9 +119,11 @@ public class MainActivity extends AppCompatActivity {
                 //When everything is logged in:
                 SharedPreferences.Editor editor = prefs.edit();
                 editor.putString("Username", givenUserName);
-                editor.putInt("UserId", id);
+                editor.putInt("id", id);
                 editor.putBoolean("LoggedIn", true);
                 editor.apply();
+                currentID = String.valueOf(prefs.getInt("id", 0));
+
                 dialogue.dismiss();
             }
         });
