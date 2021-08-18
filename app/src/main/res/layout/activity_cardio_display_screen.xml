@@ -21,23 +21,28 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.023"
-        app:srcCompat="@drawable/previous_icon" />
+        app:srcCompat="@drawable/previous_icon"
+        android:elevation="5dp"/>
 
     <Spinner
         android:id="@+id/cardioType"
-        android:layout_width="195dp"
-        android:layout_height="33dp"
-
-        android:layout_marginStart="106dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="110dp"
+        android:layout_width="250dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="85dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="65dp"
         android:layout_marginBottom="638dp"
+        android:backgroundTint="@color/black"
+        android:elevation="8dp"
+
+        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:textAlignment="center"/>
+
+        app:layout_constraintVertical_bias="0.229" />
 
     <Button
         android:id="@+id/button9"
@@ -56,18 +61,37 @@
         app:layout_constraintVertical_bias="0.975"
         android:onClick="createNewLog"/>
 
-    <ListView
-        android:id="@+id/listView"
-        android:layout_width="439dp"
-        android:layout_height="629dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="10dp"
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/pulltoRefresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardioType" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="68dp"
+        >
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="395dp"
+        android:layout_height="700dp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+
+
+
+
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

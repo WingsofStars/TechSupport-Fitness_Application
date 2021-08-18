@@ -27,7 +27,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/topbarDR"
         app:layout_constraintEnd_toStartOf="@+id/button5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/topbarDR" />
+        app:layout_constraintTop_toTopOf="@+id/topbarDR"
+        android:fontFamily="@font/prompt"/>
 
     <Button
         android:id="@+id/button5"
@@ -39,7 +40,8 @@
         android:text="Disc Rack"
         app:layout_constraintBottom_toBottomOf="@+id/topbarDR"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/topbarDR" />
+        app:layout_constraintTop_toTopOf="@+id/topbarDR"
+        android:fontFamily="@font/prompt"/>
 
     <ImageView
         android:id="@+id/imageView3"
@@ -58,6 +60,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:fontFamily="@font/prompt"
         android:text="Disc Rack"
         android:textAlignment="center"
         android:textSize="24sp"
