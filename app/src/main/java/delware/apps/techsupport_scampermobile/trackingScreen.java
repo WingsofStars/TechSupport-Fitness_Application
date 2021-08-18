@@ -1,4 +1,4 @@
-package delware.apps.techsupport_scampermobile.Screens;
+package delware.apps.techsupport_scampermobile;
 
 import androidx.appcompat.app.AppCompatActivity;
 

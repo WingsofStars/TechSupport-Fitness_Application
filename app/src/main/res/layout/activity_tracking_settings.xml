@@ -207,4 +207,13 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tv_label_sensor"
         app:layout_constraintTop_toBottomOf="@+id/sw_gps" />
+
+    <ImageView
+        android:id="@+id/iv_return"
+        android:layout_width="43dp"
+        android:layout_height="33dp"
+        android:onClick="goBack"
+        app:srcCompat="@drawable/previous_icon"
+        tools:layout_editor_absoluteX="353dp"
+        tools:layout_editor_absoluteY="16dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
