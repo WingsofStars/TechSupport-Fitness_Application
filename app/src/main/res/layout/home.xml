@@ -60,7 +60,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="104dp"
         android:background="@android:drawable/editbox_background"
-        android:backgroundTint="@color/purple_500"
+        android:backgroundTint="@color/lightBlue"
         android:text="0 / 0 | Level: 1"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
