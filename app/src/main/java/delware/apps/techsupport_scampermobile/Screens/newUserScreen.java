@@ -45,7 +45,7 @@ public class newUserScreen extends AppCompatActivity {
         String strPassword = txtPassword.getText().toString();
         //encrypts password
         String salt = PasswordUtils.getSalt(10);
-        String encPassword = PasswordUtils.generateSecurePassword(strPassword, salt);
+
 
         String strHeight = etHeight.getText().toString();
         String strWeight = etWeight.getText().toString();
@@ -69,6 +69,7 @@ public class newUserScreen extends AppCompatActivity {
             txtException.setText("Password must have at least 1 capital, lowercase, number, and special character");
             return;
         }
+        String encPassword = PasswordUtils.generateSecurePassword(strPassword, salt);
 
         Log.d("Insert: ", "Inserting");
         Profile p = Profile.Create(strUsername, encPassword, salt, height, weight, 1, 0);

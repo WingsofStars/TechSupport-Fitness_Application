@@ -5,22 +5,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <Button
+        android:id="@+id/Delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:background="@drawable/addlogpopupbuttons"
+        android:fontFamily="@font/prompt"
+        android:onClick="createNewLog"
+        android:text="Delete Entry"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.914"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Calories" />
+
     <EditText
         android:id="@+id/Date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="128dp"
         android:ems="10"
-        android:fontFamily="@font/prompt"
 
+        android:fontFamily="@font/prompt"
         android:hint="Date"
         android:inputType="date"
         android:maxLength="10"
         android:textAlignment="center"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.488"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Type" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/Distance"
@@ -93,13 +108,13 @@
         android:id="@+id/Save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="29dp"
+        android:layout_marginTop="36dp"
         android:background="@drawable/addlogpopupbuttons"
         android:fontFamily="@font/prompt"
         android:onClick="createNewLog"
-        android:text="Save"
+        android:text="Save Changes"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.216"
+        app:layout_constraintHorizontal_bias="0.089"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Calories" />
 
@@ -108,13 +123,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:layout_marginTop="29dp"
+        android:layout_marginTop="112dp"
         android:background="@drawable/addlogpopupbuttons"
         android:fontFamily="@font/prompt"
         android:onClick="can"
         android:text="Cancel"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.778"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Calories" />
 
@@ -147,13 +161,5 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
-    <Spinner
-        android:id="@+id/Type"
-        android:layout_width="175dp"
-        android:layout_height="52dp"
-        android:layout_marginTop="14dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Error" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
