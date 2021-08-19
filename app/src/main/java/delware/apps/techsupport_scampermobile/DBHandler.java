@@ -248,6 +248,7 @@ public class DBHandler extends SQLiteOpenHelper{
                     String date = cursor.getString(5);
                     String type = cursor.getString(6);
                     RunLog runlog = new RunLog(distance, hours, minutes, calories, date, type);
+                    runlog.UserId = cursor.getInt(0);
                     returnList.add(runlog);
                 } while (cursor.moveToNext());
             } else {
@@ -343,9 +344,11 @@ public class DBHandler extends SQLiteOpenHelper{
         if(cursor == null) {
             }
         else cursor.moveToFirst();
-         RunLog runLog = construcRunLog(cursor);
-         db.close();
-        return runLog;
+        {
+            RunLog runLog = construcRunLog(cursor);
+            db.close();
+            return runLog;
+        }
     }
     private RunLog construcRunLog(Cursor cursor)
     {

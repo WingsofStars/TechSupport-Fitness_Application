@@ -87,10 +87,12 @@ int Position2;
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 TextView IdTxt = view.findViewById(R.id.IDtxt);
-                Update(Integer.parseInt(IdTxt.getText().toString()));
+                id = Integer.parseInt(IdTxt.getText().toString());
+                Update((int) id);
             }
         });
     }
+
     //Spinner Selection
     @Override
 
@@ -103,10 +105,7 @@ int Position2;
                 //runsymbol.setImageResource(R.drawable.runempty);
                 //emptymessage.setText("");
 
-                listView.setAdapter(null);
-
-                LogAdapter adapter = new LogAdapter(this, R.layout.adapter_view_layout, MainActivity.databaseHandler.getAllLogs(parent.getItemAtPosition(position).toString()));
-                listView.setAdapter(adapter);
+                Refresh();
                 Toast.makeText(this, parent.getItemAtPosition(position).toString() + " selected", Toast.LENGTH_LONG).show();
 
             }
