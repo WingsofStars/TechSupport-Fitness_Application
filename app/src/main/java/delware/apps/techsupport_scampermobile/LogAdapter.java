@@ -44,6 +44,7 @@ public class LogAdapter extends ArrayAdapter<RunLog> { // adapter so our ListVie
         TextView Calories = convertView.findViewById(R.id.calories1);
         TextView Speed = convertView.findViewById(R.id.speed1);
         TextView Type = convertView.findViewById(R.id.cardiotype1);
+        TextView IdTXT = convertView.findViewById(R.id.IDtxt);
 
         Date.setText(String.valueOf(date));
         Time.setText(String.format("%.2f",hours + minutes/60) + " Hours");
@@ -51,9 +52,12 @@ public class LogAdapter extends ArrayAdapter<RunLog> { // adapter so our ListVie
         Speed.setText(String.format("%.2f",distance/(Float.valueOf(hours)+(minutes/60))) + " MPH");
         Calories.setText(String.valueOf(calories) + " Calories");
         Type.setText(String.valueOf(type));
+        IdTXT.setText(String.valueOf(getItem(position).UserId));
 
 
         return convertView;
 
     }
+
+
 }

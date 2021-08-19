@@ -69,8 +69,8 @@
         android:id="@+id/date"
         android:layout_width="251dp"
         android:layout_height="42dp"
+        android:layout_marginTop="5dp"
         android:fontFamily="@font/prompt"
-        android:layout_marginTop="61dp"
 
         android:text="Date"
         android:textAlignment="center"
@@ -81,7 +81,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/IDtxt"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
@@ -98,5 +98,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/date" />
+
+    <TextView
+        android:id="@+id/IDtxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text=""
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="invisible"
+        />
     <!--        android:fontFamily="@font/promt"-->
 </androidx.constraintlayout.widget.ConstraintLayout>

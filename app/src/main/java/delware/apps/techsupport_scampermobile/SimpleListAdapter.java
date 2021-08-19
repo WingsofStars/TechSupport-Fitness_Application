@@ -36,4 +36,6 @@ public class SimpleListAdapter extends ArrayAdapter<String> {
         text.setText(item);
         return convertView;
     }
+
+
 }
