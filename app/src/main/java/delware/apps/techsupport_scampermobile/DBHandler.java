@@ -166,6 +166,8 @@ public class DBHandler extends SQLiteOpenHelper{
         values.put(KEY_PASSWORD, profile.getPassword());
         values.put(KEY_WEIGHT, profile.getWeight());
         values.put(KEY_HEIGHT, profile.getHeight());
+        values.put(KEY_XP, profile.getXP());
+        values.put(KEY_LEVEL, profile.getLevel());
         //updates row
         return db.update(TABLE_USERS, values, KEY_ID + " = ?",
                 new String[]{String.valueOf(profile.getUserID())});
