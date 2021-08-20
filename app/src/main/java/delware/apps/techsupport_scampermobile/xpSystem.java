@@ -21,7 +21,6 @@ public class xpSystem {
             user.setXP(xpAmount);
             MainActivity.TVXP.setText(String.format(format, xpAmount, xpReq, user.getLevel() ));
         }
-
         //Update database
         MainActivity.databaseHandler.updateUser(user);
     }
