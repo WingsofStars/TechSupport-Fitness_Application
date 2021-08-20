@@ -16,10 +16,10 @@ public class xpSystem {
         }else if(xpAmount == xpReq) {
             user.setLevel(user.getLevel() + 1);
             user.setXP(0);
-            MainActivity.TV.setText(String.format(format, 0, levelValues[user.getLevel()], user.getLevel() ));
+            MainActivity.TVXP.setText(String.format(format, 0, levelValues[user.getLevel()], user.getLevel() ));
         } else {
             user.setXP(xpAmount);
-            MainActivity.TV.setText(String.format(format, xpAmount, xpReq, user.getLevel() ));
+            MainActivity.TVXP.setText(String.format(format, xpAmount, xpReq, user.getLevel() ));
         }
 
         //Update database
@@ -30,6 +30,6 @@ public class xpSystem {
         int remainderXP = totalXp - reqXP;
         user.setLevel(user.getLevel() + 1);
         user.setXP(remainderXP);
-        MainActivity.TV.setText(String.format(format, remainderXP, levelValues[user.getLevel()], user.getLevel() ));
+        MainActivity.TVXP.setText(String.format(format, remainderXP, levelValues[user.getLevel()], user.getLevel() ));
     }
 }

@@ -11,12 +11,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.EditText;
-import android.widget.PopupMenu;
-import android.widget.PopupWindow;
 
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import delware.apps.techsupport_scampermobile.Screens.newUserScreen;
 import delware.apps.techsupport_scampermobile.Screens.settings;
@@ -27,9 +23,9 @@ public class MainActivity extends AppCompatActivity {
     static SharedPreferences prefs; // uses small save files know as "Shared Preferences"
     public AlertDialog.Builder dBuilder;
     public AlertDialog dialogue;
-    static TextView TV;
+    static TextView TVXP;
     public static String currentID;
-    MediaPlayer mp;
+    //MediaPlayer mp;
     public static DBHandler databaseHandler;
     public static xpSystem xpSystem;
     static ArrayList<RunLog> RunLogs = new ArrayList<>();
@@ -42,8 +38,8 @@ public class MainActivity extends AppCompatActivity {
 
         databaseHandler = new DBHandler(MainActivity.this);
         xpSystem = new xpSystem();
-        TV = findViewById(R.id.xpBar);
-        mp = MediaPlayer.create(this, R.raw.duckquack);
+        TVXP = findViewById(R.id.xpBar);
+        //mp = MediaPlayer.create(this, R.raw.duckquack);
 
 
         prefs = getSharedPreferences("prefs", MODE_PRIVATE);
@@ -161,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
         dialogue.dismiss();
     }
 
-    public void playSound(View v) {
-        mp.start();
-    }
+//    public void playSound(View v) {
+//        mp.start();
+//    }
 }
