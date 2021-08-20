@@ -83,7 +83,7 @@ public class Tracking_Settings extends AppCompatActivity {
             }
         });
 
-        sw_locationupdates.setOnClickListener(v -> {
+        /*sw_locationupdates.setOnClickListener(v -> {
             if (sw_locationupdates.isChecked()) {
                 startLocationUpdates();
 
@@ -91,13 +91,13 @@ public class Tracking_Settings extends AppCompatActivity {
                 stopLocationUpdates();
 
             }
-        });
+        });*/
 
         updateGPS();
 
     }
 
-    private void stopLocationUpdates() {
+    /*private void stopLocationUpdates() {
         tv_updates.setText("Location is NOT being tracked");
         tv_latitude.setText("Not tracking location");
         tv_longitude.setText("Not tracking location");
@@ -107,16 +107,16 @@ public class Tracking_Settings extends AppCompatActivity {
         tv_altitude.setText("Not tracking location");
 
         fusedLocationProviderClient.removeLocationUpdates(locationCallBack);
-    }
+    }*/
 
-    private void startLocationUpdates() {
+    /*private void startLocationUpdates() {
         tv_updates.setText("Location is being tracked");
 
         fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallBack, null);
         updateGPS();
 
 
-    }
+    }*/
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -128,15 +128,23 @@ public class Tracking_Settings extends AppCompatActivity {
                     updateGPS();
                 } else {
                     Toast.makeText(this, "This app requires the use of location features to successfully operate", Toast.LENGTH_SHORT).show();
+                    finish();
                 }
-
+                break;
         }    }
 
     private void updateGPS() {
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(Tracking_Settings.this);
         if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
             //user has given permission
-            fusedLocationProviderClient.getLastLocation().addOnSuccessListener(this, location -> updateUIValues(location));
+            fusedLocationProviderClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                @Override
+                public void onSuccess(Location location) {
+
+                    updateUIValues(location);
+                }
+            });
+
         }else {
             //permissions not granted yet
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

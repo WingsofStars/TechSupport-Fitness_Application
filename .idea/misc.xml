@@ -5,6 +5,16 @@
       <map>
         <entry key="..\:/Users/cbelfry/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/activity_dev_settings.xml" value="0.2546875" />
         <entry key="..\:/Users/cbelfry/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/activity_game_settings.xml" value="0.2546875" />
+        <entry key="..\:/Users/JBaker/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/activity_cardio_display_screen.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/JBaker/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/activity_collection_disc_rack.xml" value="0.36" />
+        <entry key="..\:/Users/JBaker/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/activity_collection_sticker_wall.xml" value="0.245018115942029" />
+        <entry key="..\:/Users/JBaker/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/Users/JBaker/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/activity_new_user_screen.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/JBaker/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/activity_settings.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/JBaker/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/activity_tracking_screen.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/JBaker/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/home.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/JBaker/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/loginpopup.xml" value="0.245018115942029" />
+        <entry key="..\:/Users/JBaker/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/row.xml" value="0.245018115942029" />
         <entry key="..\:/Users/cbelfry/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/activity_main.xml" value="0.245018115942029" />
         <entry key="..\:/Users/cbelfry/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/activity_new_user_screen.xml" value="0.3" />
         <entry key="..\:/Users/cbelfry/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/activity_settings.xml" value="0.2" />
@@ -16,12 +26,17 @@
         <entry key="..\:/Users/ndelbridge/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/activity_cardio_display_screen.xml" value="0.5239583333333333" />
         <entry key="..\:/Users/ndelbridge/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/activity_dev_settings.xml" value="0.5239583333333333" />
         <entry key="..\:/Users/ndelbridge/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/activity_new_user_screen.xml" value="0.2537840565085772" />
+        <entry key="..\:/Users/ndelbridge/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/activity_profile_settings.xml" value="0.4" />
+        <entry key="..\:/Users/ndelbridge/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/activity_settings.xml" value="0.3" />
+        <entry key="..\:/Users/ndelbridge/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/activity_statistics.xml" value="0.2833333333333333" />
         <entry key="..\:/Users/ndelbridge/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/activity_settings.xml" value="0.5239583333333333" />
         <entry key="..\:/Users/ndelbridge/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/activity_tracking_screen.xml" value="0.4901041666666667" />
         <entry key="..\:/Users/ndelbridge/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/adapter_view_layout.xml" value="0.5239583333333333" />
         <entry key="..\:/Users/ndelbridge/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/addlogpopup.xml" value="0.4466666666666667" />
         <entry key="..\:/Users/ndelbridge/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/loginpopup.xml" value="0.2537840565085772" />
         <entry key="..\:/Users/ndelbridge/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/row.xml" value="0.5239583333333333" />
+        <entry key="..\:/Users/ndelbridge/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/spinner_item.xml" value="0.26458333333333334" />
+        <entry key="..\:/Users/ndelbridge/StudioProjects/TechSupport-Fitness_Application/app/src/main/res/layout/update_log_popup.xml" value="0.36" />
       </map>
     </option>
   </component>

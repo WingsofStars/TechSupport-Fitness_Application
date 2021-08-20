@@ -73,8 +73,9 @@ public class DBHandler extends SQLiteOpenHelper{
         values.put(KEY_NAME, userName);
         values.put(KEY_PASSWORD, password);
         values.put(SALT, salt);
-        values.put(KEY_WEIGHT, height);
         values.put(KEY_HEIGHT, weight);
+        values.put(KEY_WEIGHT, height);
+
         values.put(KEY_LEVEL, level);
         values.put(KEY_XP, xp);
         //Inserts table columns
@@ -95,7 +96,7 @@ public class DBHandler extends SQLiteOpenHelper{
     // Get profile from user id
     public Profile getUserByID(int id){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.query(TABLE_USERS, new String[] {KEY_ID,KEY_NAME,KEY_PASSWORD,SALT,KEY_WEIGHT,KEY_HEIGHT, KEY_LEVEL,KEY_XP}, KEY_ID + "=?",
+        Cursor cursor = db.query(TABLE_USERS, new String[] {KEY_ID,KEY_NAME,KEY_PASSWORD,SALT, KEY_WEIGHT, KEY_HEIGHT, KEY_LEVEL,KEY_XP}, KEY_ID + "=?",
                 new String[] { String.valueOf(id) }, null, null, null, null);
         if(cursor == null) return new Profile();
         else cursor.moveToFirst();
@@ -165,6 +166,8 @@ public class DBHandler extends SQLiteOpenHelper{
         values.put(KEY_PASSWORD, profile.getPassword());
         values.put(KEY_WEIGHT, profile.getWeight());
         values.put(KEY_HEIGHT, profile.getHeight());
+        values.put(KEY_XP, profile.getXP());
+        values.put(KEY_LEVEL, profile.getLevel());
         //updates row
         return db.update(TABLE_USERS, values, KEY_ID + " = ?",
                 new String[]{String.valueOf(profile.getUserID())});
@@ -221,6 +224,7 @@ public class DBHandler extends SQLiteOpenHelper{
                     String date = cursor.getString(5);
                     String type = cursor.getString(6);
                     RunLog runlog = new RunLog(distance, hours, minutes, calories, date, type);
+                    runlog.UserId = cursor.getInt(0);
                     returnList.add(runlog);
                 } while (cursor.moveToNext());
             } else {
@@ -246,6 +250,7 @@ public class DBHandler extends SQLiteOpenHelper{
                     String date = cursor.getString(5);
                     String type = cursor.getString(6);
                     RunLog runlog = new RunLog(distance, hours, minutes, calories, date, type);
+                    runlog.UserId = cursor.getInt(0);
                     returnList.add(runlog);
                 } while (cursor.moveToNext());
             } else {
@@ -318,4 +323,70 @@ public class DBHandler extends SQLiteOpenHelper{
             return size;
         }
     }
+
+    public void updateLogs(int id, int Hours, int minutes, float distance, int calories){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(HOURS, Hours);
+        values.put(MINUTES, minutes);
+        values.put(DISTANCE, distance);
+        values.put(CALORIES, calories);
+        //updates row
+        String sqlString = "Update " + RUN_LOGS + " SET " + HOURS + " = " + Hours + ", "+
+                MINUTES + " = " + minutes + ", "+ DISTANCE + " = " + distance + ", "+
+                CALORIES + " = " + calories + " "+  " where ID = "+id;
+            db.execSQL(sqlString);
+
+    }
+
+    public RunLog getLogById(int id){
+        String grabLogQuery = "SELECT * FROM " + RUN_LOGS + " WHERE " + "ID" + " = " + id ;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(grabLogQuery, null);
+        if(cursor == null) {
+            }
+        else cursor.moveToFirst();
+        {
+            RunLog runLog = construcRunLog(cursor);
+            db.close();
+            return runLog;
+        }
+    }
+    private RunLog construcRunLog(Cursor cursor)
+    {
+
+        float distance = cursor.getFloat(1);
+        System.out.println(cursor.getFloat(1));
+        int hours = cursor.getInt(2);
+        float minutes = cursor.getFloat(3);
+        int calories = cursor.getInt(4);
+        String  date = cursor.getString(5);
+        String  cType = cursor.getString(6);
+        return new RunLog(distance,hours,minutes,calories,date,cType);
+    }
+
+    public void delete(int id){
+        String deleteLogQuery = "Delete FROM " + RUN_LOGS + " WHERE " + "ID" + " = " + id ;
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL(deleteLogQuery);
+    }
+
+    public void updateAllRunLogIds(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String queryString = "Select * from "+RUN_LOGS;
+        Cursor cursor = db.rawQuery(queryString, null);
+        if(cursor.moveToFirst()){
+            int id = 0;
+            do {
+                id++;
+            }while (cursor.moveToNext());
+        }
+        else {
+            //oh well
+        }
+        cursor.close();
+        db.close();
+    }
+
+
 }

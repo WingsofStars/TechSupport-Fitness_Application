@@ -63,8 +63,8 @@ public class settings extends AppCompatActivity {
                     startActivity(goToDev);
                 }
                 else if(id == submenuItems.indexOf(GPS)){
-                    Intent goToCreateUser = new Intent(getApplicationContext(), Tracking_Settings.class);
-                    startActivity(goToCreateUser); // Got to the create user Screen
+                    Intent goToTracking = new Intent(getApplicationContext(), Tracking_Settings.class);
+                    startActivity(goToTracking);
 
                 }
 

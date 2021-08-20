@@ -5,24 +5,28 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.EditText;
 
+import java.util.ArrayList;
+
 import delware.apps.techsupport_scampermobile.Screens.newUserScreen;
 import delware.apps.techsupport_scampermobile.Screens.trackingScreen;
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     static SharedPreferences prefs; // uses small save files know as "Shared Preferences"
     public AlertDialog.Builder dBuilder;
     public AlertDialog dialogue;
-    static TextView TV;
+    static TextView TVXP;
     public static String currentID;
+    //MediaPlayer mp;
     public static DBHandler databaseHandler;
+    public static xpSystem xpSystem;
     static ArrayList<RunLog> RunLogs = new ArrayList<>();
     public Button btn;
 
@@ -32,7 +36,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.home);
 
         databaseHandler = new DBHandler(MainActivity.this);
-        TV = findViewById(R.id.xpBar);
+        xpSystem = new xpSystem();
+        TVXP = findViewById(R.id.xpBar);
+        //mp = MediaPlayer.create(this, R.raw.duckquack);
 
 
         prefs = getSharedPreferences("prefs", MODE_PRIVATE);
@@ -53,6 +59,10 @@ public class MainActivity extends AppCompatActivity {
             openLoginScreen();
         }
         currentID = String.valueOf(prefs.getInt("id", 0));
+
+        if(isUserLoggedIn) {
+            xpSystem.xpCheck(0, databaseHandler.getUserByID(Integer.parseInt(MainActivity.currentID)));
+        }
 
     }
 
@@ -139,8 +149,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
-
     public void goToCollectionScreen(View v){
         Intent goToCollection = new Intent(MainActivity.this, stickerWallScreen.class);
         startActivity(goToCollection);
@@ -149,4 +157,8 @@ public class MainActivity extends AppCompatActivity {
     public void closePopUp(View v){
         dialogue.dismiss();
     }
+
+//    public void playSound(View v) {
+//        mp.start();
+//    }
 }

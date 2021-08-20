@@ -9,8 +9,8 @@
         android:id="@+id/topbarDR"
         android:layout_width="409dp"
         android:layout_height="56dp"
-        android:layout_marginTop="48dp"
-        android:background="@color/purple_700"
+        android:layout_marginTop="24dp"
+        android:background="@color/lightBlue"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
@@ -18,55 +18,105 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/btnLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:onClick="goToStickerWallScreen"
-        android:text="Sticker Wall"
-        app:layout_constraintBottom_toBottomOf="@+id/topbarDR"
-        app:layout_constraintEnd_toStartOf="@+id/button5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/topbarDR"
-        android:fontFamily="@font/prompt"/>
-
-    <Button
         android:id="@+id/button5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:layout_marginEnd="118dp"
+        android:layout_marginEnd="116dp"
         android:layout_marginBottom="4dp"
+        android:backgroundTint="@color/darkBlue"
+        android:fontFamily="@font/prompt"
         android:text="Disc Rack"
         app:layout_constraintBottom_toBottomOf="@+id/topbarDR"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/topbarDR"
-        android:fontFamily="@font/prompt"/>
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="@color/darkBlue"
+        android:fontFamily="@font/prompt"
+        android:onClick="goToStickerWallScreen"
+        android:text="Sticker Wall"
+        app:layout_constraintBottom_toBottomOf="@+id/topbarDR"
+        app:layout_constraintEnd_toStartOf="@+id/button5"
+        app:layout_constraintHorizontal_bias="0.478"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/topbarDR" />
 
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="50dp"
-        android:layout_height="42dp"
+        android:layout_height="48dp"
         android:clickable="true"
         android:onClick="goBack"
         app:layout_constraintBottom_toBottomOf="@+id/topbarDR"
         app:layout_constraintEnd_toEndOf="@+id/topbarDR"
-        app:layout_constraintStart_toEndOf="@+id/button5"
+        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintTop_toTopOf="@+id/topbarDR"
-        app:srcCompat="@drawable/previous_icon" />
+        app:srcCompat="@drawable/previous_icon"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <ImageView
+        android:id="@+id/D01"
+        android:layout_width="177dp"
+        android:layout_height="170dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="100dp"
+        android:onClick="showDiscDescription"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/record" />
+
+    <ImageView
+        android:id="@+id/D12"
+        android:layout_width="177dp"
+        android:layout_height="170dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="52dp"
+        android:onClick="showDiscDescription"
+        app:layout_constraintStart_toEndOf="@+id/D11"
+        app:layout_constraintTop_toBottomOf="@+id/D02"
+        app:srcCompat="@drawable/record" />
+
+    <ImageView
+        android:id="@+id/D11"
+        android:layout_width="177dp"
+        android:layout_height="170dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="52dp"
+        android:onClick="showDiscDescription"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/D01"
+        app:srcCompat="@drawable/record" />
+
+    <ImageView
+        android:id="@+id/D02"
+        android:layout_width="177dp"
+        android:layout_height="170dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="100dp"
+        android:onClick="showDiscDescription"
+        app:layout_constraintStart_toEndOf="@+id/D01"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/record" />
 
     <TextView
-        android:id="@+id/tvException"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:fontFamily="@font/prompt"
-        android:text="Disc Rack"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        android:textStyle="bold"
+        android:id="@+id/DescriptionText2"
+        android:layout_width="303dp"
+        android:layout_height="71dp"
+        android:layout_marginBottom="68dp"
+        android:background="@color/lightBlue"
+        android:text="Description  here..."
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topbarDR" />
+        app:layout_constraintTop_toBottomOf="@+id/topbarDR"
+        app:layout_constraintVertical_bias="0.966" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
