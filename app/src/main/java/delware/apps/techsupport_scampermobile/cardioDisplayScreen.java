@@ -179,12 +179,11 @@ int Position2;
 
                     //save and create instance
                     RunLog runLog = new RunLog(Distance, Hours, Minutes, Calories, Date, Type);
+
                     MainActivity.databaseHandler.addLog(runLog);
 
 
                     //MainActivity.Logs.Log.add(runLog);
-
-
 
 
                     Toast.makeText(getApplicationContext(), "Data Saved", Toast.LENGTH_LONG).show();
@@ -195,6 +194,10 @@ int Position2;
                 }catch (Exception e){
                     Error.setText("Your Information is Either Incomplete or Faulty");
                 }
+                //XP Tie in
+                //Todo update xp formula
+                MainActivity.xpSystem.xpCheck(25, MainActivity.databaseHandler.getUserByID(Integer.parseInt(MainActivity.currentID)));
+
 
             }
         });

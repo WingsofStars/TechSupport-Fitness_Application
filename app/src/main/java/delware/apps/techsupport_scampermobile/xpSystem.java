@@ -2,7 +2,8 @@ package delware.apps.techsupport_scampermobile;
 
 public class xpSystem {
     //Temp Values, each index corresponds to the level
-    private final int[] levelValues = { 0, 25, 50, 75, 100};
+    //Todo real xp level values
+    private final int[] levelValues = { 0, 25, 50, 75, 100, 125, 150, 175, 200, 225, 250, 275, 300, 325, 350, 375, 400, 425, 450, 475, 500};
 
     private String format = "%d / %d | Level %d";
 
@@ -20,6 +21,9 @@ public class xpSystem {
             user.setXP(xpAmount);
             MainActivity.TV.setText(String.format(format, xpAmount, xpReq, user.getLevel() ));
         }
+
+        //Update database
+        MainActivity.databaseHandler.updateUser(user);
     }
 
     private void xpRollOver(int totalXp, int reqXP, Profile user) {

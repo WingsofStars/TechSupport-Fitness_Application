@@ -30,8 +30,8 @@ public class MainActivity extends AppCompatActivity {
     static TextView TV;
     public static String currentID;
     MediaPlayer mp;
-    static String currentID;
     public static DBHandler databaseHandler;
+    public static xpSystem xpSystem;
     static ArrayList<RunLog> RunLogs = new ArrayList<>();
     public Button btn;
 
@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.home);
 
         databaseHandler = new DBHandler(MainActivity.this);
+        xpSystem = new xpSystem();
         TV = findViewById(R.id.xpBar);
         mp = MediaPlayer.create(this, R.raw.duckquack);
 
@@ -63,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
             openLoginScreen();
         }
         currentID = String.valueOf(prefs.getInt("id", 0));
+
+        xpSystem.xpCheck(0, databaseHandler.getUserByID(Integer.parseInt(MainActivity.currentID)));
 
     }
 
