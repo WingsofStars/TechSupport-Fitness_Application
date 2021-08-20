@@ -21,7 +21,7 @@ public class RunLog {
         speed = distance / (hours + (minutes/60));
     }
 
-    public float getDistance() {
+        public float getDistance() {
             return Distance;
         }
 
@@ -69,11 +69,11 @@ public class RunLog {
             this.date = date;
         }
 
-    public String getCardioType() {
+        public String getCardioType() {
         return cardioType;
     }
 
-    public void setCardioType(String cardioType) {
+        public void setCardioType(String cardioType) {
         this.cardioType = cardioType;
     }
 }

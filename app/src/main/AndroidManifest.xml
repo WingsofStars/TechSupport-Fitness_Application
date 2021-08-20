@@ -26,6 +26,8 @@
             android:exported="true" />
         <activity android:name=".stickerWallScreen"
             android:exported="true"/>
+        <activity android:name=".rivalScreen"
+            android:exported="true"/>
         <activity
             android:name=".Screens.trackingScreen"
             android:exported="true" />

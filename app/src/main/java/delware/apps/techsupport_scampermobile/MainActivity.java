@@ -86,6 +86,10 @@ public class MainActivity extends AppCompatActivity {
         Intent goToCreateUser = new Intent(getApplicationContext(), newUserScreen.class);
         startActivity(goToCreateUser); // Got to the create user Screen
     }
+    public void goToRivalScreen(View v){
+        Intent goToRivalScreen = new Intent(getApplicationContext(), rivalScreen.class);
+        startActivity(goToRivalScreen); // Got to the rival screen
+    }
 
 
     public void openLoginScreen(){
