@@ -35,7 +35,7 @@
             android:name=".cardioDisplayScreen"
             android:exported="true" />
         <activity
-            android:name=".Screens.settings"
+            android:name=".settings"
             android:exported="true" />
         <activity android:name=".discRackScreen"
             android:exported="true"/>

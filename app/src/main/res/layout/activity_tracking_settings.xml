@@ -214,6 +214,7 @@
         android:layout_height="33dp"
         android:onClick="goBack"
         app:srcCompat="@drawable/previous_icon"
+        tools:ignore="TouchTargetSizeCheck"
         tools:layout_editor_absoluteX="353dp"
         tools:layout_editor_absoluteY="16dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

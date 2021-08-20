@@ -16,7 +16,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 
@@ -24,13 +26,15 @@ public class Tracking_Settings extends AppCompatActivity {
     public static final int DEFAULT_UPDATE_INTERVAL = 30;
     public static final int FAST_UPDATE_INTERVAL = 5;
     private static final int PERMISSIONS_FINE_LOCATION = 69;
-    TextView tv_latitude, tv_longitude,tv_altitude,tv_accuracy,tv_speed,tv_sensor,tv_updates,tv_address;
+    TextView tv_latitude, tv_longitude, tv_altitude, tv_accuracy, tv_speed, tv_sensor, tv_updates, tv_address;
     Switch sw_locationupdates, sw_gps;
     //if location tracking is on or off
     boolean updateOn = false;
 
     //config file for settings related to FusedLocationProviderClient
     LocationRequest locationRequest;
+
+    LocationCallback locationCallBack;
 
     //Google API for location services
     FusedLocationProviderClient fusedLocationProviderClient;
@@ -57,34 +61,35 @@ public class Tracking_Settings extends AppCompatActivity {
         locationRequest.setInterval(1000 * DEFAULT_UPDATE_INTERVAL);
         locationRequest.setFastestInterval(1000 * FAST_UPDATE_INTERVAL);
         locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+        //event that is triggered whenever the update interval is met
+        locationCallBack = new LocationCallback() {
+            @Override
+            public void onLocationResult(@NonNull LocationResult locationResult) {
+                super.onLocationResult(locationResult);
+
+                //save the location
+                updateUIValues(locationResult.getLastLocation());
+            }
+        };
 
         sw_gps.setOnClickListener(v -> {
-            @Override
-            public void onClick(View v) {
-                if (sw_gps.isChecked()){
-                    //uses GPS - most accurate
-                    locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-                    tv_sensor.setText("Using GPS sensors");
-                }
-                else {
-                    locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
-                    tv_sensor.setText("Using Towers + WIFI");
-                }
+            if (sw_gps.isChecked()) {
+                //uses GPS - most accurate
+                locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+                tv_sensor.setText("Using GPS sensors");
+            } else {
+                locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+                tv_sensor.setText("Using Towers + WIFI");
             }
-
         });
 
         sw_locationupdates.setOnClickListener(v -> {
-            @Override
-            public void onClick(View v) {
-                if (sw_locationupdates.isChecked()) {
-                    startLocationUpdates();
+            if (sw_locationupdates.isChecked()) {
+                startLocationUpdates();
 
-                }
-                else {
-                    stopLocationUpdates();
+            } else {
+                stopLocationUpdates();
 
-                }
             }
         });
 
@@ -93,14 +98,24 @@ public class Tracking_Settings extends AppCompatActivity {
     }
 
     private void stopLocationUpdates() {
-        tv_updates.setText("Location is being tracked");
-        fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallBack, null);
-        updateGPS();
+        tv_updates.setText("Location is NOT being tracked");
+        tv_latitude.setText("Not tracking location");
+        tv_longitude.setText("Not tracking location");
+        tv_speed.setText("Not tracking location");
+        tv_address.setText("Not tracking location");
+        tv_accuracy.setText("Not tracking location");
+        tv_altitude.setText("Not tracking location");
+
+        fusedLocationProviderClient.removeLocationUpdates(locationCallBack);
     }
 
     private void startLocationUpdates() {
+        tv_updates.setText("Location is being tracked");
 
-        tv_updates.setText("Location is NOT being tracked");
+        fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallBack, null);
+        updateGPS();
+
+
     }
 
     @Override
@@ -121,12 +136,7 @@ public class Tracking_Settings extends AppCompatActivity {
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(Tracking_Settings.this);
         if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
             //user has given permission
-            fusedLocationProviderClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
-                @Override
-                public void onSuccess(Location location) {
-                    updateUIValues(location);
-                }
-            });
+            fusedLocationProviderClient.getLastLocation().addOnSuccessListener(this, location -> updateUIValues(location));
         }else {
             //permissions not granted yet
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
