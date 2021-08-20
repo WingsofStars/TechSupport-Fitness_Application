@@ -37,64 +37,64 @@ public class stickerWallScreen extends AppCompatActivity {
     public void showStickerDescription(View v) {
         switch(v.getId()) {
             case R.id.A01:
-                TV.setText("1st");
+                TV.setText("First log in, welcome to the app...");
                 break;
             case R.id.A02:
-                TV.setText("2nd");
+                TV.setText("Track or log your first activity...");
                 break;
             case R.id.A03:
-                TV.setText("3rd");
+                TV.setText("Beat your rival for the first time, you know you can do it...");
                 break;
             case R.id.A04:
-                TV.setText("4th");
+                TV.setText("Achieve level 2...");
                 break;
             case R.id.A11:
-                TV.setText("5th");
+                TV.setText("Achieve level 4...");
                 break;
             case R.id.A12:
-                TV.setText("6th");
+                TV.setText("Achieve level 6...");
                 break;
             case R.id.A13:
-                TV.setText("7th");
+                TV.setText("Achieve level 8...");
                 break;
             case R.id.A14:
-                TV.setText("8th");
+                TV.setText("Achieve level 10...");
                 break;
             case R.id.A21:
-                TV.setText("9th");
+                TV.setText("Achieve level 14...");
                 break;
             case R.id.A22:
-                TV.setText("10th");
+                TV.setText("Achieve level 18...");
                 break;
             case R.id.A23:
-                TV.setText("11th");
+                TV.setText("Achieve the maximum level, what an awesome job, keep going, keep pushing yourself...");
                 break;
             case R.id.A24:
-                TV.setText("12th");
+                TV.setText("What a week, track or log your activity for a full week...");
                 break;
             case R.id.A31:
-                TV.setText("13th");
+                TV.setText("Travel a total distance of 5 miles...");
                 break;
             case R.id.A32:
-                TV.setText("14th");
+                TV.setText("Travel a total distance of 10 miles...");
                 break;
             case R.id.A33:
-                TV.setText("15th");
+                TV.setText("Travel a total distance of 15 miles...");
                 break;
             case R.id.A34:
-                TV.setText("16th");
+                TV.setText("Travel a total distance of 20 miles...");
                 break;
             case R.id.A41:
-                TV.setText("17th");
+                TV.setText("Burn a total of 1,500 calories...");
                 break;
             case R.id.A42:
-                TV.setText("18th");
+                TV.setText("Burn a total of 3,000 calories...");
                 break;
             case R.id.A43:
-                TV.setText("19th");
+                TV.setText("Exercise for a total of 5 hours...");
                 break;
             case R.id.A44:
-                TV.setText("20th");
+                TV.setText("Exercise for a total of 10 hours...");
                 break;
             default:
                 TV.setText("Invalid sticker, tap to select another one...");
