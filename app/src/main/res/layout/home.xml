@@ -9,14 +9,12 @@
 
     <ImageView
         android:id="@+id/settingsIconClickable"
-        android:layout_width="57dp"
-        android:layout_height="0dp"
+        android:layout_width="59dp"
+        android:layout_height="48dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="60dp"
         android:clickable="true"
         android:onClick="goToSettings"
-        app:layout_constraintBottom_toTopOf="@+id/button4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/settings_icon" />
@@ -55,17 +53,16 @@
 
     <TextView
         android:id="@+id/xpBar"
-        android:layout_width="0dp"
-        android:layout_height="36dp"
-        android:layout_marginStart="16dp"
+        android:layout_width="147dp"
+        android:layout_height="32dp"
         android:layout_marginTop="104dp"
-        android:layout_marginEnd="122dp"
         android:background="@android:drawable/editbox_background"
         android:backgroundTint="@color/lightBlue"
         android:text="0 / 0 | Level: 1"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
-        app:layout_constraintEnd_toStartOf="@+id/button4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.071"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="0 / 0" />
@@ -85,13 +82,11 @@
         android:id="@+id/button4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="62dp"
-        android:layout_marginBottom="555dp"
+        android:layout_marginTop="112dp"
+        android:layout_marginEnd="136dp"
         android:onClick="playSound"
         android:text="Quack"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/xpBar"
-        app:layout_constraintTop_toBottomOf="@+id/settingsIconClickable" />
+        app:layout_constraintTop_toBottomOf="@+id/button8" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
