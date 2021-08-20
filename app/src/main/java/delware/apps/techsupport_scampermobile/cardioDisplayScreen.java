@@ -18,9 +18,6 @@ import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import delware.apps.techsupport_scampermobile.MainActivity;
-import delware.apps.techsupport_scampermobile.R;
-
 
 public class cardioDisplayScreen extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -85,28 +82,36 @@ int Position2;
                 pulltoRefresh.setRefreshing(false);
             }
         });
+        //Log Modification
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                TextView IdTxt = view.findViewById(R.id.IDtxt);
+                id = Integer.parseInt(IdTxt.getText().toString());
+                Update((int) id);
+            }
+        });
     }
+
+    //Spinner Selection
     @Override
+
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         if (parent == typeSelector1) {
             listView.setAdapter(null);
             Position1 = position;
+
             if (MainActivity.databaseHandler.size(parent.getItemAtPosition(position).toString()) >= 1) {
                 //runsymbol.setImageResource(R.drawable.runempty);
                 //emptymessage.setText("");
 
-                listView.setAdapter(null);
-
-                LogAdapter adapter = new LogAdapter(this, R.layout.adapter_view_layout, MainActivity.databaseHandler.getAllLogs(parent.getItemAtPosition(position).toString()));
-                listView.setAdapter(adapter);
+                Refresh();
                 Toast.makeText(this, parent.getItemAtPosition(position).toString() + " selected", Toast.LENGTH_LONG).show();
 
             }
         }
         else {
             Position2 = position;
-            System.out.println(Position2);
-            System.out.println(position);
         }
 
         }
@@ -140,7 +145,7 @@ int Position2;
 
         TextView Error = addNewLogPopup.findViewById(R.id.Error);
 
-        enter = (Button)addNewLogPopup.findViewById(R.id.enter);
+        enter = (Button)addNewLogPopup.findViewById(R.id.Save);
         cancel = (Button)addNewLogPopup.findViewById(R.id.Cancel);
 
 
@@ -171,6 +176,10 @@ int Position2;
                     }
                     else {
                         Hours = Integer.valueOf(hours.getText().toString());
+                    }
+                    if (Distance == 0 ){
+                        Error.setText("Zero is not an acceptable entry for Distance.");
+                        return;
                     }
 
                     String Type = type.getItemAtPosition(Position2).toString();
@@ -226,7 +235,6 @@ int Position2;
 //        runsymbol.setImageResource(R.drawable.runsymbol);
 //        TextView emptymessage = findViewById(R.id.message);
 //        emptymessage.setText(R.string.newlogmessage);
-        System.out.println(MainActivity.databaseHandler.size(typeSelector1.getItemAtPosition(Position1).toString()));
         if(MainActivity.databaseHandler.size(typeSelector1.getItemAtPosition(Position1).toString()) >= 1) {
             //runsymbol.setImageResource(R.drawable.runempty);
             //emptymessage.setText("");
@@ -238,6 +246,67 @@ int Position2;
         }
 
 
+    }
+
+    public void Update(int id){
+        dialogeBuilder = new AlertDialog.Builder(this);
+        final View updateLog = getLayoutInflater().inflate(R.layout.update_log_popup, null);
+        Button Save;
+        Button Cancel;
+        Button Delete;
+
+        EditText distance;
+        EditText calories;
+        EditText hours;
+        EditText minutes;
+        EditText date;
+
+
+        Save = (Button)updateLog.findViewById(R.id.Save);
+        Cancel = (Button)updateLog.findViewById(R.id.Cancel);
+        Delete = (Button)updateLog.findViewById(R.id.Delete);
+        calories = (EditText)updateLog.findViewById(R.id.Calories);
+        distance = (EditText) updateLog.findViewById(R.id.Distance);
+        hours = (EditText) updateLog.findViewById(R.id.Hours);
+        minutes = (EditText) updateLog.findViewById(R.id.Minutes);
+        date = (EditText) updateLog.findViewById(R.id.Date);
+        RunLog currentLog = MainActivity.databaseHandler.getLogById(id);
+
+
+        calories.setText(String.valueOf(currentLog.getCalories()));
+        distance.setText(String.valueOf(currentLog.getDistance()));
+        hours.setText(String.valueOf(currentLog.getHours()));
+        minutes.setText(String.valueOf(currentLog.getMinutes()));
+        date.setText(String.valueOf(currentLog.getDate()));
+
+
+
+
+        dialogeBuilder.setView(updateLog);
+        dialog = dialogeBuilder.create();
+        dialog.show();
+        Cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        Delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.databaseHandler.delete(id);
+                dialog.dismiss();
+                Refresh();
+            }
+        });
+        Save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.databaseHandler.updateLogs(id, Integer.parseInt(hours.getText().toString()), Integer.parseInt(minutes.getText().toString()), Float.valueOf(distance.getText().toString()), Integer.parseInt(calories.getText().toString()));
+                dialog.dismiss();
+                Refresh();
+            }
+        });
     }
 
 
