@@ -164,6 +164,7 @@ int Position2;
                 //check Data
 
 
+<<<<<<< HEAD
 
 
                 try {
@@ -177,6 +178,20 @@ int Position2;
                     else {
                         Hours = Integer.valueOf(hours.getText().toString());
                     }
+=======
+                int Hours;
+                float Distance = Float.valueOf(distance.getText().toString());
+                int Calories = Integer.valueOf(calories.getText().toString());
+                float Minutes = Float.valueOf(minutes.getText().toString());
+                if(hours.getText().toString().equals("")){
+                    Hours = 0;
+                }
+                else {
+                    Hours = Integer.valueOf(hours.getText().toString());
+                }
+
+                try {
+>>>>>>> main
                     if (Distance == 0 ){
                         Error.setText("Zero is not an acceptable entry for Distance.");
                         return;
@@ -204,8 +219,14 @@ int Position2;
                     Error.setText("Your Information is Either Incomplete or Faulty");
                 }
                 //XP Tie in
+<<<<<<< HEAD
                 //Todo update xp formula
                 MainActivity.xpSystem.xpCheck(25, MainActivity.databaseHandler.getUserByID(Integer.parseInt(MainActivity.currentID)));
+=======
+                int xpAddition = (int) (((Hours * 60) + Minutes)/Distance);
+                System.out.println("Earned xp: " + xpAddition);
+                MainActivity.xpSystem.xpCheck(xpAddition, MainActivity.databaseHandler.getUserByID(Integer.parseInt(MainActivity.currentID)));
+>>>>>>> main
 
 
             }

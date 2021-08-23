@@ -99,6 +99,7 @@
     <TextView
         android:id="@+id/txtViewException"
         android:layout_width="206dp"
+<<<<<<< HEAD
         android:layout_height="56dp"
         android:textAlignment="center"
         android:layout_marginBottom="72dp"
@@ -110,5 +111,18 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         android:fontFamily="@font/prompt"/>
+=======
+        android:layout_height="90dp"
+        android:layout_marginBottom="56dp"
+        android:backgroundTint="@color/lightGrey"
+        android:fontFamily="@font/prompt"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textColorHint="#546E7A"
+        app:layout_constraintBottom_toTopOf="@+id/btnCreateUser"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent" />
+>>>>>>> main
 
 </androidx.constraintlayout.widget.ConstraintLayout>

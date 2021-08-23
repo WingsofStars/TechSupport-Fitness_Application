@@ -1,6 +1,7 @@
 package delware.apps.techsupport_scampermobile;
 
 import androidx.appcompat.app.AppCompatActivity;
+<<<<<<< HEAD
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -8,11 +9,18 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 public class Game_Settings extends RivalGuts {
+=======
+
+import android.os.Bundle;
+
+public class Game_Settings extends AppCompatActivity {
+>>>>>>> main
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_settings);
+<<<<<<< HEAD
         SeekBar sBar = (SeekBar) findViewById(R.id.seekBar2);
         TextView textOutput = findViewById(R.id.textOut);
         sBar.setProgress(difficulty);
@@ -50,4 +58,7 @@ public class Game_Settings extends RivalGuts {
         exitIntent();
     }
 
+=======
+    }
+>>>>>>> main
 }
