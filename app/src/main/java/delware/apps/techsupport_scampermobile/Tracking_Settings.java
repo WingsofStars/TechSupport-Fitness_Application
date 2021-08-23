@@ -3,10 +3,13 @@ package delware.apps.techsupport_scampermobile;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,14 +25,23 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 
+import java.util.List;
+
 public class Tracking_Settings extends AppCompatActivity {
     public static final int DEFAULT_UPDATE_INTERVAL = 30;
     public static final int FAST_UPDATE_INTERVAL = 5;
     private static final int PERMISSIONS_FINE_LOCATION = 69;
-    TextView tv_latitude, tv_longitude, tv_altitude, tv_accuracy, tv_speed, tv_sensor, tv_updates, tv_address;
+    TextView tv_latitude, tv_longitude, tv_altitude, tv_accuracy, tv_speed, tv_sensor, tv_updates, tv_address, tv_wayPointCounts;
+    Button btn_newWaypoint, btn_showWayPointList, btn_showMap;
     Switch sw_locationupdates, sw_gps;
     //if location tracking is on or off
     boolean updateOn = false;
+
+    //current location
+    Location currentLocation;
+
+    //list of saved locations
+    List<Location> savedLocations;
 
     //config file for settings related to FusedLocationProviderClient
     LocationRequest locationRequest;
@@ -37,7 +49,7 @@ public class Tracking_Settings extends AppCompatActivity {
     LocationCallback locationCallBack;
 
     //Google API for location services
-    FusedLocationProviderClient fusedLocationProviderClient;
+    private FusedLocationProviderClient fusedLocationClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,10 +66,14 @@ public class Tracking_Settings extends AppCompatActivity {
         tv_address = findViewById(R.id.tv_address);
         sw_locationupdates = findViewById(R.id.sw_locationupdates);
         sw_gps = findViewById(R.id.sw_gps);
+        btn_newWaypoint = findViewById(R.id.btn_newWaypoint);
+        btn_showWayPointList = findViewById(R.id.btn_showWaypointList);
+        tv_wayPointCounts = findViewById(R.id.tv_CountOfCrumbs);
+        btn_showMap = findViewById(R.id.btn_showMap);
 
-
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         //set properties of location request
-        locationRequest = new LocationRequest();
+        locationRequest = LocationRequest.create();
         locationRequest.setInterval(1000 * DEFAULT_UPDATE_INTERVAL);
         locationRequest.setFastestInterval(1000 * FAST_UPDATE_INTERVAL);
         locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
@@ -72,6 +88,34 @@ public class Tracking_Settings extends AppCompatActivity {
             }
         };
 
+        btn_newWaypoint.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //get gps location
+
+                //add items to list
+                LocationList locationList = (LocationList)getApplicationContext();
+                savedLocations = locationList.getMyLocations();
+                savedLocations.add(currentLocation);
+            }
+        });
+
+        btn_showWayPointList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Tracking_Settings.this, ShowSavedLocationsList.class);
+                startActivity(i);
+            }
+        });
+
+        btn_showMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Tracking_Settings.this, MapsActivity.class);
+                startActivity(i);
+            }
+        });
+
         sw_gps.setOnClickListener(v -> {
             if (sw_gps.isChecked()) {
                 //uses GPS - most accurate
@@ -83,7 +127,7 @@ public class Tracking_Settings extends AppCompatActivity {
             }
         });
 
-        /*sw_locationupdates.setOnClickListener(v -> {
+        sw_locationupdates.setOnClickListener(v -> {
             if (sw_locationupdates.isChecked()) {
                 startLocationUpdates();
 
@@ -91,13 +135,13 @@ public class Tracking_Settings extends AppCompatActivity {
                 stopLocationUpdates();
 
             }
-        });*/
+        });
 
         updateGPS();
 
     }
 
-    /*private void stopLocationUpdates() {
+    private void stopLocationUpdates() {
         tv_updates.setText("Location is NOT being tracked");
         tv_latitude.setText("Not tracking location");
         tv_longitude.setText("Not tracking location");
@@ -106,17 +150,18 @@ public class Tracking_Settings extends AppCompatActivity {
         tv_accuracy.setText("Not tracking location");
         tv_altitude.setText("Not tracking location");
 
-        fusedLocationProviderClient.removeLocationUpdates(locationCallBack);
-    }*/
+        fusedLocationClient.removeLocationUpdates(locationRequest, locationCallBack, null);
+        updateGPS();
+    }
 
-    /*private void startLocationUpdates() {
+    private void startLocationUpdates() {
         tv_updates.setText("Location is being tracked");
 
-        fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallBack, null);
+        fusedLocationClient.requestLocationUpdates(locationCallBack);
         updateGPS();
 
 
-    }*/
+    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -134,14 +179,19 @@ public class Tracking_Settings extends AppCompatActivity {
         }    }
 
     private void updateGPS() {
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(Tracking_Settings.this);
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(Tracking_Settings.this);
         if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
             //user has given permission
-            fusedLocationProviderClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+            //gets last known location
+            fusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
                 @Override
                 public void onSuccess(Location location) {
 
                     updateUIValues(location);
+                    currentLocation = location;
+                    if(location != null) {
+                        System.out.println("location is null");
+                    }
                 }
             });
 
@@ -173,10 +223,26 @@ public class Tracking_Settings extends AppCompatActivity {
         } else {
             tv_speed.setText("Not available");
         }
+
+        Geocoder geocoder = new Geocoder(Tracking_Settings.this);
+        try{
+            List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1 );
+            tv_address.setText(addresses.get(0).getAddressLine(0));
+
+        }catch (Exception e) {
+            tv_address.setText("Unable to get street address");
+
+        }
+
+        LocationList locationList = (LocationList)getApplicationContext();
+        savedLocations = locationList.getMyLocations();
+
+        //show number of items in list
+        tv_wayPointCounts.setText(Integer.toString(savedLocations.size()));
     }
 
     public void exitIntent(){
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        Intent intent = new Intent(getApplicationContext(), Tracking_Settings.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);//Exits current intent
         intent.putExtra("EXIT", true);
         startActivity(intent);
