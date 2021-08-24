@@ -4,6 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+<<<<<<< HEAD
+    tools:context=".Screens.settings">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="67dp"
+        android:text="Settings"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+=======
     tools:context=".settings"
     android:background="@color/white">
 
@@ -15,11 +28,22 @@
         tools:layout_editor_absoluteY="56dp" >
 
     </ListView>
+>>>>>>> main
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="52dp"
         android:layout_height="39dp"
+<<<<<<< HEAD
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="12dp"
+        android:clickable="true"
+        android:onClick="goBack"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+=======
         android:clickable="true"
         android:onClick="goBack"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -28,6 +52,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.023"
+>>>>>>> main
         app:srcCompat="@drawable/previous_icon" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

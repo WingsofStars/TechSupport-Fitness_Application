@@ -10,34 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TechSupport_ScamperMobile" >
         <activity
-            android:name=".Dev_Settings"
-            android:exported="true" />
-        <activity
-            android:name=".Statistics"
-            android:exported="true" />
-        <activity
-            android:name=".Game_Settings"
-            android:exported="true" />
-        <activity
-            android:name=".Profile_Settings"
-            android:exported="true" />
-        <activity
-            android:name=".Screens.newUserScreen"
-            android:exported="true" />
-        <activity android:name=".stickerWallScreen"
-            android:exported="true"/>
-        <activity
-            android:name=".Screens.trackingScreen"
-            android:exported="true" />
-        <activity
-            android:name=".cardioDisplayScreen"
-            android:exported="true" />
-        <activity
-            android:name=".Screens.settings"
-            android:exported="true" />
-        <activity android:name=".discRackScreen"
-            android:exported="true"/>
-        <activity
             android:name=".MainActivity"
             android:exported="true" >
             <intent-filter>
