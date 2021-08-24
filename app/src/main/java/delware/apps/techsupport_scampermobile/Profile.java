@@ -95,7 +95,7 @@ public class Profile {
 
     public void setAge(int age){this.age = age;}
 
-    public int getGender(){return age;}
+    public String getGender(){return gender;}
 
     public void setGender(String gender){this.gender = gender;}
 
