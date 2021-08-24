@@ -35,7 +35,6 @@ public class Tracking_Settings extends AppCompatActivity {
     Button btn_newWaypoint, btn_showWayPointList, btn_showMap;
     Switch sw_locationupdates, sw_gps;
     //if location tracking is on or off
-    boolean updateOn = false;
 
     //current location
     Location currentLocation;
@@ -130,9 +129,11 @@ public class Tracking_Settings extends AppCompatActivity {
 
         sw_locationupdates.setOnClickListener(v -> {
             if (sw_locationupdates.isChecked()) {
+                //turn on location tracking
                 startLocationUpdates();
 
             } else {
+                //turn off location tracking
                 stopLocationUpdates();
 
             }

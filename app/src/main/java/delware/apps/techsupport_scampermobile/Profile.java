@@ -10,6 +10,8 @@ public class Profile {
     private String salt;
     private double Height;
     private double Weight;
+    private int age;
+    private String gender;
     private int level;
     private int XP;
 
@@ -24,23 +26,25 @@ public class Profile {
     }
 
     //profile constructor
-    public Profile(int profileID, String userName, String password, String salt, double height, double weight, int level, int XP) {
+    public Profile(int profileID, String userName, String password, String salt, double height, double weight, int age, String gender, int level, int XP) {
         this.profileID = profileID;
         this.userName = userName;
         this.password = password;
         this.salt = salt;
         this.Height = height;
         this.Weight = weight;
+        this.age = age;
+        this.gender = gender;
         this.level = level;
         this.XP = XP;
     }
     //Gives an ID to the profile and returns it also calling the database handler
-    public static Profile Create(String userName, String password, String salt, double height, double weight, int level, int xp)
+    public static Profile Create(String userName, String password, String salt, double height, double weight, int age, String gender, int level, int xp)
     {
         // add data to database
-        int id = newUserScreen.db.addNewUser(userName, password, salt, height, weight, level, xp);
+        int id = newUserScreen.db.addNewUser(userName, password, salt, height, weight, age, gender, level, xp);
         // create profile
-        return new Profile(id, userName, password,salt, height, weight, level, xp);
+        return new Profile(id, userName, password,salt, height, weight, age, gender, level, xp);
     }
 
     /*public int getProfileID() {
@@ -86,6 +90,14 @@ public class Profile {
     public void setWeight(double weight) {
         Weight = weight;
     }
+
+    public int getAge(){return age;}
+
+    public void setAge(int age){this.age = age;}
+
+    public int getGender(){return age;}
+
+    public void setGender(String gender){this.gender = gender;}
 
     public int getLevel() {
         return level;
