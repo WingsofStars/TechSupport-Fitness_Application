@@ -154,13 +154,13 @@ public class MainActivity extends AppCompatActivity {
         Intent goToCollection = new Intent(MainActivity.this, stickerWallScreen.class);
         startActivity(goToCollection);
     }
-    /*
+
     public void goToRivalScreen(View v){
-        Intent goToRival = new Intent(MainActivity.this, rival.class);
-        startActivity(goToCollection);
+        Intent goToRival = new Intent(MainActivity.this, rivalScreen.class);
+        startActivity(goToRival);
     }
 
-     */
+
 
     public void closePopUp(View v){
         dialogue.dismiss();
