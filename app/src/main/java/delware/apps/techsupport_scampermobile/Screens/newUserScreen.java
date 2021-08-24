@@ -26,6 +26,7 @@ import delware.apps.techsupport_scampermobile.RegexRunner;
 public class newUserScreen extends AppCompatActivity {
     public SharedPreferences prefs;
     public static DBHandler db;
+    Spinner sGender = findViewById(R.id.s_Gender);
     public String strGender = "Male";
     LocalDate current = LocalDate.now();
 
@@ -37,6 +38,12 @@ public class newUserScreen extends AppCompatActivity {
         prefs = getSharedPreferences("prefs", MODE_PRIVATE);
 
         db = new DBHandler(this);
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.GenderSelection, R.layout.spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+
+        sGender.setAdapter(adapter);
     }
     //gets text from text box and runs it against regex and passes it to Profile
     public void createUser(View v){
@@ -48,13 +55,9 @@ public class newUserScreen extends AppCompatActivity {
         EditText etWeight = findViewById(R.id.Weight);
         EditText etBirthYear = findViewById(R.id.et_BirthYear);
 
-        Spinner sGender = findViewById(R.id.s_Gender);
-
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.GenderSelection, R.layout.spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 
-        sGender.setAdapter(adapter);
+
         sGender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
