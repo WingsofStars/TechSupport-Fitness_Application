@@ -26,7 +26,7 @@ import delware.apps.techsupport_scampermobile.RegexRunner;
 public class newUserScreen extends AppCompatActivity {
     public SharedPreferences prefs;
     public static DBHandler db;
-    Spinner sGender = findViewById(R.id.s_Gender);
+    Spinner sGender;
     public String strGender = "Male";
     LocalDate current = LocalDate.now();
 
@@ -38,6 +38,8 @@ public class newUserScreen extends AppCompatActivity {
         prefs = getSharedPreferences("prefs", MODE_PRIVATE);
 
         db = new DBHandler(this);
+
+        sGender = findViewById(R.id.s_Gender);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.GenderSelection, R.layout.spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
