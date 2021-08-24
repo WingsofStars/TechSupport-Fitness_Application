@@ -13,7 +13,7 @@ public class Game_Settings extends RivalGuts {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_settings);
-        SeekBar sBar = (SeekBar) findViewById(R.id.seekBar2);
+        SeekBar sBar = findViewById(R.id.seekBar2);
         TextView textOutput = findViewById(R.id.textOut);
         sBar.setProgress(difficulty);
         textOutput.setText(difficulty);
