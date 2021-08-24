@@ -61,7 +61,6 @@ public class Profile_Settings extends AppCompatActivity {
 
 
 
-
                 if (btn.getText().toString().equalsIgnoreCase("Sign Out")) {
                     SharedPreferences.Editor editor = MainActivity.prefs.edit();
                     editor.putString("Username", "");

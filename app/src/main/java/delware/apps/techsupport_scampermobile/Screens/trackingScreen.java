@@ -5,20 +5,38 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import delware.apps.techsupport_scampermobile.MainActivity;
 import delware.apps.techsupport_scampermobile.R;
 
 public class trackingScreen extends AppCompatActivity {
+    public TextView timetxt;
+    public TextView distancetxt;
+    public TextView speedtxt;
+    public ImageView pausebtn;
+    public ImageView playbtn;
+    public ImageView stopbtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tracking_screen);
+        timetxt = findViewById(R.id.tvTime);
+        distancetxt = findViewById(R.id.tvDistance);
+        speedtxt = findViewById(R.id.tvSpeed);
+        pausebtn = findViewById(R.id.btnPause);
+        playbtn = findViewById(R.id.btnPlay);
+        stopbtn = findViewById(R.id.btnStop);
+
+        stopbtn.setEnabled(false);
+        pausebtn.setEnabled(false);
     }
 
+
     //    THIS IS AN IMPORTANT FUNCTION TO EXIT THE CURRENT INTENT AND GO BACK TO THE PREVIOUS ACTIVITY
-    public void exitIntent(){
+    public void exitIntent() {
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);//Exits current intent
         intent.putExtra("EXIT", true);
@@ -26,7 +44,53 @@ public class trackingScreen extends AppCompatActivity {
     }
 
     //Clickable Icon Lets the user exit current intent/activity and return to the previous screen
-    public void goBack(View v){
+    public void goBack(View v) {
         exitIntent();
     }
+
+
+    public void StartRun(View v){
+        playbtn.setEnabled(false);
+        playbtn.setVisibility(View.INVISIBLE);
+        stopbtn.setVisibility(View.VISIBLE);
+        pausebtn.setVisibility(View.VISIBLE);
+
+        //Start Timer and Tracking
+
+        pausebtn.setEnabled(true);
+        stopbtn.setEnabled(true);
+    }
+
+    public void PauseRun(View v){
+        playbtn.setVisibility(View.VISIBLE);
+        pausebtn.setVisibility(View.INVISIBLE);
+        pausebtn.setEnabled(false);
+
+
+
+
+        playbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //continue timer
+
+
+            }
+        });
+
+
+
+    }
+
+    public void StopRun(View v){
+        //STOP EVERYTHING
+        pausebtn.setEnabled(false);
+        pausebtn.setVisibility(View.INVISIBLE);
+        stopbtn.setEnabled(false);
+        stopbtn.setVisibility(View.INVISIBLE);
+
+        playbtn.setVisibility(View.VISIBLE);
+        playbtn.setEnabled(true);
+    }
+
 }

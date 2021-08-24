@@ -60,6 +60,7 @@
         app:layout_constraintTop_toBottomOf="@+id/txtUsername" />
 
     <EditText
+        android:maxLength="2"
         android:id="@+id/Height1"
         android:layout_width="97dp"
         android:layout_height="51dp"
@@ -83,6 +84,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:maxLength="3"
         android:hint="Weight:"
         android:inputType="numberDecimal"
         android:minHeight="48dp"
