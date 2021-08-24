@@ -71,13 +71,10 @@
         android:inputType="number"
         app:layout_constraintBottom_toTopOf="@+id/Weight"
         app:layout_constraintEnd_toEndOf="parent"
-        android:backgroundTint="@color/lightGrey"
-        android:textColor="@color/black"
-        android:textColorHint="#546E7A"
+        app:layout_constraintHorizontal_bias="0.05"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtPassword"
-        android:fontFamily="@font/prompt"
-        app:layout_constraintVertical_bias="0.293" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/Weight"
@@ -112,5 +109,29 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/et_BirthYear"
+        android:layout_width="90dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="68dp"
+        android:ems="10"
+        android:inputType="number|textPersonName"
+        android:text="Birth Year"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.961"
+        app:layout_constraintStart_toEndOf="@+id/Height1"
+        app:layout_constraintTop_toBottomOf="@+id/txtPassword" />
+
+    <Spinner
+        android:id="@+id/s_Gender"
+        android:layout_width="92dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.604"
+        app:layout_constraintStart_toEndOf="@+id/Weight"
+        app:layout_constraintTop_toBottomOf="@+id/et_BirthYear" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

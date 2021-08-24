@@ -13,9 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import delware.apps.techsupport_scampermobile.Screens.newUserScreen;
-import delware.apps.techsupport_scampermobile.Screens.settings;
-import delware.apps.techsupport_scampermobile.Utils;
-import delware.apps.techsupport_scampermobile.R.layout.*;
 
 
 public class Profile_Settings extends AppCompatActivity {

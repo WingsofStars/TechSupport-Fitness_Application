@@ -15,7 +15,6 @@ import android.widget.EditText;
 import java.util.ArrayList;
 
 import delware.apps.techsupport_scampermobile.Screens.newUserScreen;
-import delware.apps.techsupport_scampermobile.Screens.settings;
 import delware.apps.techsupport_scampermobile.Screens.trackingScreen;
 
 public class MainActivity extends AppCompatActivity {

@@ -9,8 +9,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import delware.apps.techsupport_scampermobile.Screens.settings;
-
 public class Statistics extends AppCompatActivity {
      TextView calories;
     TextView distance;
