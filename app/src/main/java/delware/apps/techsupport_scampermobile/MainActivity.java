@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     public AlertDialog dialogue;
     static TextView TVXP;
     public static String currentID;
-    //MediaPlayer mp;
+//    MediaPlayer mp;
     public static DBHandler databaseHandler;
     public static xpSystem xpSystem;
     static ArrayList<RunLog> RunLogs = new ArrayList<>();
@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         databaseHandler = new DBHandler(MainActivity.this);
         xpSystem = new xpSystem();
         TVXP = findViewById(R.id.xpBar);
-        //mp = MediaPlayer.create(this, R.raw.duckquack);
+//        mp = MediaPlayer.create(this, R.raw.duckquack);
 
 
         prefs = getSharedPreferences("prefs", MODE_PRIVATE);
