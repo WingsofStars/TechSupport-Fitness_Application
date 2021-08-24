@@ -1,21 +1,29 @@
 package delware.apps.techsupport_scampermobile;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 
+import android.location.Location;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.List;
 
 import delware.apps.techsupport_scampermobile.databinding.ActivityMapsBinding;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+
+    List<Location> savedLocations;
     private ActivityMapsBinding binding;
 
     @Override
@@ -29,6 +37,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        LocationList locationList = (LocationList)getApplicationContext();
+        savedLocations = locationList.getMyLocations();
+
     }
 
     /**
@@ -46,7 +58,35 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // Add a marker in Sydney and move the camera
         LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+        //mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+
+        LatLng lastLocationPlaced = sydney;
+
+        //adds locations from location list to map as markers
+        for (Location location: savedLocations){
+            LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+            mMap.addMarker(new MarkerOptions().position(latLng).title("Latitude: " + location.getLatitude()
+             + "Longitude: " + location.getLongitude()));
+            lastLocationPlaced = latLng;
+
+        }
+
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(lastLocationPlaced, 12.0f));
+
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(@NonNull Marker marker) {
+                Integer clicks = (Integer) marker.getTag();
+                if (clicks == null) {
+                    clicks = 0;
+                }
+                clicks++;
+                marker.setTag(clicks);
+                Toast.makeText(MapsActivity.this, "Marker " + marker.getTitle() + " was clicked "
+                        + marker.getTag() + " times", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        });
     }
 }

@@ -77,6 +77,7 @@ public class Tracking_Settings extends AppCompatActivity {
         locationRequest.setInterval(1000 * DEFAULT_UPDATE_INTERVAL);
         locationRequest.setFastestInterval(1000 * FAST_UPDATE_INTERVAL);
         locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+
         //event that is triggered whenever the update interval is met
         locationCallBack = new LocationCallback() {
             @Override
@@ -150,14 +151,13 @@ public class Tracking_Settings extends AppCompatActivity {
         tv_accuracy.setText("Not tracking location");
         tv_altitude.setText("Not tracking location");
 
-        fusedLocationClient.removeLocationUpdates(locationRequest, locationCallBack, null);
-        updateGPS();
+        fusedLocationClient.removeLocationUpdates(locationCallBack);
     }
 
     private void startLocationUpdates() {
         tv_updates.setText("Location is being tracked");
 
-        fusedLocationClient.requestLocationUpdates(locationCallBack);
+        fusedLocationClient.requestLocationUpdates(locationRequest, locationCallBack, null);
         updateGPS();
 
 
@@ -179,7 +179,6 @@ public class Tracking_Settings extends AppCompatActivity {
         }    }
 
     private void updateGPS() {
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(Tracking_Settings.this);
         if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
             //user has given permission
             //gets last known location
@@ -208,7 +207,7 @@ public class Tracking_Settings extends AppCompatActivity {
         // update all of the text view objects with a new location
         tv_latitude.setText(String.valueOf(location.getLatitude()));
         tv_longitude.setText(String.valueOf(location.getLongitude()));
-        tv_accuracy.setText(String.valueOf(location.getLatitude()));
+        tv_accuracy.setText(String.valueOf(location.getAccuracy()));
 
         if (location.hasAltitude()) {
             tv_altitude.setText(String.valueOf(location.getAltitude()));
@@ -224,6 +223,7 @@ public class Tracking_Settings extends AppCompatActivity {
             tv_speed.setText("Not available");
         }
 
+        //Geocoder
         Geocoder geocoder = new Geocoder(Tracking_Settings.this);
         try{
             List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1 );
