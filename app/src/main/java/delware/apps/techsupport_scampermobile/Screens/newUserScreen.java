@@ -88,7 +88,7 @@ public class newUserScreen extends AppCompatActivity {
             txtException.setText("height and weight cant be null");
             return;
         }
-
+        //calculates Age
         String strBirthYear = etBirthYear.getText().toString();
         int birthYear = Integer.parseInt(strBirthYear);
         int age = current.getYear() - birthYear;
