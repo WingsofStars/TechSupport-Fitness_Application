@@ -3,7 +3,7 @@ package delware.apps.techsupport_scampermobile;
 import java.util.ArrayList;
 
 public class CalorieCalculator {
-
+    //used to assign a MET value via speed
     private static class METCutoff
     {
         METCutoff(double c, double v){
@@ -18,12 +18,12 @@ public class CalorieCalculator {
     static Tracking_Settings s = new Tracking_Settings();
 
     private static double BMR;
-    private static double weightKg = profile.getWeight() * 0.45359237;
-    private static double heightCm = profile.getHeight() * 2.54;
-    private static int age = profile.getAge();
-    private static String sex = profile.getGender();
+    private static double weightKg;
+    private static double heightCm;
+    private static int age;
+    private static String sex;
 
-    private static ArrayList<METCutoff> walkrunMET;
+    private static ArrayList<METCutoff> walkrunMET = new ArrayList<>();
 
     public static void setProfile(Profile p)
     {
@@ -44,6 +44,11 @@ public class CalorieCalculator {
         walkrunMET.add(new METCutoff(13, 19.8));
         walkrunMET.add(new METCutoff(14, 23.0));
         walkrunMET.add(new METCutoff(100, 24.0));
+
+        weightKg = profile.getWeight() * 0.45359237;
+        heightCm = profile.getHeight() * 2.54;
+        age = profile.getAge();
+        sex = profile.getGender();
 
         calculateBMR();
 

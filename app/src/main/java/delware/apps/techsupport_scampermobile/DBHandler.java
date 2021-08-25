@@ -75,8 +75,8 @@ public class DBHandler extends SQLiteOpenHelper{
         values.put(KEY_NAME, userName);
         values.put(KEY_PASSWORD, password);
         values.put(SALT, salt);
-        values.put(KEY_HEIGHT, weight);
-        values.put(KEY_WEIGHT, height);
+        values.put(KEY_HEIGHT, height);
+        values.put(KEY_WEIGHT, weight);
         values.put(KEY_AGE, age);
         values.put(KEY_GENDER, gender);
         values.put(KEY_LEVEL, level);
@@ -99,7 +99,7 @@ public class DBHandler extends SQLiteOpenHelper{
     // Get profile from user id
     public Profile getUserByID(int id){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.query(TABLE_USERS, new String[] {KEY_ID,KEY_NAME,KEY_PASSWORD,SALT, KEY_WEIGHT, KEY_HEIGHT,KEY_AGE,KEY_GENDER, KEY_LEVEL,KEY_XP}, KEY_ID + "=?",
+        Cursor cursor = db.query(TABLE_USERS, new String[] {KEY_ID,KEY_NAME,KEY_PASSWORD,SALT, KEY_HEIGHT, KEY_WEIGHT,KEY_AGE,KEY_GENDER, KEY_LEVEL,KEY_XP}, KEY_ID + "=?",
                 new String[] { String.valueOf(id) }, null, null, null, null);
         if(cursor == null) return new Profile();
         else cursor.moveToFirst();
@@ -146,8 +146,8 @@ public class DBHandler extends SQLiteOpenHelper{
                 profile.setUserID(Integer.parseInt(cursor.getString(0)));
                 profile.setUserName(cursor.getString(1));
                 profile.setPassword(cursor.getString(2));
-                profile.setWeight(Double.parseDouble(cursor.getString(4)));
-                profile.setHeight(Double.parseDouble(cursor.getString(5)));
+                profile.setHeight(Double.parseDouble(cursor.getString(4)));
+                profile.setWeight(Double.parseDouble(cursor.getString(5)));
                 profile.setAge(Integer.parseInt(cursor.getString(6)));
                 profile.setGender(cursor.getString(7));
                 profile.setLevel(Integer.parseInt(cursor.getString(8)));
@@ -171,8 +171,8 @@ public class DBHandler extends SQLiteOpenHelper{
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, profile.getUserName());
         values.put(KEY_PASSWORD, profile.getPassword());
-        values.put(KEY_WEIGHT, profile.getWeight());
         values.put(KEY_HEIGHT, profile.getHeight());
+        values.put(KEY_WEIGHT, profile.getWeight());
         values.put(KEY_AGE, profile.getAge());
         values.put(KEY_GENDER, profile.getGender());
         values.put(KEY_XP, profile.getXP());

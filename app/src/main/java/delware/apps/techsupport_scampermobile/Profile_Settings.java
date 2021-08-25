@@ -23,7 +23,7 @@ public class Profile_Settings extends AppCompatActivity {
     TextView Weight;
     Button btn;
     public AlertDialog.Builder dBuilder;
-    public AlertDialog dialogue;
+    public static AlertDialog dialogue;
     public Utils utils;
 
     @Override
@@ -58,7 +58,6 @@ public class Profile_Settings extends AppCompatActivity {
 
 
 
-
                 if (btn.getText().toString().equalsIgnoreCase("Sign Out")) {
                     SharedPreferences.Editor editor = MainActivity.prefs.edit();
                     editor.putString("Username", "");
@@ -81,6 +80,7 @@ public class Profile_Settings extends AppCompatActivity {
                     dBuilder.setView(loginPopup);
                     dialogue = dBuilder.create();
                     dialogue.show();
+                    MainActivity.isFromMain = false;
 
                     button = (Button) loginPopup.findViewById(R.id.btnLogin);
 

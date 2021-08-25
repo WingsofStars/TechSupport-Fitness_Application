@@ -11,6 +11,8 @@
         android:layout_height="?android:attr/listPreferredItemHeight"
         android:fontFamily="@font/prompt"
         android:textColor="@color/lightBlue"
+        android:textAlignment="textStart"
+        android:paddingLeft="15dp"
         android:textSize="22sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
