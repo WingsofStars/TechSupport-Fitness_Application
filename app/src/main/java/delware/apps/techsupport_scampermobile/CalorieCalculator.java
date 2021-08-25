@@ -16,7 +16,7 @@ public class CalorieCalculator {
 
     static Profile profile;// = MainActivity.databaseHandler.getUserByID(Integer.parseInt(MainActivity.currentID));
     static Tracking_Settings s = new Tracking_Settings();
-    private static double METValue;
+
     private static double BMR;
     private static double weightKg = profile.getWeight() * 0.45359237;
     private static double heightCm = profile.getHeight() * 2.54;
@@ -45,6 +45,7 @@ public class CalorieCalculator {
         walkrunMET.add(new METCutoff(14, 23.0));
         walkrunMET.add(new METCutoff(100, 24.0));
 
+        calculateBMR();
 
     }
 
@@ -61,11 +62,11 @@ public class CalorieCalculator {
         return BMR;
     }
     //use if Tracking settings has speed already
-    public static double caloriesWalking(){
-        //in meters per second to KPH
-        double calories = ((s.currentSpeed * 3.6) * 1.17);
-        return 0.0;
+    public static double caloriesBurned(){
+        double calories = (getMETValue(s.currentSpeed) * 3.5 * BMR);
+        return calories;
     }
+
 
     public static double getMETValue(double speedMPS){
         double speedMPH = speedMPS * 2.2369362920544;
@@ -77,7 +78,7 @@ public class CalorieCalculator {
                 return cutoff.value;
         }
 
-        //4.5mph is the high for walking
+
         return -1.0;
     }
 
