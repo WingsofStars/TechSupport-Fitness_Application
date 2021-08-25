@@ -21,6 +21,9 @@ public class xpSystem {
 =======
         if(user.getLevel() == 20) {
             MainActivity.TVXP.setText(String.format(format, "MAX", "MAX", user.getLevel() ));
+        } else if(user.getLevel() == 0) {
+            user.setLevel(1);
+            MainActivity.TVXP.setText(String.format(format, 0, levelValues[user.getLevel()], user.getLevel() ));
         } else if(xpAmount > xpReq) {
 >>>>>>> main
             xpRollOver(xpAmount, xpReq, user);

@@ -7,21 +7,29 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.time.LocalDate;
 
 import delware.apps.techsupport_scampermobile.DBHandler;
 import delware.apps.techsupport_scampermobile.MainActivity;
 import delware.apps.techsupport_scampermobile.PasswordUtils;
 import delware.apps.techsupport_scampermobile.Profile;
+import delware.apps.techsupport_scampermobile.Profile_Settings;
 import delware.apps.techsupport_scampermobile.R;
 import delware.apps.techsupport_scampermobile.RegexRunner;
-import delware.apps.techsupport_scampermobile.Utils;
 
 public class newUserScreen extends AppCompatActivity {
     public SharedPreferences prefs;
     public static DBHandler db;
+    Spinner sGender;
+    public String strGender = "Male";
+    LocalDate current = LocalDate.now();
 
 
     @Override
@@ -31,6 +39,14 @@ public class newUserScreen extends AppCompatActivity {
         prefs = getSharedPreferences("prefs", MODE_PRIVATE);
 
         db = new DBHandler(this);
+
+        sGender = findViewById(R.id.s_Gender);
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.GenderSelection, R.layout.spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+
+        sGender.setAdapter(adapter);
     }
     //gets text from text box and runs it against regex and passes it to Profile
     public void createUser(View v){
@@ -40,6 +56,26 @@ public class newUserScreen extends AppCompatActivity {
         EditText txtPassword = findViewById(R.id.txtPassword);
         EditText etHeight = findViewById(R.id.Height1);
         EditText etWeight = findViewById(R.id.Weight);
+        EditText etBirthYear = findViewById(R.id.et_BirthYear);
+
+
+
+
+        sGender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position) {
+                    case 1: strGender = "Male";
+                    break;
+                    case 2: strGender = "female";
+                    break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
 
         String strUsername = txtUsername.getText().toString();
         String strPassword = txtPassword.getText().toString();
@@ -53,6 +89,11 @@ public class newUserScreen extends AppCompatActivity {
             txtException.setText("height and weight cant be null");
             return;
         }
+        //calculates Age
+        String strBirthYear = etBirthYear.getText().toString();
+        int birthYear = Integer.parseInt(strBirthYear);
+        int age = current.getYear() - birthYear;
+
 
         double height = Double.parseDouble(strHeight);
         double weight = Double.parseDouble(strWeight);
@@ -72,7 +113,7 @@ public class newUserScreen extends AppCompatActivity {
         String encPassword = PasswordUtils.generateSecurePassword(strPassword, salt);
 
         Log.d("Insert: ", "Inserting");
-        Profile p = Profile.Create(strUsername, encPassword, salt, height, weight, 1, 0);
+        Profile p = Profile.Create(strUsername, encPassword, salt, height, weight, age, strGender, 1, 0);
 
         SharedPreferences.Editor editor = prefs.edit(); // Editor for the SP's
         editor.putString("Username", strUsername);
@@ -82,6 +123,12 @@ public class newUserScreen extends AppCompatActivity {
         MainActivity.currentID = String.valueOf(prefs.getInt("id", 0));
         exitIntent();
         Toast.makeText(getApplicationContext(), "User Created", Toast.LENGTH_LONG).show();//Makes a dialogue box that says the user is created
+        if(MainActivity.isFromMain) {
+        MainActivity.dialogue.dismiss();
+        }
+        else if(!MainActivity.isFromMain){
+            Profile_Settings.dialogue.dismiss();
+        }
     }
 
 
@@ -91,4 +138,6 @@ public class newUserScreen extends AppCompatActivity {
         intent.putExtra("EXIT", true);
         startActivity(intent);
     }
+
+
 }

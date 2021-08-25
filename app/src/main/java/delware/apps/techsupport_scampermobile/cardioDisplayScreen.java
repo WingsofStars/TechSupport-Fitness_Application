@@ -164,25 +164,10 @@ int Position2;
                 //check Data
 
 
-<<<<<<< HEAD
-
-
-                try {
-                    int Hours;
-                    float Distance = Float.valueOf(distance.getText().toString());
-                    int Calories = Integer.valueOf(calories.getText().toString());
-                    float Minutes = Float.valueOf(minutes.getText().toString());
-                    if(hours.getText().toString().equals("")){
-                        Hours = 0;
-                    }
-                    else {
-                        Hours = Integer.valueOf(hours.getText().toString());
-                    }
-=======
                 int Hours;
-                float Distance = Float.valueOf(distance.getText().toString());
-                int Calories = Integer.valueOf(calories.getText().toString());
-                float Minutes = Float.valueOf(minutes.getText().toString());
+                float Distance;
+                int Calories;
+                float Minutes;
                 if(hours.getText().toString().equals("")){
                     Hours = 0;
                 }
@@ -191,11 +176,14 @@ int Position2;
                 }
 
                 try {
->>>>>>> main
+                    Distance = Float.valueOf(distance.getText().toString());
                     if (Distance == 0 ){
                         Error.setText("Zero is not an acceptable entry for Distance.");
                         return;
                     }
+                    Minutes = Float.valueOf(minutes.getText().toString());
+
+                    Calories = Integer.valueOf(calories.getText().toString());
 
                     String Type = type.getItemAtPosition(Position2).toString();
                     String Date = date.getText().toString();
@@ -215,18 +203,21 @@ int Position2;
                     dialog.dismiss();
                     Refresh();
 
-                }catch (Exception e){
+
+                    if (MainActivity.prefs.getBoolean("LoggedIn", false)){
+                        int xpAddition = (int) (((Hours * 60) + Minutes)/Distance);
+                        System.out.println("Earned xp: " + xpAddition);
+                        MainActivity.xpSystem.xpCheck(xpAddition, MainActivity.databaseHandler.getUserByID(Integer.parseInt(MainActivity.currentID)));
+                    }
+
+                }catch (NumberFormatException NFE){
+                    Error.setText("Make Sure All values are filled in");
+                }
+                catch (Exception e){
                     Error.setText("Your Information is Either Incomplete or Faulty");
                 }
                 //XP Tie in
-<<<<<<< HEAD
-                //Todo update xp formula
-                MainActivity.xpSystem.xpCheck(25, MainActivity.databaseHandler.getUserByID(Integer.parseInt(MainActivity.currentID)));
-=======
-                int xpAddition = (int) (((Hours * 60) + Minutes)/Distance);
-                System.out.println("Earned xp: " + xpAddition);
-                MainActivity.xpSystem.xpCheck(xpAddition, MainActivity.databaseHandler.getUserByID(Integer.parseInt(MainActivity.currentID)));
->>>>>>> main
+
 
 
             }

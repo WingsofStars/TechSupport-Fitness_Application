@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TechSupport_ScamperMobile</string>
+    <string name="app_name">Scamper</string>
     <string name="GoBack">Go Back</string>
     <string name="Signup"><u>Sign Up Here</u></string>
     <string-array name="CardioType">
@@ -14,4 +14,10 @@
         <item>Elliptical</item>
     </string-array>
     <string name="ChangeInfo"><u>Change Information</u></string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string-array name="GenderSelection">
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+    <string name="welcome">Thank you for using TechSupport\'s Runnning Instructor, <u>Scamper</u> \nTry Swiping Left and Right</string>
 </resources>

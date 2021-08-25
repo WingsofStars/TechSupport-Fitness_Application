@@ -1,4 +1,4 @@
-package delware.apps.techsupport_scampermobile.Screens;
+package delware.apps.techsupport_scampermobile;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -24,6 +24,7 @@ public class settings extends AppCompatActivity {
     public static final String GAME = "GAME Settings";
     public static final String STATISTICS = "Statistics";
     public static final String DEV = "Dev Settings";
+    public static final String GPS = "Tracking Settings";
     public ListView subMenu;
     public ArrayList<String> submenuItems = new ArrayList<>();
 
@@ -38,6 +39,7 @@ public class settings extends AppCompatActivity {
         submenuItems.add(GAME);
         submenuItems.add(STATISTICS);
         submenuItems.add(DEV);
+        submenuItems.add(GPS);
         SimpleListAdapter adapter = new SimpleListAdapter(this, R.layout.row , submenuItems);
         subMenu.setAdapter(adapter);
 
@@ -59,6 +61,11 @@ public class settings extends AppCompatActivity {
                 else if(id == submenuItems.indexOf(DEV)){
                     Intent goToDev = new Intent(getApplicationContext(), Dev_Settings.class);
                     startActivity(goToDev);
+                }
+                else if(id == submenuItems.indexOf(GPS)){
+                    Intent goToTracking = new Intent(getApplicationContext(), Tracking_Settings.class);
+                    startActivity(goToTracking);
+
                 }
 
 //                switch (adapter.getItem(position)){
@@ -89,6 +96,12 @@ public class settings extends AppCompatActivity {
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);//Exits current intent
         intent.putExtra("EXIT", true);
         startActivity(intent);
+
+        if(Integer.parseInt(MainActivity.currentID) != 0) {
+            MainActivity.xpSystem.xpCheck(0, MainActivity.databaseHandler.getUserByID(Integer.parseInt(MainActivity.currentID)));
+        } else {
+            MainActivity.TVXP.setText("0 / 0 | Level 0");
+        }
     }
 
     //Clickable Icon Lets the user exit current intent/activity and return to the previous screen

@@ -13,9 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import delware.apps.techsupport_scampermobile.Screens.newUserScreen;
-import delware.apps.techsupport_scampermobile.Screens.settings;
-import delware.apps.techsupport_scampermobile.Utils;
-import delware.apps.techsupport_scampermobile.R.layout.*;
 
 
 public class Profile_Settings extends AppCompatActivity {
@@ -26,7 +23,7 @@ public class Profile_Settings extends AppCompatActivity {
     TextView Weight;
     Button btn;
     public AlertDialog.Builder dBuilder;
-    public AlertDialog dialogue;
+    public static AlertDialog dialogue;
     public Utils utils;
 
     @Override
@@ -61,7 +58,6 @@ public class Profile_Settings extends AppCompatActivity {
 
 
 
-
                 if (btn.getText().toString().equalsIgnoreCase("Sign Out")) {
                     SharedPreferences.Editor editor = MainActivity.prefs.edit();
                     editor.putString("Username", "");
@@ -74,6 +70,7 @@ public class Profile_Settings extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);//Exits current intent
                     intent.putExtra("EXIT", true);
+                    MainActivity.TVXP.setText("0 / 0 | Level 0");
                     startActivity(intent);
                     btn.setText("Log In");
                 } else if (btn.getText().toString().equalsIgnoreCase("Log In")) {
@@ -83,6 +80,7 @@ public class Profile_Settings extends AppCompatActivity {
                     dBuilder.setView(loginPopup);
                     dialogue = dBuilder.create();
                     dialogue.show();
+                    MainActivity.isFromMain = false;
 
                     button = (Button) loginPopup.findViewById(R.id.btnLogin);
 

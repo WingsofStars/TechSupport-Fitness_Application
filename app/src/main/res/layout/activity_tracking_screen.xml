@@ -5,12 +5,55 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:onClick="goBack"
-<<<<<<< HEAD
-    tools:context=".Screens.trackingScreen">
-=======
-    tools:context=".trackingScreen"
+    tools:context=".Screens.trackingScreen"
     android:background="@color/white">
->>>>>>> main
+
+    <TextView
+        android:id="@+id/tvSpeed"
+        android:layout_width="171dp"
+        android:layout_height="87dp"
+        android:fontFamily="@font/prompt"
+        android:gravity="center"
+        android:text="0.00 MPH"
+        android:textAlignment="center"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.066"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.763" />
+
+    <TextView
+        android:id="@+id/tvPlaceHolder"
+        android:layout_width="171dp"
+        android:layout_height="87dp"
+        android:fontFamily="@font/prompt"
+        android:gravity="center"
+        android:text="PlaceHolder"
+        android:textAlignment="center"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.945"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.763" />
+
+    <TextView
+        android:id="@+id/tvDistance"
+        android:layout_width="385dp"
+        android:layout_height="96dp"
+        android:fontFamily="@font/prompt"
+        android:gravity="center"
+        android:text="0.00"
+        android:textAlignment="center"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.447" />
 
     <TextView
         android:id="@+id/textView"
@@ -30,14 +73,70 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="12dp"
         android:clickable="true"
-<<<<<<< HEAD
-=======
         android:contentDescription="@string/GoBack"
->>>>>>> main
         android:onClick="goBack"
         app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/previous_icon" />
+
+    <TextView
+        android:id="@+id/tvTime"
+        android:layout_width="385dp"
+        android:layout_height="96dp"
+        android:fontFamily="@font/prompt"
+        android:gravity="center"
+        android:text="00:00"
+        android:textAlignment="center"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.204" />
+
+    <ImageView
+        android:id="@+id/btnPlay"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
+        android:clickable="true"
+        android:visibility="visible"
+        android:onClick="StartRun"
+        android:src="@drawable/playcircle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.934" />
+
+    <ImageView
+        android:id="@+id/btnPause"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
+        android:src="@drawable/pausecircle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="invisible"
+        android:clickable="true"
+        android:onClick="PauseRun"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.239"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.934" />
+
+    <ImageView
+        android:id="@+id/btnStop"
+        android:layout_width="85dp"
+        android:visibility="invisible"
+        android:clickable="false"
+        android:layout_height="85dp"
+        android:onClick="StopRun"
+        android:src="@drawable/stopcircle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.76"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.934" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
