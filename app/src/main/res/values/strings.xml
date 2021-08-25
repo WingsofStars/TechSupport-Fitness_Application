@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TechSupport_ScamperMobile</string>
+    <string name="app_name">Scamper</string>
     <string name="GoBack">Go Back</string>
     <string name="Signup"><u>Sign Up Here</u></string>
     <string-array name="CardioType">
