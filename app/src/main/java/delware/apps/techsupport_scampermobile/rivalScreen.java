@@ -10,7 +10,7 @@ import android.widget.TextView;
 public class rivalScreen extends RivalGuts{
 
     public int num =0;
-    Profile p = new Profile(10,"Cj","1234A@","salt",5.3,120.5,1,0);
+    Profile p = new Profile(10,"cj","123@","salt",5.3,120.5,19,"male",0,0);
     RunLog r = new RunLog(3,2,12,200,"8/19/2021","running");
     //DBHandler data = new DBHandler();
     @Override
