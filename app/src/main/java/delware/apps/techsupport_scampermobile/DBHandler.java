@@ -124,8 +124,8 @@ public class DBHandler extends SQLiteOpenHelper{
         String userName = cursor.getString(1);
         String password = cursor.getString(2);
         String salt = cursor.getString(3);
-        double weight = Double.parseDouble(cursor.getString(4)); // in feet
-        double height = Double.parseDouble(cursor.getString(5));
+        double height = Double.parseDouble(cursor.getString(4)); // in feet
+        double weight = Double.parseDouble(cursor.getString(5));
         int age = Integer.parseInt(cursor.getString(6));
         String gender = cursor.getString(7);
         int level = Integer.parseInt(cursor.getString(8));

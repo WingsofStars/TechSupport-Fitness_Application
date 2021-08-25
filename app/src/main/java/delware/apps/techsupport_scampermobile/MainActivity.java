@@ -49,15 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
         prefs = getSharedPreferences("prefs", MODE_PRIVATE);
 
-        boolean firstStart = prefs.getBoolean("isThisFirstStart", true);// Searches for a Shared  Preferences Value, if one doesn't exists, it is created with the default value of true
-//
-        if (firstStart){
-//
-            showInfoPopup();
-            SharedPreferences.Editor editor = prefs.edit(); // Makes an editor to change the values of a shared Preferences
-            editor.putBoolean("isThisFirstStart", false);//Changes Value to False
-            editor.apply();
-        }
+
 
 
         boolean isUserLoggedIn = prefs.getBoolean("LoggedIn", false); //Checks for user account if it doesn't exists, it creates a SP(Shared Preference) saying it Doesn't
@@ -82,6 +74,15 @@ public class MainActivity extends AppCompatActivity {
                 showInfoPopup();
             }
         });
+//        boolean firstStart = prefs.getBoolean("isThisFirstStart", true);// Searches for a Shared  Preferences Value, if one doesn't exists, it is created with the default value of true
+////
+//        if (firstStart){
+////
+//            showInfoPopup();
+//            SharedPreferences.Editor editor = prefs.edit(); // Makes an editor to change the values of a shared Preferences
+//            editor.putBoolean("isThisFirstStart", false);//Changes Value to False
+//            editor.apply();
+//        }
     }
 
 
