@@ -20,6 +20,7 @@ import delware.apps.techsupport_scampermobile.DBHandler;
 import delware.apps.techsupport_scampermobile.MainActivity;
 import delware.apps.techsupport_scampermobile.PasswordUtils;
 import delware.apps.techsupport_scampermobile.Profile;
+import delware.apps.techsupport_scampermobile.Profile_Settings;
 import delware.apps.techsupport_scampermobile.R;
 import delware.apps.techsupport_scampermobile.RegexRunner;
 
@@ -122,6 +123,12 @@ public class newUserScreen extends AppCompatActivity {
         MainActivity.currentID = String.valueOf(prefs.getInt("id", 0));
         exitIntent();
         Toast.makeText(getApplicationContext(), "User Created", Toast.LENGTH_LONG).show();//Makes a dialogue box that says the user is created
+        if(MainActivity.isFromMain) {
+        MainActivity.dialogue.dismiss();
+        }
+        else if(!MainActivity.isFromMain){
+            Profile_Settings.dialogue.dismiss();
+        }
     }
 
 

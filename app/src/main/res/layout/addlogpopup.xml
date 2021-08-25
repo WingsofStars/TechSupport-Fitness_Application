@@ -82,7 +82,7 @@
         android:fontFamily="@font/prompt"
         android:hint="Calories"
         android:inputType="number"
-        android:maxLength="3"
+        android:maxLength="4"
         android:textAlignment="center"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"

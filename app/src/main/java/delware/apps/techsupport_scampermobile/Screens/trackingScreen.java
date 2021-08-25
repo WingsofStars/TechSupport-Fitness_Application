@@ -18,6 +18,7 @@ public class trackingScreen extends AppCompatActivity {
     public ImageView pausebtn;
     public ImageView playbtn;
     public ImageView stopbtn;
+    public int playBtnPresses = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,33 +51,32 @@ public class trackingScreen extends AppCompatActivity {
 
 
     public void StartRun(View v){
+        playBtnPresses++;
         playbtn.setEnabled(false);
         playbtn.setVisibility(View.INVISIBLE);
+
         stopbtn.setVisibility(View.VISIBLE);
         pausebtn.setVisibility(View.VISIBLE);
-
-        //Start Timer and Tracking
-
         pausebtn.setEnabled(true);
         stopbtn.setEnabled(true);
+
+
+        if(playBtnPresses == 1) {
+            //Start Timer and Tracking for the first time
+        }
+        else{
+            //resume
+        }
+
+
     }
 
     public void PauseRun(View v){
         playbtn.setVisibility(View.VISIBLE);
+        playbtn.setEnabled(true);
         pausebtn.setVisibility(View.INVISIBLE);
         pausebtn.setEnabled(false);
 
-
-
-
-        playbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //continue timer
-
-
-            }
-        });
 
 
 
@@ -91,6 +91,9 @@ public class trackingScreen extends AppCompatActivity {
 
         playbtn.setVisibility(View.VISIBLE);
         playbtn.setEnabled(true);
+
+        //resets presses so you can restart the run
+        playBtnPresses=0;
     }
 
 }

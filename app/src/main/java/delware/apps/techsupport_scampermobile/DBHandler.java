@@ -99,7 +99,7 @@ public class DBHandler extends SQLiteOpenHelper{
     // Get profile from user id
     public Profile getUserByID(int id){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.query(TABLE_USERS, new String[] {KEY_ID,KEY_NAME,KEY_PASSWORD,SALT, KEY_WEIGHT, KEY_HEIGHT,KEY_AGE,KEY_GENDER, KEY_LEVEL,KEY_XP}, KEY_ID + "=?",
+        Cursor cursor = db.query(TABLE_USERS, new String[] {KEY_ID,KEY_NAME,KEY_PASSWORD,SALT, KEY_HEIGHT, KEY_WEIGHT,KEY_AGE,KEY_GENDER, KEY_LEVEL,KEY_XP}, KEY_ID + "=?",
                 new String[] { String.valueOf(id) }, null, null, null, null);
         if(cursor == null) return new Profile();
         else cursor.moveToFirst();
@@ -124,8 +124,8 @@ public class DBHandler extends SQLiteOpenHelper{
         String userName = cursor.getString(1);
         String password = cursor.getString(2);
         String salt = cursor.getString(3);
-        double height = Double.parseDouble(cursor.getString(4)); // in feet
-        double weight = Double.parseDouble(cursor.getString(5));
+        double weight = Double.parseDouble(cursor.getString(4)); // in feet
+        double height = Double.parseDouble(cursor.getString(5));
         int age = Integer.parseInt(cursor.getString(6));
         String gender = cursor.getString(7);
         int level = Integer.parseInt(cursor.getString(8));
@@ -146,8 +146,8 @@ public class DBHandler extends SQLiteOpenHelper{
                 profile.setUserID(Integer.parseInt(cursor.getString(0)));
                 profile.setUserName(cursor.getString(1));
                 profile.setPassword(cursor.getString(2));
-                profile.setWeight(Double.parseDouble(cursor.getString(4)));
-                profile.setHeight(Double.parseDouble(cursor.getString(5)));
+                profile.setHeight(Double.parseDouble(cursor.getString(4)));
+                profile.setWeight(Double.parseDouble(cursor.getString(5)));
                 profile.setAge(Integer.parseInt(cursor.getString(6)));
                 profile.setGender(cursor.getString(7));
                 profile.setLevel(Integer.parseInt(cursor.getString(8)));
