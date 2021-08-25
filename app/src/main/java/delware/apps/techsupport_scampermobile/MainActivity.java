@@ -61,7 +61,9 @@ public class MainActivity extends AppCompatActivity {
         currentID = String.valueOf(prefs.getInt("id", 0));
 
         if(isUserLoggedIn) {
-            xpSystem.xpCheck(0, databaseHandler.getUserByID(Integer.parseInt(MainActivity.currentID)));
+            Profile p = databaseHandler.getUserByID(Integer.parseInt(MainActivity.currentID));
+            CalorieCalculator.setProfile(p);
+            xpSystem.xpCheck(0, p);
         }
 
     }

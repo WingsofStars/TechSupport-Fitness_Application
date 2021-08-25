@@ -34,7 +34,7 @@ public class Tracking_Settings extends AppCompatActivity {
     TextView tv_latitude, tv_longitude, tv_altitude, tv_accuracy, tv_speed, tv_sensor, tv_updates, tv_address, tv_wayPointCounts;
     Button btn_newWaypoint, btn_showWayPointList, btn_showMap;
     Switch sw_locationupdates, sw_gps;
-    //if location tracking is on or off
+    public double currentSpeed;
 
     //current location
     Location currentLocation;
@@ -219,6 +219,7 @@ public class Tracking_Settings extends AppCompatActivity {
 
         if (location.hasSpeed()) {
             tv_speed.setText(String.valueOf(location.getSpeed()));
+            currentSpeed = Double.parseDouble(String.valueOf(location.getSpeed()));
 
         } else {
             tv_speed.setText("Not available");
