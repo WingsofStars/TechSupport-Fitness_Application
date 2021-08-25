@@ -63,9 +63,11 @@ public class MainActivity extends AppCompatActivity {
         }
         currentID = String.valueOf(prefs.getInt("id", 0));
 
-        if (isUserLoggedIn) {
-            xpSystem.xpCheck(0, databaseHandler.getUserByID(Integer.parseInt(MainActivity.currentID)));
-        } else {
+        if(isUserLoggedIn) {
+            Profile p = databaseHandler.getUserByID(Integer.parseInt(MainActivity.currentID));
+            CalorieCalculator.setProfile(p);
+            xpSystem.xpCheck(0, p);
+        }else {
             TVXP.setText("0 / 0 | Level 0");
         }
 
@@ -148,9 +150,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                 //When everything is logged in:
-                if(Integer.parseInt(MainActivity.currentID) != 0) {
-                    xpSystem.xpCheck(0, databaseHandler.getUserByID(Integer.parseInt(MainActivity.currentID)));
-                }
+
             }
         });
 
