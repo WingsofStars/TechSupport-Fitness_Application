@@ -96,6 +96,12 @@ public class settings extends AppCompatActivity {
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);//Exits current intent
         intent.putExtra("EXIT", true);
         startActivity(intent);
+
+        if(Integer.parseInt(MainActivity.currentID) != 0) {
+            MainActivity.xpSystem.xpCheck(0, MainActivity.databaseHandler.getUserByID(Integer.parseInt(MainActivity.currentID)));
+        } else {
+            MainActivity.TVXP.setText("0 / 0 | Level 0");
+        }
     }
 
     //Clickable Icon Lets the user exit current intent/activity and return to the previous screen

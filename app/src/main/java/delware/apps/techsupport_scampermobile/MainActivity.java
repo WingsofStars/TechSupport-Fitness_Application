@@ -65,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
 
         if (isUserLoggedIn) {
             xpSystem.xpCheck(0, databaseHandler.getUserByID(Integer.parseInt(MainActivity.currentID)));
+        } else {
+            TVXP.setText("0 / 0 | Level 0");
         }
 
     }
@@ -146,7 +148,9 @@ public class MainActivity extends AppCompatActivity {
 
 
                 //When everything is logged in:
-
+                if(Integer.parseInt(MainActivity.currentID) != 0) {
+                    xpSystem.xpCheck(0, databaseHandler.getUserByID(Integer.parseInt(MainActivity.currentID)));
+                }
             }
         });
 
