@@ -109,7 +109,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:visibility="visible"
+        android:visibility="invisible"
         />
     <!--        android:fontFamily="@font/promt"-->
 </androidx.constraintlayout.widget.ConstraintLayout>
