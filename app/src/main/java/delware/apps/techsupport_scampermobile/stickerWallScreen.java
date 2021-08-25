@@ -44,11 +44,6 @@ public class stickerWallScreen extends AppCompatActivity {
         exitIntent();
     }
 
-    public void goToDiscRackScreen(View v){
-        Intent goToDiscRack = new Intent(stickerWallScreen.this, discRackScreen.class);
-        startActivity(goToDiscRack);
-    }
-
     public void updateStickers() {
         ImageView v;
         Profile user = MainActivity.databaseHandler.getUserByID(Integer.parseInt(MainActivity.currentID));
