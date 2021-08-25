@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
-        infoBtn=findViewById(R.id.btnInfo);
+        //infoBtn=findViewById(R.id.btnInfo);
 
         databaseHandler = new DBHandler(MainActivity.this);
         xpSystem = new xpSystem();
@@ -171,6 +171,10 @@ public class MainActivity extends AppCompatActivity {
     public void goToCollectionScreen(View v) {
         Intent goToCollection = new Intent(MainActivity.this, stickerWallScreen.class);
         startActivity(goToCollection);
+    }
+    public void goToRivalScreen(View v) {
+        Intent goToRival = new Intent(MainActivity.this, rivalScreen.class);
+        startActivity(goToRival);
     }
 
     public void closePopUp(View v) {
