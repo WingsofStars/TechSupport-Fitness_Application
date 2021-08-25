@@ -21,7 +21,7 @@ import delware.apps.techsupport_scampermobile.Screens.trackingScreen;
 
 public class MainActivity extends AppCompatActivity {
 
-    static SharedPreferences prefs; // uses small save files know as "Shared Preferences"
+    static SharedPreferences prefs; // Uses small save files know as "Shared Preferences"
     public AlertDialog.Builder dBuilder;
     public static AlertDialog dialogue;
     static TextView TVXP;
