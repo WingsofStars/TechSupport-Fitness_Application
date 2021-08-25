@@ -174,7 +174,7 @@ public class stickerWallScreen extends AppCompatActivity {
 
         List<RunLog> logsOfThatWeek = logs.stream()
                 .filter(log -> (LocalDate.parse(log.date, format).isAfter(weekBehind) && LocalDate.parse(log.date, format).isBefore(current))
-                        || (LocalDate.parse(log.date, format).equals(weekBehind) || LocalDate.parse(log.date, format).equals(current)))
+                        || LocalDate.parse(log.date, format).equals(weekBehind))
                 .collect(Collectors.toList());
         long countDistinctWeekLogs = logsOfThatWeek.stream().map(Wrapper::new).distinct().map(Wrapper::unwrap).count();
         return countDistinctWeekLogs == 7;
