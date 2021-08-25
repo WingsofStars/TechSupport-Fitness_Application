@@ -162,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                 //When everything is logged in:
-
+                xpSystem.xpCheck(0, p);
             }
         });
 
