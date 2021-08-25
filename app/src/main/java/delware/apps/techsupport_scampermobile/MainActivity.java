@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.EditText;
 
@@ -32,11 +33,13 @@ public class MainActivity extends AppCompatActivity {
     public Button btn;
     float x1, y1, x2, y2;
     public static boolean isFromMain;
+    ImageView infoBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
+        infoBtn=findViewById(R.id.btnInfo);
 
         databaseHandler = new DBHandler(MainActivity.this);
         xpSystem = new xpSystem();
@@ -46,14 +49,15 @@ public class MainActivity extends AppCompatActivity {
 
         prefs = getSharedPreferences("prefs", MODE_PRIVATE);
 
-//        boolean firstStart = prefs.getBoolean("isThisFirstStart", true);// Searches for a Shared  Preferences Value, if one doesn't exists, it is created with the default value of true
+        boolean firstStart = prefs.getBoolean("isThisFirstStart", true);// Searches for a Shared  Preferences Value, if one doesn't exists, it is created with the default value of true
 //
-//        if (firstStart){
+        if (firstStart){
 //
-//            SharedPreferences.Editor editor = prefs.edit(); // Makes an editor to change the values of a shared Preferences
-//            editor.putBoolean("isThisFirstStart", false);//Changes Value to False
-//            editor.apply();
-//        }
+            showInfoPopup();
+            SharedPreferences.Editor editor = prefs.edit(); // Makes an editor to change the values of a shared Preferences
+            editor.putBoolean("isThisFirstStart", false);//Changes Value to False
+            editor.apply();
+        }
 
 
         boolean isUserLoggedIn = prefs.getBoolean("LoggedIn", false); //Checks for user account if it doesn't exists, it creates a SP(Shared Preference) saying it Doesn't
@@ -64,13 +68,20 @@ public class MainActivity extends AppCompatActivity {
         currentID = String.valueOf(prefs.getInt("id", 0));
 
         if(isUserLoggedIn) {
-            Profile p = databaseHandler.getUserByID(Integer.parseInt(MainActivity.currentID));
+            Profile p;
+            p = databaseHandler.getUserByID(Integer.parseInt(MainActivity.currentID));
             CalorieCalculator.setProfile(p);
             xpSystem.xpCheck(0, p);
         }else {
             TVXP.setText("0 / 0 | Level 0");
         }
 
+        infoBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showInfoPopup();
+            }
+        });
     }
 
 
@@ -191,5 +202,23 @@ public class MainActivity extends AppCompatActivity {
             }
             return false;
 
+    }
+
+    public void showInfoPopup(){
+        ImageView exit;
+
+        dBuilder = new AlertDialog.Builder(this);
+        final View welcomePopup = getLayoutInflater().inflate(R.layout.information_popup, null);
+        dBuilder.setView(welcomePopup);
+        dialogue = dBuilder.create();
+
+        exit =  welcomePopup.findViewById(R.id.exit);
+        dialogue.show();
+        exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogue.dismiss();
+            }
+        });
     }
 }

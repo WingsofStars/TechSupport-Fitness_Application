@@ -19,4 +19,5 @@
         <item>Male</item>
         <item>Female</item>
     </string-array>
+    <string name="welcome">Thank you for using TechSupport\'s Runnning Instructor, <u>Scamper</u> -- insert Info Here-</string>
 </resources>
