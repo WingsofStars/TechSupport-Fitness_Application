@@ -64,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
             Profile p = databaseHandler.getUserByID(Integer.parseInt(MainActivity.currentID));
             CalorieCalculator.setProfile(p);
             xpSystem.xpCheck(0, p);
+        }else {
+            TVXP.setText("0 / 0 | Level 0");
         }
 
     }

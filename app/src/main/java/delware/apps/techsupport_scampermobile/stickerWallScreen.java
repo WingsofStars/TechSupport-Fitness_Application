@@ -5,7 +5,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class stickerWallScreen extends AppCompatActivity {
     private TextView TV;
@@ -16,6 +27,10 @@ public class stickerWallScreen extends AppCompatActivity {
         setContentView(R.layout.activity_collection_sticker_wall);
         TV = findViewById(R.id.DescriptionText1);
         TV.setText("Tap on a sticker to learn more...");
+        if(Integer.parseInt(MainActivity.currentID) != 0) {
+            updateStickers();
+        }
+
     }
 
     public void exitIntent(){
@@ -32,6 +47,137 @@ public class stickerWallScreen extends AppCompatActivity {
     public void goToDiscRackScreen(View v){
         Intent goToDiscRack = new Intent(stickerWallScreen.this, discRackScreen.class);
         startActivity(goToDiscRack);
+    }
+
+    public void updateStickers() {
+        ImageView v;
+        Profile user = MainActivity.databaseHandler.getUserByID(Integer.parseInt(MainActivity.currentID));
+
+        ArrayList<RunLog> RunLogs = MainActivity.databaseHandler.getAllLogs("All");
+
+        float totaldistance = 0f;
+        int totalCalories = 0;
+        float totalTime = 0f;
+
+        if(Integer.parseInt(MainActivity.currentID) > 0) {
+            v = findViewById(R.id.A01);
+            v.setImageResource(android.R.drawable.btn_star_big_on);
+        }
+        if(RunLogs.size() > 0) {
+            v = findViewById(R.id.A02);
+            v.setImageResource(android.R.drawable.btn_star_big_on);
+        }
+        //Rival check
+        if(user.getLevel() >= 2) {
+            v = findViewById(R.id.A04);
+            v.setImageResource(android.R.drawable.btn_star_big_on);
+        }
+        if(user.getLevel() >= 4) {
+            v = findViewById(R.id.A11);
+            v.setImageResource(android.R.drawable.btn_star_big_on);
+        }
+        if(user.getLevel() >= 6) {
+            v = findViewById(R.id.A12);
+            v.setImageResource(android.R.drawable.btn_star_big_on);
+        }
+        if(user.getLevel() >= 8) {
+            v = findViewById(R.id.A13);
+            v.setImageResource(android.R.drawable.btn_star_big_on);
+        }
+        if(user.getLevel() >= 10) {
+            v = findViewById(R.id.A14);
+            v.setImageResource(android.R.drawable.btn_star_big_on);
+        }
+        if(user.getLevel() >= 14) {
+            v = findViewById(R.id.A21);
+            v.setImageResource(android.R.drawable.btn_star_big_on);
+        }
+        if(user.getLevel() >= 18) {
+            v = findViewById(R.id.A22);
+            v.setImageResource(android.R.drawable.btn_star_big_on);
+        }
+        if(user.getLevel() >= 20) {
+            v = findViewById(R.id.A23);
+            v.setImageResource(android.R.drawable.btn_star_big_on);
+        }
+        if(trackAWeek(RunLogs)) {
+            v = findViewById(R.id.A24);
+            v.setImageResource(android.R.drawable.btn_star_big_on);
+        }
+
+        //Stat stickers
+        for( int i = 0; i < MainActivity.databaseHandler.size("All"); i++) {
+            totalCalories += RunLogs.get(i).calories;
+            totaldistance += RunLogs.get(i).Distance;
+            totalTime +=( (RunLogs.get(i).Hours) + (RunLogs.get(i).Minutes/60));
+        }
+
+        if(totaldistance >= 5) {
+            v = findViewById(R.id.A31);
+            v.setImageResource(android.R.drawable.btn_star_big_on);
+        }
+        if(totaldistance >= 10) {
+            v = findViewById(R.id.A32);
+            v.setImageResource(android.R.drawable.btn_star_big_on);
+        }
+        if(totaldistance >= 15) {
+            v = findViewById(R.id.A33);
+            v.setImageResource(android.R.drawable.btn_star_big_on);
+        }
+        if(totaldistance >= 20) {
+            v = findViewById(R.id.A34);
+            v.setImageResource(android.R.drawable.btn_star_big_on);
+        }
+        if(totalCalories >= 1500) {
+            v = findViewById(R.id.A41);
+            v.setImageResource(android.R.drawable.btn_star_big_on);
+        }
+        if(totalCalories >= 3000) {
+            v = findViewById(R.id.A42);
+            v.setImageResource(android.R.drawable.btn_star_big_on);
+        }
+        if(totalTime >= 5) {
+            v = findViewById(R.id.A43);
+            v.setImageResource(android.R.drawable.btn_star_big_on);
+        }
+        if(totalTime >= 10) {
+            v = findViewById(R.id.A44);
+            v.setImageResource(android.R.drawable.btn_star_big_on);
+        }
+    }
+
+    class Wrapper {
+        private final RunLog log;
+        public Wrapper(RunLog log) {
+            this.log = log;
+        }
+        public RunLog unwrap() {
+            return log;
+        }
+        public boolean equals(Object other) {
+            if(other instanceof Wrapper) {
+                return ((Wrapper) other).log.getDate().equals(log.getDate());
+            } else {
+                return false;
+            }
+        }
+        public int hashCode() {
+            return log.getDate().hashCode();
+        }
+    }
+
+    private boolean trackAWeek(ArrayList<RunLog> logs) {
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+
+        LocalDate current = LocalDate.now();
+        LocalDate weekBehind = current.minusWeeks(1);
+
+        List<RunLog> logsOfThatWeek = logs.stream()
+                .filter(log -> (LocalDate.parse(log.date, format).isAfter(weekBehind) && LocalDate.parse(log.date, format).isBefore(current))
+                        || LocalDate.parse(log.date, format).equals(weekBehind))
+                .collect(Collectors.toList());
+        long countDistinctWeekLogs = logsOfThatWeek.stream().map(Wrapper::new).distinct().map(Wrapper::unwrap).count();
+        return countDistinctWeekLogs == 7;
     }
 
     public void showStickerDescription(View v) {
