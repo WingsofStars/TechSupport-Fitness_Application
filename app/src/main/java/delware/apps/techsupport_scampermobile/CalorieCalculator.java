@@ -3,7 +3,7 @@ package delware.apps.techsupport_scampermobile;
 import java.util.ArrayList;
 
 public class CalorieCalculator {
-
+    //used to assign a MET value via speed
     private static class METCutoff
     {
         METCutoff(double c, double v){
