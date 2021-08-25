@@ -80,21 +80,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/previous_icon" />
 
-    <TextView
-        android:id="@+id/tvTime"
-        android:layout_width="385dp"
-        android:layout_height="96dp"
-        android:fontFamily="@font/prompt"
-        android:gravity="center"
-        android:text="00:00"
-        android:textAlignment="center"
-        android:textSize="25dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.204" />
-
     <ImageView
         android:id="@+id/btnPlay"
         android:layout_width="85dp"
@@ -138,5 +123,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.934" />
+
+    <Chronometer
+        android:id="@+id/tvTime"
+        android:layout_width="385dp"
+        android:layout_height="96dp"
+        android:ems="10"
+        android:inputType="time"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.201" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

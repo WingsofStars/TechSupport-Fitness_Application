@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,13 +13,14 @@ import delware.apps.techsupport_scampermobile.MainActivity;
 import delware.apps.techsupport_scampermobile.R;
 
 public class trackingScreen extends AppCompatActivity {
-    public TextView timetxt;
+    public Chronometer timetxt;
     public TextView distancetxt;
     public TextView speedtxt;
     public ImageView pausebtn;
     public ImageView playbtn;
     public ImageView stopbtn;
     public int playBtnPresses = 0;
+    private boolean running;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,10 +63,10 @@ public class trackingScreen extends AppCompatActivity {
         stopbtn.setEnabled(true);
 
 
-        if(playBtnPresses == 1) {
+        if(running) {
             //Start Timer and Tracking for the first time
         }
-        else{
+        else {
             //resume
         }
 
