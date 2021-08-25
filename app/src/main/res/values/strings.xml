@@ -14,4 +14,9 @@
         <item>Elliptical</item>
     </string-array>
     <string name="ChangeInfo"><u>Change Information</u></string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string-array name="GenderSelection">
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
 </resources>

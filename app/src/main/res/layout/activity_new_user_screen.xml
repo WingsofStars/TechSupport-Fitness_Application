@@ -20,23 +20,23 @@
         android:fontFamily="@font/prompt"/>
 
     <EditText
-        android:maxLength="12"
         android:id="@+id/txtUsername"
-        android:backgroundTint="@color/lightGrey"
-        android:textColor="@color/black"
-        android:textColorHint="#546E7A"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="84dp"
-        android:fontFamily="@font/prompt"
+        android:layout_marginTop="56dp"
+        android:backgroundTint="@color/lightGrey"
         android:ems="10"
+        android:fontFamily="@font/prompt"
         android:hint="Enter Username"
         android:inputType="textPersonName"
+        android:maxLength="12"
         android:minHeight="48dp"
         android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textColorHint="#546E7A"
 
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -44,57 +44,60 @@
         android:id="@+id/txtPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:ems="10"
-        android:hint="Enter Password"
+        android:layout_marginTop="20dp"
         android:backgroundTint="@color/lightGrey"
-        android:textColor="@color/black"
-        android:textColorHint="#546E7A"
+        android:ems="10"
+        android:fontFamily="@font/prompt"
+        android:hint="Enter Password"
         android:inputType="textPassword"
         android:minHeight="48dp"
-        android:fontFamily="@font/prompt"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
         android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textColorHint="#546E7A"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtUsername" />
 
     <EditText
         android:id="@+id/Height1"
-        android:layout_width="97dp"
-        android:layout_height="51dp"
+        android:layout_width="117dp"
+        android:layout_height="58dp"
         android:layout_marginTop="48dp"
+        android:backgroundTint="@color/lightGrey"
         android:ems="10"
-        android:textAlignment="center"
+        android:fontFamily="@font/prompt"
         android:hint="Height"
         android:inputType="number"
-        app:layout_constraintBottom_toTopOf="@+id/Weight"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:backgroundTint="@color/lightGrey"
+        android:textAlignment="center"
         android:textColor="@color/black"
         android:textColorHint="#546E7A"
+        app:layout_constraintBottom_toTopOf="@+id/Weight"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.05"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtPassword"
-        android:fontFamily="@font/prompt"
-        app:layout_constraintVertical_bias="0.293" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/Weight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="119dp"
+        android:layout_height="65dp"
+        android:backgroundTint="@color/lightGrey"
         android:ems="10"
+        android:fontFamily="@font/prompt"
         android:hint="Weight:"
         android:inputType="numberDecimal"
         android:minHeight="48dp"
         android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/btnCreateUser"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:backgroundTint="@color/lightGrey"
         android:textColor="@color/black"
         android:textColorHint="#546E7A"
+        app:layout_constraintBottom_toTopOf="@+id/btnCreateUser"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.061"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtPassword"
-        android:fontFamily="@font/prompt"/>
+        app:layout_constraintVertical_bias="0.345" />
 
     <TextView
         android:id="@+id/txtViewException"
@@ -110,5 +113,29 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/et_BirthYear"
+        android:layout_width="90dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="68dp"
+        android:ems="10"
+        android:inputType="number|textPersonName"
+        android:text="Birth Year"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.961"
+        app:layout_constraintStart_toEndOf="@+id/Height1"
+        app:layout_constraintTop_toBottomOf="@+id/txtPassword" />
+
+    <Spinner
+        android:id="@+id/s_Gender"
+        android:layout_width="92dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.604"
+        app:layout_constraintStart_toEndOf="@+id/Weight"
+        app:layout_constraintTop_toBottomOf="@+id/et_BirthYear" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

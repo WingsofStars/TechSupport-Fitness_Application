@@ -24,6 +24,8 @@ public class DBHandler extends SQLiteOpenHelper{
     private static final String SALT = "Salt";
     private static final String KEY_WEIGHT = "Weight";
     private static final String KEY_HEIGHT = "Height";
+    private static final String KEY_AGE = "Age";
+    private static final String KEY_GENDER = "Gender";
     private static final String KEY_LEVEL = "Level";
     private static final String KEY_XP = "XP";
     public DBHandler(Context context) {
@@ -49,7 +51,7 @@ public class DBHandler extends SQLiteOpenHelper{
         //UserTable
         String CREATE_USER_TABLE = "CREATE TABLE " + TABLE_USERS + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + KEY_NAME + " TEXT, " + KEY_PASSWORD + " TEXT, " + SALT + " TEXT, "+  KEY_HEIGHT + " TEXT, "  + KEY_WEIGHT + " TEXT, "
-                + KEY_LEVEL + " INTEGER, " + KEY_XP + " INTEGER);";
+                + KEY_AGE + " TEXT, " + KEY_GENDER + " TEXT, " + KEY_LEVEL + " INTEGER, " + KEY_XP + " INTEGER);";
         db.execSQL(CREATE_USER_TABLE);
         //RunLogs Tbale
     String createLogTable = "Create Table" + RUN_LOGS + " (ID INTEGER Primary Key AutoIncrement, " + DISTANCE + " Real," + HOURS + " int, " + MINUTES + " real, " + CALORIES + " int, " + DATE + " Text," +CARDIO_TYPE + " Text," +KEY_ID + " int, " + "FOREIGN KEY ("+KEY_ID+") REFERENCES "+TABLE_USERS+"("+KEY_ID+"))";
@@ -67,7 +69,7 @@ public class DBHandler extends SQLiteOpenHelper{
 
     }
     //adds the profile w/ the key id to the database
-    public int addNewUser(String userName, String password, String salt, double height, double weight, int level, int xp){
+    public int addNewUser(String userName, String password, String salt, double height, double weight, int age, String gender, int level, int xp){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, userName);
@@ -75,7 +77,8 @@ public class DBHandler extends SQLiteOpenHelper{
         values.put(SALT, salt);
         values.put(KEY_HEIGHT, weight);
         values.put(KEY_WEIGHT, height);
-
+        values.put(KEY_AGE, age);
+        values.put(KEY_GENDER, gender);
         values.put(KEY_LEVEL, level);
         values.put(KEY_XP, xp);
         //Inserts table columns
@@ -96,7 +99,7 @@ public class DBHandler extends SQLiteOpenHelper{
     // Get profile from user id
     public Profile getUserByID(int id){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.query(TABLE_USERS, new String[] {KEY_ID,KEY_NAME,KEY_PASSWORD,SALT, KEY_WEIGHT, KEY_HEIGHT, KEY_LEVEL,KEY_XP}, KEY_ID + "=?",
+        Cursor cursor = db.query(TABLE_USERS, new String[] {KEY_ID,KEY_NAME,KEY_PASSWORD,SALT, KEY_WEIGHT, KEY_HEIGHT,KEY_AGE,KEY_GENDER, KEY_LEVEL,KEY_XP}, KEY_ID + "=?",
                 new String[] { String.valueOf(id) }, null, null, null, null);
         if(cursor == null) return new Profile();
         else cursor.moveToFirst();
@@ -123,9 +126,11 @@ public class DBHandler extends SQLiteOpenHelper{
         String salt = cursor.getString(3);
         double height = Double.parseDouble(cursor.getString(4)); // in feet
         double weight = Double.parseDouble(cursor.getString(5));
-        int level = Integer.parseInt(cursor.getString(6));
-        int xp = Integer.parseInt(cursor.getString(7));
-        return new Profile(id, userName, password,salt, height, weight, level, xp);
+        int age = Integer.parseInt(cursor.getString(6));
+        String gender = cursor.getString(7);
+        int level = Integer.parseInt(cursor.getString(8));
+        int xp = Integer.parseInt(cursor.getString(9));
+        return new Profile(id, userName, password,salt, height, weight, age, gender, level, xp);
     }
 
     public List<Profile>getAllProfiles(){
@@ -141,10 +146,12 @@ public class DBHandler extends SQLiteOpenHelper{
                 profile.setUserID(Integer.parseInt(cursor.getString(0)));
                 profile.setUserName(cursor.getString(1));
                 profile.setPassword(cursor.getString(2));
-                profile.setWeight(Double.parseDouble(cursor.getString(3)));
-                profile.setHeight(Double.parseDouble(cursor.getString(4)));
-                profile.setLevel(Integer.parseInt(cursor.getString(5)));
-                profile.setXP(Integer.parseInt(cursor.getString(6)));
+                profile.setWeight(Double.parseDouble(cursor.getString(4)));
+                profile.setHeight(Double.parseDouble(cursor.getString(5)));
+                profile.setAge(Integer.parseInt(cursor.getString(6)));
+                profile.setGender(cursor.getString(7));
+                profile.setLevel(Integer.parseInt(cursor.getString(8)));
+                profile.setXP(Integer.parseInt(cursor.getString(9)));
                 profileList.add(profile);
             }while (cursor.moveToNext());
         }
@@ -166,6 +173,8 @@ public class DBHandler extends SQLiteOpenHelper{
         values.put(KEY_PASSWORD, profile.getPassword());
         values.put(KEY_WEIGHT, profile.getWeight());
         values.put(KEY_HEIGHT, profile.getHeight());
+        values.put(KEY_AGE, profile.getAge());
+        values.put(KEY_GENDER, profile.getGender());
         values.put(KEY_XP, profile.getXP());
         values.put(KEY_LEVEL, profile.getLevel());
         //updates row
