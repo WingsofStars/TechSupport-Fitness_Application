@@ -4,8 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTint="@color/lightBlue"
-    android:foregroundTint="@color/lightBlue">
+    android:background="@color/white">
+<!--    android:backgroundTint="@color/lightBlue"-->
+<!--    android:foregroundTint="@color/lightBlue">-->
+
 
     <ImageView
         android:id="@+id/A44"
@@ -295,6 +297,8 @@
         android:text="Description Here..."
         android:fontFamily="@font/prompt"
         android:textColor="@color/white"
+        android:paddingLeft="3dp"
+        android:paddingTop="3dp"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

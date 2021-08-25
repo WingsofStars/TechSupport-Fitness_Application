@@ -75,8 +75,8 @@ public class DBHandler extends SQLiteOpenHelper{
         values.put(KEY_NAME, userName);
         values.put(KEY_PASSWORD, password);
         values.put(SALT, salt);
-        values.put(KEY_HEIGHT, weight);
-        values.put(KEY_WEIGHT, height);
+        values.put(KEY_HEIGHT, height);
+        values.put(KEY_WEIGHT, weight);
         values.put(KEY_AGE, age);
         values.put(KEY_GENDER, gender);
         values.put(KEY_LEVEL, level);
@@ -171,8 +171,8 @@ public class DBHandler extends SQLiteOpenHelper{
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, profile.getUserName());
         values.put(KEY_PASSWORD, profile.getPassword());
-        values.put(KEY_WEIGHT, profile.getWeight());
         values.put(KEY_HEIGHT, profile.getHeight());
+        values.put(KEY_WEIGHT, profile.getWeight());
         values.put(KEY_AGE, profile.getAge());
         values.put(KEY_GENDER, profile.getGender());
         values.put(KEY_XP, profile.getXP());
