@@ -15,6 +15,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.EditText;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import delware.apps.techsupport_scampermobile.Screens.newUserScreen;
@@ -68,6 +70,14 @@ public class MainActivity extends AppCompatActivity {
             xpSystem.xpCheck(0, p);
         }else {
             TVXP.setText("0 / 0 | Level 0");
+        }
+
+        //Rival Call Button, triggered on Sunday
+        Button callBtn = findViewById(R.id.button14);
+        LocalDate day = LocalDate.now();
+        DayOfWeek targetDay = DayOfWeek.SUNDAY;
+        if(day.getDayOfWeek().equals(targetDay)) {
+            callBtn.setVisibility(View.VISIBLE);
         }
 
         /*
