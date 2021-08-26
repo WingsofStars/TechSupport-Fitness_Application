@@ -3,6 +3,7 @@ package delware.apps.techsupport_scampermobile;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
@@ -35,11 +36,12 @@ public class MainActivity extends AppCompatActivity {
     public static boolean isFromMain;
     ImageView infoBtn;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
-        infoBtn=findViewById(R.id.btnInfo);
+        //infoBtn=findViewById(R.id.btnInfo);
 
         databaseHandler = new DBHandler(MainActivity.this);
         xpSystem = new xpSystem();
@@ -68,12 +70,15 @@ public class MainActivity extends AppCompatActivity {
             TVXP.setText("0 / 0 | Level 0");
         }
 
+        /*
         infoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showInfoPopup();
             }
         });
+
+         */
 //        boolean firstStart = prefs.getBoolean("isThisFirstStart", true);// Searches for a Shared  Preferences Value, if one doesn't exists, it is created with the default value of true
 ////
 //        if (firstStart){
@@ -171,6 +176,10 @@ public class MainActivity extends AppCompatActivity {
     public void goToCollectionScreen(View v) {
         Intent goToCollection = new Intent(MainActivity.this, stickerWallScreen.class);
         startActivity(goToCollection);
+    }
+    public void goToRivalScreen(View v) {
+        Intent goToRival = new Intent(MainActivity.this, rivalScreen.class);
+        startActivity(goToRival);
     }
 
     public void closePopUp(View v) {
