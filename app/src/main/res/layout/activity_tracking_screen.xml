@@ -12,6 +12,7 @@
         android:id="@+id/tvSpeed"
         android:layout_width="171dp"
         android:layout_height="87dp"
+        android:textColor="@color/black"
         android:fontFamily="@font/prompt"
         android:gravity="center"
         android:text="0.00 MPH"
@@ -30,6 +31,7 @@
         android:layout_height="87dp"
         android:fontFamily="@font/prompt"
         android:gravity="center"
+        android:textColor="@color/black"
         android:text="PlaceHolder"
         android:textAlignment="center"
         android:textSize="25dp"
@@ -43,6 +45,7 @@
     <TextView
         android:id="@+id/tvDistance"
         android:layout_width="385dp"
+        android:textColor="@color/black"
         android:layout_height="96dp"
         android:fontFamily="@font/prompt"
         android:gravity="center"
@@ -79,21 +82,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/previous_icon" />
-
-    <TextView
-        android:id="@+id/tvTime"
-        android:layout_width="385dp"
-        android:layout_height="96dp"
-        android:fontFamily="@font/prompt"
-        android:gravity="center"
-        android:text="00:00"
-        android:textAlignment="center"
-        android:textSize="25dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.204" />
 
     <ImageView
         android:id="@+id/btnPlay"
@@ -138,5 +126,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.934" />
+
+    <Chronometer
+        android:id="@+id/tvTime"
+        android:textColor="@color/black"
+        android:fontFamily="@font/prompt"
+        android:layout_width="385dp"
+        android:layout_height="96dp"
+        android:ems="10"
+        android:textAlignment="center"
+        android:inputType="time"
+        android:textSize="25dp"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.201" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

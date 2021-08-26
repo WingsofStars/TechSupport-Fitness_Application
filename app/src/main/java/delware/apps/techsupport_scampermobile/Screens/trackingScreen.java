@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.View;
+import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,13 +14,16 @@ import delware.apps.techsupport_scampermobile.MainActivity;
 import delware.apps.techsupport_scampermobile.R;
 
 public class trackingScreen extends AppCompatActivity {
-    public TextView timetxt;
+    public Chronometer timetxt;
     public TextView distancetxt;
     public TextView speedtxt;
     public ImageView pausebtn;
     public ImageView playbtn;
     public ImageView stopbtn;
     public int playBtnPresses = 0;
+    private boolean running = false;
+    private long pauseOffset;
+    public long totaltime; //in seconds
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,10 +66,13 @@ public class trackingScreen extends AppCompatActivity {
         stopbtn.setEnabled(true);
 
 
-        if(playBtnPresses == 1) {
+        if(!running) {
             //Start Timer and Tracking for the first time
+            timetxt.setBase(SystemClock.elapsedRealtime() - pauseOffset);
+            timetxt.start();
+            running = true;
         }
-        else{
+        else {
             //resume
         }
 
@@ -77,6 +85,11 @@ public class trackingScreen extends AppCompatActivity {
         pausebtn.setVisibility(View.INVISIBLE);
         pausebtn.setEnabled(false);
 
+        if (running){
+            pauseOffset = SystemClock.elapsedRealtime() - timetxt.getBase();
+            timetxt.stop();
+            running = false;
+        }
 
 
 
@@ -91,9 +104,14 @@ public class trackingScreen extends AppCompatActivity {
 
         playbtn.setVisibility(View.VISIBLE);
         playbtn.setEnabled(true);
-
+        timetxt.setBase(SystemClock.elapsedRealtime());
+        pauseOffset=0;
+        running = false;
         //resets presses so you can restart the run
-        playBtnPresses=0;
+        totaltime = SystemClock.elapsedRealtime() - timetxt.getBase();
+        System.out.println(totaltime);
+
+
     }
 
 }

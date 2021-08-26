@@ -68,9 +68,6 @@
             android:name=".settings"
             android:exported="true" />
         <activity
-            android:name=".discRackScreen"
-            android:exported="true" />
-        <activity
             android:name=".MainActivity"
             android:exported="true" >
             <intent-filter>

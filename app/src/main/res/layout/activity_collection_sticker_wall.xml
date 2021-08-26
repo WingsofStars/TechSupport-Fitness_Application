@@ -10,14 +10,69 @@
 
 
     <ImageView
-        android:id="@+id/A44"
+        android:id="@+id/A04"
         android:layout_width="52dp"
         android:layout_height="52dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="80dp"
         android:onClick="showStickerDescription"
-        app:layout_constraintStart_toEndOf="@+id/A43"
-        app:layout_constraintTop_toBottomOf="@+id/A34"
+        app:layout_constraintStart_toEndOf="@+id/A03"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/btn_star" />
+
+    <ImageView
+        android:id="@+id/A23"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="52dp"
+        android:onClick="showStickerDescription"
+        app:layout_constraintStart_toEndOf="@+id/A22"
+        app:layout_constraintTop_toBottomOf="@+id/A13"
+        app:srcCompat="@android:drawable/btn_star" />
+
+    <ImageView
+        android:id="@+id/A21"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="52dp"
+        android:onClick="showStickerDescription"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/A11"
+        app:srcCompat="@android:drawable/btn_star" />
+
+    <ImageView
+        android:id="@+id/A01"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="80dp"
+        android:onClick="showStickerDescription"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/btn_star" />
+
+    <ImageView
+        android:id="@+id/A41"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="52dp"
+        android:onClick="showStickerDescription"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/A31"
+        app:srcCompat="@android:drawable/btn_star" />
+
+    <ImageView
+        android:id="@+id/A24"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="52dp"
+        android:onClick="showStickerDescription"
+        app:layout_constraintStart_toEndOf="@+id/A23"
+        app:layout_constraintTop_toBottomOf="@+id/A14"
         app:srcCompat="@android:drawable/btn_star" />
 
     <ImageView
@@ -32,58 +87,14 @@
         app:srcCompat="@android:drawable/btn_star" />
 
     <ImageView
-        android:id="@+id/A24"
+        android:id="@+id/A32"
         android:layout_width="52dp"
         android:layout_height="52dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="40dp"
         android:onClick="showStickerDescription"
-        app:layout_constraintStart_toEndOf="@+id/A23"
-        app:layout_constraintTop_toBottomOf="@+id/A14"
-        app:srcCompat="@android:drawable/btn_star" />
-
-    <ImageView
-        android:id="@+id/A02"
-        android:layout_width="52dp"
-        android:layout_height="52dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="128dp"
-        android:onClick="showStickerDescription"
-        app:layout_constraintStart_toEndOf="@+id/A01"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/btn_star" />
-
-    <ImageView
-        android:id="@+id/A03"
-        android:layout_width="52dp"
-        android:layout_height="52dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="128dp"
-        android:onClick="showStickerDescription"
-        app:layout_constraintStart_toEndOf="@+id/A02"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/btn_star" />
-
-    <ImageView
-        android:id="@+id/A14"
-        android:layout_width="52dp"
-        android:layout_height="52dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="40dp"
-        android:onClick="showStickerDescription"
-        app:layout_constraintStart_toEndOf="@+id/A13"
-        app:layout_constraintTop_toBottomOf="@+id/A04"
-        app:srcCompat="@android:drawable/btn_star" />
-
-    <ImageView
-        android:id="@+id/A11"
-        android:layout_width="52dp"
-        android:layout_height="52dp"
-        android:layout_marginStart="53dp"
-        android:layout_marginTop="40dp"
-        android:onClick="showStickerDescription"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/A01"
+        app:layout_constraintStart_toEndOf="@+id/A31"
+        app:layout_constraintTop_toBottomOf="@+id/A22"
         app:srcCompat="@android:drawable/btn_star" />
 
     <ImageView
@@ -98,14 +109,58 @@
         app:srcCompat="@android:drawable/btn_star" />
 
     <ImageView
+        android:id="@+id/A31"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="40dp"
+        android:onClick="showStickerDescription"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/A21"
+        app:srcCompat="@android:drawable/btn_star" />
+
+    <ImageView
+        android:id="@+id/A11"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="40dp"
+        android:onClick="showStickerDescription"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/A01"
+        app:srcCompat="@android:drawable/btn_star" />
+
+    <ImageView
+        android:id="@+id/A03"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="80dp"
+        android:onClick="showStickerDescription"
+        app:layout_constraintStart_toEndOf="@+id/A02"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/btn_star" />
+
+    <ImageView
         android:id="@+id/A43"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="52dp"
+        android:onClick="showStickerDescription"
+        app:layout_constraintStart_toEndOf="@+id/A42"
+        app:layout_constraintTop_toBottomOf="@+id/A33"
+        app:srcCompat="@android:drawable/btn_star" />
+
+    <ImageView
+        android:id="@+id/A14"
         android:layout_width="52dp"
         android:layout_height="52dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="40dp"
         android:onClick="showStickerDescription"
-        app:layout_constraintStart_toEndOf="@+id/A42"
-        app:layout_constraintTop_toBottomOf="@+id/A33"
+        app:layout_constraintStart_toEndOf="@+id/A13"
+        app:layout_constraintTop_toBottomOf="@+id/A04"
         app:srcCompat="@android:drawable/btn_star" />
 
     <ImageView
@@ -113,32 +168,21 @@
         android:layout_width="52dp"
         android:layout_height="52dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="52dp"
         android:onClick="showStickerDescription"
         app:layout_constraintStart_toEndOf="@+id/A41"
         app:layout_constraintTop_toBottomOf="@+id/A32"
         app:srcCompat="@android:drawable/btn_star" />
 
     <ImageView
-        android:id="@+id/A41"
-        android:layout_width="52dp"
-        android:layout_height="52dp"
-        android:layout_marginStart="53dp"
-        android:layout_marginTop="40dp"
-        android:onClick="showStickerDescription"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/A31"
-        app:srcCompat="@android:drawable/btn_star" />
-
-    <ImageView
-        android:id="@+id/A23"
+        android:id="@+id/A44"
         android:layout_width="52dp"
         android:layout_height="52dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="52dp"
         android:onClick="showStickerDescription"
-        app:layout_constraintStart_toEndOf="@+id/A22"
-        app:layout_constraintTop_toBottomOf="@+id/A13"
+        app:layout_constraintStart_toEndOf="@+id/A43"
+        app:layout_constraintTop_toBottomOf="@+id/A34"
         app:srcCompat="@android:drawable/btn_star" />
 
     <ImageView
@@ -146,21 +190,10 @@
         android:layout_width="52dp"
         android:layout_height="52dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="52dp"
         android:onClick="showStickerDescription"
         app:layout_constraintStart_toEndOf="@+id/A21"
         app:layout_constraintTop_toBottomOf="@+id/A12"
-        app:srcCompat="@android:drawable/btn_star" />
-
-    <ImageView
-        android:id="@+id/A21"
-        android:layout_width="52dp"
-        android:layout_height="52dp"
-        android:layout_marginStart="53dp"
-        android:layout_marginTop="40dp"
-        android:onClick="showStickerDescription"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/A11"
         app:srcCompat="@android:drawable/btn_star" />
 
     <ImageView
@@ -175,28 +208,6 @@
         app:srcCompat="@android:drawable/btn_star" />
 
     <ImageView
-        android:id="@+id/A32"
-        android:layout_width="52dp"
-        android:layout_height="52dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="40dp"
-        android:onClick="showStickerDescription"
-        app:layout_constraintStart_toEndOf="@+id/A31"
-        app:layout_constraintTop_toBottomOf="@+id/A22"
-        app:srcCompat="@android:drawable/btn_star" />
-
-    <ImageView
-        android:id="@+id/A31"
-        android:layout_width="52dp"
-        android:layout_height="52dp"
-        android:layout_marginStart="53dp"
-        android:layout_marginTop="40dp"
-        android:onClick="showStickerDescription"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/A21"
-        app:srcCompat="@android:drawable/btn_star" />
-
-    <ImageView
         android:id="@+id/A13"
         android:layout_width="52dp"
         android:layout_height="52dp"
@@ -208,69 +219,15 @@
         app:srcCompat="@android:drawable/btn_star" />
 
     <ImageView
-        android:id="@+id/A04"
+        android:id="@+id/A02"
         android:layout_width="52dp"
         android:layout_height="52dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="128dp"
+        android:layout_marginTop="80dp"
         android:onClick="showStickerDescription"
-        app:layout_constraintStart_toEndOf="@+id/A03"
+        app:layout_constraintStart_toEndOf="@+id/A01"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/btn_star" />
-
-    <ImageView
-        android:id="@+id/A01"
-        android:layout_width="52dp"
-        android:layout_height="52dp"
-        android:layout_marginStart="53dp"
-        android:layout_marginTop="128dp"
-        android:onClick="showStickerDescription"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/btn_star" />
-
-    <Button
-        android:id="@+id/button7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/darkBlue"
-        android:text="Sticker Wall"
-        app:layout_constraintBottom_toBottomOf="@+id/topvarSW"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.164"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/topvarSW"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/topvarSW"
-        android:layout_width="409dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="64dp"
-        android:background="@color/lightBlue"
-        android:fontFamily="@font/prompt"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/button6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/darkBlue"
-        android:fontFamily="@font/prompt"
-        android:onClick="goToDiscRackScreen"
-        android:text="Disc Rack"
-        app:layout_constraintBottom_toBottomOf="@+id/topvarSW"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.789"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/topvarSW"
-        app:layout_constraintVertical_bias="1.0" />
 
     <ImageView
         android:id="@+id/imageView2"
