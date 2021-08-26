@@ -168,8 +168,10 @@ public class Tracking_Settings extends AppCompatActivity {
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        fusedLocationClient.requestLocationUpdates(locationRequest, locationCallBack, null);
-        updateGPS();
+        else {
+            fusedLocationClient.requestLocationUpdates(locationRequest, locationCallBack, null);
+            updateGPS();
+        }
 
 
     }
