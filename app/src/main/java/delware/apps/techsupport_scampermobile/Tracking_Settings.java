@@ -163,6 +163,8 @@ public class Tracking_Settings extends AppCompatActivity {
         tv_updates.setText("Location is being tracked");
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+
+            fusedLocationClient.requestLocationUpdates(locationRequest, locationCallBack, null);
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
@@ -170,9 +172,11 @@ public class Tracking_Settings extends AppCompatActivity {
             //                                          int[] grantResults)
             // to handle the case where the user grants the permission. See the documentation
             // for ActivityCompat#requestPermissions for more details.
-            return;
+
+        } else{
+
         }
-        fusedLocationClient.requestLocationUpdates(locationRequest, locationCallBack, null);
+
         updateGPS();
 
 
