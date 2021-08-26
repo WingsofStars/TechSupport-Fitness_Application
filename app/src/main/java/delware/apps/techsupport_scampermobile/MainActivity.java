@@ -22,7 +22,8 @@ import java.util.ArrayList;
 import delware.apps.techsupport_scampermobile.Screens.newUserScreen;
 import delware.apps.techsupport_scampermobile.Screens.trackingScreen;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements
+SharedPreferences.OnSharedPreferenceChangeListener {
 
     static SharedPreferences prefs; // uses small save files know as "Shared Preferences"
     public AlertDialog.Builder dBuilder;
@@ -235,5 +236,10 @@ public class MainActivity extends AppCompatActivity {
             NotificationManager manager = getSystemService(NotificationManager.class);
             manager.createNotificationChannel(serviceChannel);
         }
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+
     }
 }

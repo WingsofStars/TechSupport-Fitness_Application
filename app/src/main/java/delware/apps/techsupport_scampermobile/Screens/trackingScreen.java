@@ -8,12 +8,15 @@ import android.os.SystemClock;
 import android.view.View;
 import android.widget.Chronometer;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import delware.apps.techsupport_scampermobile.MainActivity;
+import delware.apps.techsupport_scampermobile.NavigationService;
 import delware.apps.techsupport_scampermobile.R;
 
 public class trackingScreen extends AppCompatActivity {
+    public static final String INTENT_START_NAME = "inputStart";
     public enum State
     {
         running,
@@ -31,6 +34,7 @@ public class trackingScreen extends AppCompatActivity {
     private long pauseOffset;
     public long totaltime; //in seconds
     public static State state;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +75,8 @@ public class trackingScreen extends AppCompatActivity {
         pausebtn.setVisibility(View.VISIBLE);
         pausebtn.setEnabled(true);
         stopbtn.setEnabled(true);
+        state = State.running;
+        getRunIntent(state);
 
 
         if(!running) {
@@ -78,7 +84,7 @@ public class trackingScreen extends AppCompatActivity {
             timetxt.setBase(SystemClock.elapsedRealtime() - pauseOffset);
             timetxt.start();
             running = true;
-            state = State.running;
+
         }
         else {
             //resume
@@ -117,11 +123,31 @@ public class trackingScreen extends AppCompatActivity {
         pauseOffset=0;
         running = false;
         state = State.stopped;
+        getRunIntent(state);
         //resets presses so you can restart the run
         totaltime = SystemClock.elapsedRealtime() - timetxt.getBase();
         System.out.println(totaltime);
 
 
+    }
+
+    public void getRunIntent(State state){
+        Intent serviceIntent = new Intent(this, NavigationService.class);
+        String txtBody = "Run Still In Progress \n" + "Time Elapsed: " + SystemClock.elapsedRealtime();
+        switch(state){
+            case running:
+                System.out.println("running case triggered");
+                serviceIntent.putExtra(INTENT_START_NAME, txtBody);
+
+                startService(serviceIntent);
+                break;
+
+
+            case stopped:
+                stopService(serviceIntent);
+                break;
+
+        }
     }
 
 }
