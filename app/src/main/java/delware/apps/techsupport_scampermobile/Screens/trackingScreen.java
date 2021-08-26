@@ -14,6 +14,12 @@ import delware.apps.techsupport_scampermobile.MainActivity;
 import delware.apps.techsupport_scampermobile.R;
 
 public class trackingScreen extends AppCompatActivity {
+    public enum State
+    {
+        running,
+        paused,
+        stopped
+    }
     public Chronometer timetxt;
     public TextView distancetxt;
     public TextView speedtxt;
@@ -24,6 +30,7 @@ public class trackingScreen extends AppCompatActivity {
     private boolean running = false;
     private long pauseOffset;
     public long totaltime; //in seconds
+    public static State state;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +78,7 @@ public class trackingScreen extends AppCompatActivity {
             timetxt.setBase(SystemClock.elapsedRealtime() - pauseOffset);
             timetxt.start();
             running = true;
+            state = State.running;
         }
         else {
             //resume
@@ -89,6 +97,7 @@ public class trackingScreen extends AppCompatActivity {
             pauseOffset = SystemClock.elapsedRealtime() - timetxt.getBase();
             timetxt.stop();
             running = false;
+            state = State.paused;
         }
 
 
@@ -107,6 +116,7 @@ public class trackingScreen extends AppCompatActivity {
         timetxt.setBase(SystemClock.elapsedRealtime());
         pauseOffset=0;
         running = false;
+        state = State.stopped;
         //resets presses so you can restart the run
         totaltime = SystemClock.elapsedRealtime() - timetxt.getBase();
         System.out.println(totaltime);

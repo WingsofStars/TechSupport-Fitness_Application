@@ -3,9 +3,12 @@ package delware.apps.techsupport_scampermobile;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -34,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     float x1, y1, x2, y2;
     public static boolean isFromMain;
     ImageView infoBtn;
+    public static final String CHANNEL_ID = "foregroundServiceChannel";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
         prefs = getSharedPreferences("prefs", MODE_PRIVATE);
 
-
+        createNotificationChannel();
 
 
         boolean isUserLoggedIn = prefs.getBoolean("LoggedIn", false); //Checks for user account if it doesn't exists, it creates a SP(Shared Preference) saying it Doesn't
@@ -84,7 +88,6 @@ public class MainActivity extends AppCompatActivity {
 //            editor.apply();
 //        }
     }
-
 
     public void goToSettings(View v) {
         Intent goToSettings = new Intent(MainActivity.this, settings.class);
@@ -221,5 +224,16 @@ public class MainActivity extends AppCompatActivity {
                 dialogue.dismiss();
             }
         });
+    }
+    private void createNotificationChannel() {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel serviceChannel = new NotificationChannel(
+                    CHANNEL_ID, "Location Service Channel",
+                    NotificationManager.IMPORTANCE_DEFAULT
+            );
+
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(serviceChannel);
+        }
     }
 }
