@@ -3,6 +3,7 @@ package delware.apps.techsupport_scampermobile;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     public static boolean isFromMain;
     ImageView infoBtn;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,12 +70,15 @@ public class MainActivity extends AppCompatActivity {
             TVXP.setText("0 / 0 | Level 0");
         }
 
+        /*
         infoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showInfoPopup();
             }
         });
+
+         */
 //        boolean firstStart = prefs.getBoolean("isThisFirstStart", true);// Searches for a Shared  Preferences Value, if one doesn't exists, it is created with the default value of true
 ////
 //        if (firstStart){

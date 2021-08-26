@@ -15,13 +15,14 @@ public class Game_Settings extends RivalGuts {
         setContentView(R.layout.activity_game_settings);
         SeekBar sBar = findViewById(R.id.seekBar2);
         TextView textOutput = findViewById(R.id.textOut);
-        sBar.setProgress(difficulty);
-        textOutput.setText(difficulty);
+
+        sBar.setProgress(getDifficulty());
+        textOutput.setText((getDifficulty()+1) + "");
         sBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                difficulty = progress + 1;
-                textOutput.setText(difficulty);
+                setDifficulty(progress);
+                textOutput.setText((getDifficulty()+1) + "");
             }
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
@@ -29,7 +30,7 @@ public class Game_Settings extends RivalGuts {
             }
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                textOutput.setText("Level set to " + difficulty);
+                textOutput.setText("Level set to " + (getDifficulty()+1));
             }
         });
     }
