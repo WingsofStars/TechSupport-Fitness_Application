@@ -77,14 +77,6 @@ SharedPreferences.OnSharedPreferenceChangeListener {
             TVXP.setText("0 / 0 | Level 0");
         }
 
-        //Rival Call Button, triggered on Sunday
-        Button callBtn = findViewById(R.id.button14);
-        LocalDate day = LocalDate.now();
-        DayOfWeek targetDay = DayOfWeek.SUNDAY;
-        if(day.getDayOfWeek().equals(targetDay)) {
-            callBtn.setVisibility(View.VISIBLE);
-        }
-
         /*
         infoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -218,13 +210,19 @@ SharedPreferences.OnSharedPreferenceChangeListener {
                 if (x1 > x2) {
                     Intent i = new Intent(MainActivity.this, stickerWallScreen.class);
                     startActivity(i);
-//            }else if(x1 greater than x2){
-//                Intent i = new Intent(MainActivity.this, SwipeRight.class);
-//                startActivity(i);
-//            }
-                }
-                break;
+            }else if(x1 < x2){
+                    //Rival Call Button, triggered on Sunday
+                    Button callBtn = findViewById(R.id.button14);
+                    LocalDate day = LocalDate.now();
+                    DayOfWeek targetDay = DayOfWeek.SUNDAY;
+                    if(day.getDayOfWeek().equals(targetDay))
+                    {
+                        Intent i = new Intent(MainActivity.this, rivalScreen.class);
+                        startActivity(i);
+                    }
             }
+                break;
+        }
             return false;
 
     }
