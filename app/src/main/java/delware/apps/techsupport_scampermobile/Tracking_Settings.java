@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +33,7 @@ public class Tracking_Settings extends AppCompatActivity {
     public static final int FAST_UPDATE_INTERVAL = 5;
     private static final int PERMISSIONS_FINE_LOCATION = 69;
     TextView tv_latitude, tv_longitude, tv_altitude, tv_accuracy, tv_speed, tv_sensor, tv_updates, tv_address, tv_wayPointCounts;
+    ImageView iv_return;
     Button btn_newWaypoint, btn_showWayPointList, btn_showMap;
     Switch sw_locationupdates, sw_gps;
     public double currentSpeed;
@@ -55,6 +57,7 @@ public class Tracking_Settings extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tracking_settings);
 
+        iv_return = findViewById(R.id.iv_return);
         tv_latitude = findViewById(R.id.tv_latitude);
         tv_longitude = findViewById(R.id.tv_longitude);
         tv_altitude = findViewById(R.id.tv_accuracy);
@@ -143,6 +146,7 @@ public class Tracking_Settings extends AppCompatActivity {
 
     }
 
+
     private void stopLocationUpdates() {
         tv_updates.setText("Location is NOT being tracked");
         tv_latitude.setText("Not tracking location");
@@ -158,7 +162,9 @@ public class Tracking_Settings extends AppCompatActivity {
     private void startLocationUpdates() {
         tv_updates.setText("Location is being tracked");
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+
+            fusedLocationClient.requestLocationUpdates(locationRequest, locationCallBack, null);
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
@@ -166,9 +172,11 @@ public class Tracking_Settings extends AppCompatActivity {
             //                                          int[] grantResults)
             // to handle the case where the user grants the permission. See the documentation
             // for ActivityCompat#requestPermissions for more details.
-            return;
+
+        } else{
+
         }
-        fusedLocationClient.requestLocationUpdates(locationRequest, locationCallBack, null);
+
         updateGPS();
 
 
@@ -184,7 +192,8 @@ public class Tracking_Settings extends AppCompatActivity {
                     updateGPS();
                 } else {
                     Toast.makeText(this, "This app requires the use of location features to successfully operate", Toast.LENGTH_SHORT).show();
-                    finish();
+                    System.out.println("Location permissions failed or where denied");
+                    exitIntent();
                 }
                 break;
         }    }
@@ -199,6 +208,9 @@ public class Tracking_Settings extends AppCompatActivity {
 
                     updateUIValues(location);
                     currentLocation = location;
+                    LocationList locationList = (LocationList) getApplicationContext();
+                    savedLocations = locationList.getMyLocations();
+                    savedLocations.add(currentLocation);
                     if(location != null) {
                         System.out.println("location is null");
                     }
@@ -254,7 +266,7 @@ public class Tracking_Settings extends AppCompatActivity {
     }
 
     public void exitIntent(){
-        Intent intent = new Intent(getApplicationContext(), Tracking_Settings.class);
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);//Exits current intent
         intent.putExtra("EXIT", true);
         startActivity(intent);

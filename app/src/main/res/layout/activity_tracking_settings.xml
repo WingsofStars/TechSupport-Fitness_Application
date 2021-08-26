@@ -213,6 +213,7 @@
         android:layout_width="43dp"
         android:layout_height="33dp"
         android:layout_marginTop="16dp"
+        android:clickable="true"
         android:onClick="goBack"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.956"
