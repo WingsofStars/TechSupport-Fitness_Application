@@ -72,7 +72,7 @@ public class CalorieCalculator {
         return calories;
     }
 
-
+    //:)
     public static double getMETValue(double speedMPS){
         double speedMPH = speedMPS * 2.2369362920544;
 
