@@ -10,6 +10,7 @@ import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import delware.apps.techsupport_scampermobile.MainActivity;
 import delware.apps.techsupport_scampermobile.NavigationService;
@@ -49,15 +50,20 @@ public class trackingScreen extends AppCompatActivity {
 
         stopbtn.setEnabled(false);
         pausebtn.setEnabled(false);
+
+        timetxt.setBase(SystemClock.elapsedRealtime());
     }
 
 
     //    THIS IS AN IMPORTANT FUNCTION TO EXIT THE CURRENT INTENT AND GO BACK TO THE PREVIOUS ACTIVITY
     public void exitIntent() {
+        ScrapRun();
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);//Exits current intent
         intent.putExtra("EXIT", true);
         startActivity(intent);
+
+
     }
 
     //Clickable Icon Lets the user exit current intent/activity and return to the previous screen
@@ -130,6 +136,16 @@ public class trackingScreen extends AppCompatActivity {
         //resets presses so you can restart the run
 
 
+    }
+    public void ScrapRun(){
+        timetxt.stop();
+        totaltime = 0;
+        timetxt.setBase(SystemClock.elapsedRealtime());
+        pauseOffset=0;
+        running = false;
+        state = State.stopped;
+        getRunIntent(state);
+        Toast.makeText(getApplicationContext(), "Run Cancelled", Toast.LENGTH_LONG).show();
     }
 
     public void getRunIntent(State state){
