@@ -7,7 +7,6 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -20,7 +19,7 @@ import android.widget.EditText;
 import java.util.ArrayList;
 
 import delware.apps.techsupport_scampermobile.Screens.newUserScreen;
-import delware.apps.techsupport_scampermobile.Screens.trackingScreen;
+import delware.apps.techsupport_scampermobile.Screens.TrackingScreen;
 
 public class MainActivity extends AppCompatActivity implements
 SharedPreferences.OnSharedPreferenceChangeListener {
@@ -101,7 +100,7 @@ SharedPreferences.OnSharedPreferenceChangeListener {
     }
 
     public void goToTrackingScreen(View v) {
-        Intent goToSettings = new Intent(MainActivity.this, trackingScreen.class);
+        Intent goToSettings = new Intent(MainActivity.this, TrackingScreen.class);
         startActivity(goToSettings);
     }
 

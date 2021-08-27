@@ -1,8 +1,14 @@
 package delware.apps.techsupport_scampermobile.Screens;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.View;
@@ -10,13 +16,44 @@ import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
+
+import java.util.List;
+
+import delware.apps.techsupport_scampermobile.LocationList;
 import delware.apps.techsupport_scampermobile.MainActivity;
 import delware.apps.techsupport_scampermobile.NavigationService;
 import delware.apps.techsupport_scampermobile.R;
 import delware.apps.techsupport_scampermobile.Tracking_Settings;
 
-public class trackingScreen extends AppCompatActivity {
+public class TrackingScreen extends AppCompatActivity {
+
+    public static final int DEFAULT_UPDATE_INTERVAL = 10;
+    public static final int FAST_UPDATE_INTERVAL = 5;
+    private static final int PERMISSIONS_FINE_LOCATION = 69;
+
+    public double currentSpeed;
+
+    //current location
+    public Location currentLocation;
+
+
+    //config file for settings related to FusedLocationProviderClient
+    public LocationRequest locationRequest;
+
+    LocationCallback locationCallBack;
+
+    //Google API for location services
+    private FusedLocationProviderClient fusedLocationClient;
+
+
     public static final String INTENT_START_NAME = "inputStart";
     public Tracking_Settings trackingSettings;
     public enum State
@@ -52,6 +89,27 @@ public class trackingScreen extends AppCompatActivity {
         stopbtn.setEnabled(false);
         pausebtn.setEnabled(false);
         trackingSettings = new Tracking_Settings();
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        //set properties of location request
+        locationRequest = LocationRequest.create();
+        locationRequest.setInterval(1000 * DEFAULT_UPDATE_INTERVAL);
+        locationRequest.setFastestInterval(1000 * FAST_UPDATE_INTERVAL);
+        locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+
+        //event that is triggered whenever the update interval is met
+        locationCallBack = new LocationCallback() {
+            @Override
+            public void onLocationResult(@NonNull LocationResult locationResult) {
+                super.onLocationResult(locationResult);
+
+                //save the location
+                currentLocation = locationResult.getLastLocation();
+                trackingSettings.addLocalToList(currentLocation);
+
+                System.out.println("Location Interval Triggered");
+            }
+        };
     }
 
 
@@ -87,7 +145,7 @@ public class trackingScreen extends AppCompatActivity {
             timetxt.setBase(SystemClock.elapsedRealtime() - pauseOffset);
             timetxt.start();
             running = true;
-            trackingSettings.startLocationUpdates();
+            startLocationUpdates();
 
         }
         else {
@@ -131,9 +189,68 @@ public class trackingScreen extends AppCompatActivity {
         //resets presses so you can restart the run
         totaltime = SystemClock.elapsedRealtime() - timetxt.getBase();
         System.out.println(totaltime);
-        trackingSettings.stopLocationUpdates();
+        stopLocationUpdates();
 
 
+    }
+
+    public void stopLocationUpdates() {
+        fusedLocationClient.removeLocationUpdates(locationCallBack);
+    }
+
+    public void startLocationUpdates() {
+        try {
+            fusedLocationClient.requestLocationUpdates(locationRequest, locationCallBack, null);
+        }catch(Exception e){
+            System.out.println("Congrats you broke it");
+        }
+        updateGPS();
+
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        switch (requestCode) {
+            case PERMISSIONS_FINE_LOCATION:
+                if(grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    updateGPS();
+                } else {
+                    Toast.makeText(this, "This app requires the use of location features to successfully operate", Toast.LENGTH_SHORT).show();
+                    System.out.println("Location permissions failed or was denied");
+                    exitIntent();
+                }
+                break;
+        }
+
+    }
+
+    public void updateGPS() {
+        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+            //user has given permission
+            //gets last known location
+            fusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                @Override
+                public void onSuccess(Location location) {
+
+                    trackingSettings.updateUIValues(location);
+                    currentLocation = location;
+                    trackingSettings.addLocalToList(currentLocation);
+                    System.out.println(currentLocation);
+                    if(location != null) {
+                        System.out.println("location is null");
+                    }
+                }
+            });
+
+        }else {
+            //permissions not granted yet
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                requestPermissions(new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSIONS_FINE_LOCATION);
+            }
+        }
     }
 
     public void getRunIntent(State state){
