@@ -121,6 +121,7 @@ public class newUserScreen extends AppCompatActivity {
         editor.putBoolean("LoggedIn", true);
         editor.apply();
         MainActivity.currentID = String.valueOf(prefs.getInt("id", 0));
+        MainActivity.xpSystem.xpCheck(0, p);
         exitIntent();
         Toast.makeText(getApplicationContext(), "User Created", Toast.LENGTH_LONG).show();//Makes a dialogue box that says the user is created
         if(MainActivity.isFromMain) {
