@@ -21,6 +21,7 @@ public class xpSystem {
             user.setLevel(user.getLevel() + 1);
             user.setXP(0);
             MainActivity.TVXP.setText(String.format(format, 0, levelValues[user.getLevel()], user.getLevel()));
+            MainActivity.levelUp = true;
         } else {
             user.setXP(xpAmount);
             MainActivity.TVXP.setText(String.format(format, xpAmount, xpReq, user.getLevel()));
@@ -34,5 +35,6 @@ public class xpSystem {
         user.setLevel(user.getLevel() + 1);
         user.setXP(remainderXP);
         MainActivity.TVXP.setText(String.format(format, remainderXP, levelValues[user.getLevel()], user.getLevel() ));
+        MainActivity.levelUp = true;
     }
 }

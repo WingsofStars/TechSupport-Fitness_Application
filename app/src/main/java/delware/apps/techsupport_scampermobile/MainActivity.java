@@ -32,6 +32,7 @@ SharedPreferences.OnSharedPreferenceChangeListener {
     public AlertDialog.Builder dBuilder;
     public static AlertDialog dialogue;
     static TextView TVXP;
+    public static Boolean levelUp = false;
     public static String currentID;
     //    MediaPlayer mp;
     public static DBHandler databaseHandler;
@@ -220,6 +221,13 @@ SharedPreferences.OnSharedPreferenceChangeListener {
                         Intent i = new Intent(MainActivity.this, rivalScreen.class);
                         startActivity(i);
                     }
+                    //Call on Level up logic
+                    if(levelUp) {
+                        levelUp = false;
+                        Intent i = new Intent(MainActivity.this, rivalScreen.class);
+                        startActivity(i);
+                    }
+
             }
                 break;
         }
