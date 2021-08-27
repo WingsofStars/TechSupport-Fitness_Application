@@ -97,9 +97,7 @@ public class Tracking_Settings extends AppCompatActivity {
                 //get gps location
 
                 //add items to list
-                LocationList locationList = (LocationList) getApplicationContext();
-                savedLocations = locationList.getMyLocations();
-                savedLocations.add(currentLocation);
+                addLocalToList(currentLocation);
             }
         });
 
@@ -192,11 +190,19 @@ public class Tracking_Settings extends AppCompatActivity {
                     updateGPS();
                 } else {
                     Toast.makeText(this, "This app requires the use of location features to successfully operate", Toast.LENGTH_SHORT).show();
-                    System.out.println("Location permissions failed or where denied");
+                    System.out.println("Location permissions failed or was denied");
                     exitIntent();
                 }
                 break;
-        }    }
+        }
+
+    }
+
+    private void addLocalToList(Location location){
+        LocationList locationList = (LocationList) getApplicationContext();
+        savedLocations = locationList.getMyLocations();
+        savedLocations.add(location);
+    }
 
     private void updateGPS() {
         if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
@@ -247,22 +253,36 @@ public class Tracking_Settings extends AppCompatActivity {
             tv_speed.setText("Not available");
         }
 
-        //Geocoder
-        Geocoder geocoder = new Geocoder(Tracking_Settings.this);
-        try{
-            List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1 );
-            tv_address.setText(addresses.get(0).getAddressLine(0));
-
-        }catch (Exception e) {
-            tv_address.setText("Unable to get street address");
-
-        }
+        getGeocode(location);
+//        Geocoder geocoder = new Geocoder(Tracking_Settings.this);
+//        try{
+//            List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1 );
+//            tv_address.setText(addresses.get(0).getAddressLine(0));
+//
+//        }catch (Exception e) {
+//            tv_address.setText("Unable to get street address");
+//
+//        }
 
         LocationList locationList = (LocationList)getApplicationContext();
         savedLocations = locationList.getMyLocations();
 
         //show number of items in list
         tv_wayPointCounts.setText(Integer.toString(savedLocations.size()));
+    }
+
+    public List<Address> getGeocode(Location location){
+        Geocoder geocoder = new Geocoder(Tracking_Settings.this);
+        List<Address> addresses = null;
+        try{
+            addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1 );
+            tv_address.setText(addresses.get(0).getAddressLine(0));
+
+        }catch (Exception e) {
+            tv_address.setText("Unable to get street address");
+
+        }
+        return addresses;
     }
 
     public void exitIntent(){
