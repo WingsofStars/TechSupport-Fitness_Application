@@ -104,12 +104,15 @@ public class trackingScreen extends AppCompatActivity {
 
         playbtn.setVisibility(View.VISIBLE);
         playbtn.setEnabled(true);
+        timetxt.stop();
+        totaltime = (SystemClock.elapsedRealtime() - timetxt.getBase())/1000;
+        System.out.println(totaltime);
         timetxt.setBase(SystemClock.elapsedRealtime());
         pauseOffset=0;
         running = false;
+
         //resets presses so you can restart the run
-        totaltime = SystemClock.elapsedRealtime() - timetxt.getBase();
-        System.out.println(totaltime);
+
 
 
     }
