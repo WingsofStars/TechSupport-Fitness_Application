@@ -29,7 +29,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import java.util.List;
 
 public class Tracking_Settings extends AppCompatActivity {
-    public static final int DEFAULT_UPDATE_INTERVAL = 30;
+    public static final int DEFAULT_UPDATE_INTERVAL = 10;
     public static final int FAST_UPDATE_INTERVAL = 5;
     private static final int PERMISSIONS_FINE_LOCATION = 69;
     TextView tv_latitude, tv_longitude, tv_altitude, tv_accuracy, tv_speed, tv_sensor, tv_updates, tv_address, tv_wayPointCounts;
@@ -88,6 +88,9 @@ public class Tracking_Settings extends AppCompatActivity {
 
                 //save the location
                 updateUIValues(locationResult.getLastLocation());
+                currentLocation = locationResult.getLastLocation();
+
+                System.out.println("Location Interval Triggered");
             }
         };
 
@@ -145,7 +148,7 @@ public class Tracking_Settings extends AppCompatActivity {
     }
 
 
-    private void stopLocationUpdates() {
+    public void stopLocationUpdates() {
         tv_updates.setText("Location is NOT being tracked");
         tv_latitude.setText("Not tracking location");
         tv_longitude.setText("Not tracking location");
@@ -157,24 +160,13 @@ public class Tracking_Settings extends AppCompatActivity {
         fusedLocationClient.removeLocationUpdates(locationCallBack);
     }
 
-    private void startLocationUpdates() {
+    public void startLocationUpdates() {
         tv_updates.setText("Location is being tracked");
-
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-
+        try {
             fusedLocationClient.requestLocationUpdates(locationRequest, locationCallBack, null);
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-
-        } else{
-
+        }catch(Exception e){
+            System.out.println();
         }
-
         updateGPS();
 
 
@@ -217,6 +209,7 @@ public class Tracking_Settings extends AppCompatActivity {
                     LocationList locationList = (LocationList) getApplicationContext();
                     savedLocations = locationList.getMyLocations();
                     savedLocations.add(currentLocation);
+                    System.out.println(currentLocation);
                     if(location != null) {
                         System.out.println("location is null");
                     }

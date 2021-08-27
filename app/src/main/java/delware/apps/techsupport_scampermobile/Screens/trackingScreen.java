@@ -14,9 +14,11 @@ import android.widget.TextView;
 import delware.apps.techsupport_scampermobile.MainActivity;
 import delware.apps.techsupport_scampermobile.NavigationService;
 import delware.apps.techsupport_scampermobile.R;
+import delware.apps.techsupport_scampermobile.Tracking_Settings;
 
 public class trackingScreen extends AppCompatActivity {
     public static final String INTENT_START_NAME = "inputStart";
+    public Tracking_Settings trackingSettings;
     public enum State
     {
         running,
@@ -49,6 +51,7 @@ public class trackingScreen extends AppCompatActivity {
 
         stopbtn.setEnabled(false);
         pausebtn.setEnabled(false);
+        trackingSettings = new Tracking_Settings();
     }
 
 
@@ -84,6 +87,7 @@ public class trackingScreen extends AppCompatActivity {
             timetxt.setBase(SystemClock.elapsedRealtime() - pauseOffset);
             timetxt.start();
             running = true;
+            trackingSettings.startLocationUpdates();
 
         }
         else {
@@ -127,6 +131,7 @@ public class trackingScreen extends AppCompatActivity {
         //resets presses so you can restart the run
         totaltime = SystemClock.elapsedRealtime() - timetxt.getBase();
         System.out.println(totaltime);
+        trackingSettings.stopLocationUpdates();
 
 
     }
