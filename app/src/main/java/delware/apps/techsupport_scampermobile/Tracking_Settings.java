@@ -150,8 +150,6 @@ public class Tracking_Settings extends AppCompatActivity {
             }
         });
 
-        trackingScreen.updateGPS();
-
     }
 
 
