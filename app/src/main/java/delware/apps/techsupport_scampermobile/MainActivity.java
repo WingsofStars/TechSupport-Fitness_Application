@@ -20,7 +20,12 @@ import android.widget.EditText;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 
 import delware.apps.techsupport_scampermobile.Screens.newUserScreen;
 import delware.apps.techsupport_scampermobile.Screens.trackingScreen;
@@ -43,13 +48,18 @@ SharedPreferences.OnSharedPreferenceChangeListener {
     public static boolean isFromMain;
     ImageView infoBtn;
     public static final String CHANNEL_ID = "foregroundServiceChannel";
+    public static TextView Time, Distance, Calories;
 
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
-        //infoBtn=findViewById(R.id.btnInfo);
+        Time = findViewById(R.id.time);
+        Distance = findViewById(R.id.distance);
+        Calories = findViewById(R.id.calories);
+
+        infoBtn=findViewById(R.id.btnInfo);
 
         databaseHandler = new DBHandler(MainActivity.this);
         xpSystem = new xpSystem();
@@ -78,15 +88,12 @@ SharedPreferences.OnSharedPreferenceChangeListener {
             TVXP.setText("0 / 0 | Level 0");
         }
 
-        /*
         infoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showInfoPopup();
             }
         });
-
-         */
 //        boolean firstStart = prefs.getBoolean("isThisFirstStart", true);// Searches for a Shared  Preferences Value, if one doesn't exists, it is created with the default value of true
 ////
 //        if (firstStart){
@@ -96,8 +103,10 @@ SharedPreferences.OnSharedPreferenceChangeListener {
 //            editor.putBoolean("isThisFirstStart", false);//Changes Value to False
 //            editor.apply();
 //        }
-    }
 
+        setWeeklyStats();
+
+    }
 
     public void goToSettings(View v) {
         Intent goToSettings = new Intent(MainActivity.this, settings.class);
@@ -268,4 +277,36 @@ SharedPreferences.OnSharedPreferenceChangeListener {
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
 
     }
+    public static void setWeeklyStats(){
+        RunLogs = databaseHandler.getAllLogs("All");
+        ArrayList<RunLog> last7DaysLog = new ArrayList<>();
+        long DAY_IN_MS = 1000 * 60 * 60 * 24;
+
+        Date todaysDate = new Date();
+        Date previousWeekDate = new Date(todaysDate.getTime() - (7*DAY_IN_MS));
+
+        for (int i = 0; i < RunLogs.size(); i++) {
+            try {
+                Date date = new SimpleDateFormat("MM/dd/yyyy").parse(RunLogs.get(i).date);
+                if(date.after(previousWeekDate) && date.before(new Date(todaysDate.getTime() + (1*DAY_IN_MS)))) {
+                    last7DaysLog.add(RunLogs.get(i));
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        float totaldistance = 0f;
+        int totalCalories = 0;
+        float totalTime = 0f;
+
+        for( int i = 0; i < last7DaysLog.size(); i++) {
+            totalCalories += last7DaysLog.get(i).calories;
+            totaldistance += last7DaysLog.get(i).Distance;
+            totalTime +=( (last7DaysLog.get(i).Hours) + (RunLogs.get(i).Minutes/60));
+        }
+        Calories.setText(String.valueOf(totalCalories) + " Calories");
+        Distance.setText(String.format("%.2f", totaldistance) + " Miles");
+        Time.setText(String.format("%.2f", totalTime) + " Hours"); // float formatting
+    }
+
 }

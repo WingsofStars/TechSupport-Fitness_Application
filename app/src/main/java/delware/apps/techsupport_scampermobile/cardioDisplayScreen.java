@@ -68,6 +68,7 @@ int Position2;
         typeSelector1.setOnItemSelectedListener(this);
 
 
+
         listView = (ListView) findViewById(R.id.listView);
 
 
@@ -126,7 +127,7 @@ int Position2;
 
     public void createNewLog(View view){//Creates a popup window to take inputs to Log
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.CardioTypeSelection, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.CardioTypeSelection, R.layout.spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 
@@ -142,6 +143,7 @@ int Position2;
         hours = addNewLogPopup.findViewById(R.id.Hours);
         date = addNewLogPopup.findViewById(R.id.Date);
         type = addNewLogPopup.findViewById(R.id.Type);
+
 
         TextView Error = addNewLogPopup.findViewById(R.id.Error);
 
@@ -256,6 +258,7 @@ int Position2;
             LogAdapter adapter = new LogAdapter(this, R.layout.adapter_view_layout, MainActivity.databaseHandler.getAllLogs(typeSelector1.getItemAtPosition(Position1).toString()));
             listView.setAdapter(adapter);
         }
+        MainActivity.setWeeklyStats();
 
 
     }
