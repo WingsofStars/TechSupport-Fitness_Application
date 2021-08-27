@@ -93,7 +93,7 @@ public class trackingScreen extends AppCompatActivity {
 
         }
         else {
-            //resume
+            //Resume
         }
 
 
