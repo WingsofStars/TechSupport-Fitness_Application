@@ -152,6 +152,8 @@ public class Tracking_Settings extends AppCompatActivity {
 
             }
         });
+        //Little bastard keeps crashing the app
+        trackingScreen.updateGPS();
 
         trackingScreen.updateGPS();
 
