@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -9,120 +10,135 @@
         android:id="@+id/tv_label_speed"
         android:layout_width="124dp"
         android:layout_height="19dp"
-        android:layout_marginStart="60dp"
+
+        android:layout_marginStart="24dp"
         android:layout_marginTop="188dp"
         android:text="Speed:"
-        app:layout_constraintEnd_toStartOf="@+id/tv_speed"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_speed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="188dp"
-        android:layout_marginEnd="168dp"
+        android:layout_width="246dp"
+
+        android:layout_height="37dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="180dp"
         android:text="0.00"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@+id/tv_label_speed"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_label_accuracy"
-        android:layout_width="124dp"
+        android:layout_width="76dp"
+
         android:layout_height="19dp"
-        android:layout_marginTop="140dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="156dp"
         android:text="Accuracy:"
-        app:layout_constraintEnd_toStartOf="@+id/tv_accuracy"
-        app:layout_constraintHorizontal_bias="0.958"
-        app:layout_constraintStart_toEndOf="@+id/tv_altitude"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_accuracy"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="140dp"
-        android:layout_marginEnd="36dp"
+        android:layout_width="147dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="20dp"
+
+        android:layout_marginTop="156dp"
         android:text="0.00"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@+id/tv_label_accuracy"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_label_longitude"
-        android:layout_width="124dp"
+        android:layout_width="75dp"
         android:layout_height="19dp"
+
+        android:layout_marginStart="24dp"
         android:layout_marginTop="80dp"
-        android:layout_marginEnd="8dp"
         android:text="Longitude:"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/tv_label_accuracy"
-        app:layout_constraintEnd_toStartOf="@+id/tv_longitude"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.018" />
 
     <TextView
         android:id="@+id/tv_longitude"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="113dp"
+        android:layout_height="20dp"
+
+        android:layout_marginStart="32dp"
         android:layout_marginTop="80dp"
-        android:layout_marginEnd="28dp"
         android:hint='"0.00"'
         android:text="0.00"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@+id/tv_label_longitude"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_label_latitude"
-        android:layout_width="124dp"
+        android:layout_width="75dp"
         android:layout_height="19dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="80dp"
+
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="48dp"
         android:text="Latitude:"
-        app:layout_constraintEnd_toStartOf="@+id/tv_latitude"
-        app:layout_constraintHorizontal_bias="0.045"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_label_altitude"
-        android:layout_width="124dp"
+        android:layout_width="75dp"
         android:layout_height="19dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="140dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="116dp"
+
         android:text="Altitude:"
-        app:layout_constraintEnd_toStartOf="@+id/tv_latitude"
-        app:layout_constraintHorizontal_bias="0.0"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_altitude"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="140dp"
-        android:layout_marginEnd="220dp"
+        android:layout_width="154dp"
+        android:layout_height="24dp"
+
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="112dp"
         android:text="0.00"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@+id/tv_label_altitude"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_latitude"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:layout_marginEnd="224dp"
+        android:layout_width="102dp"
+        android:layout_height="21dp"
+        android:layout_marginStart="32dp"
+
+        android:layout_marginTop="44dp"
         android:text="0.00"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@+id/tv_label_latitude"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_address"
-        android:layout_width="155dp"
-        android:layout_height="25dp"
-        android:layout_marginTop="244dp"
+        android:layout_width="392dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="220dp"
         android:text="Address"
+
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.125"
+        app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -147,6 +163,8 @@
         android:text="Location Updates"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/black"
+
         app:layout_constraintHorizontal_bias="0.062"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/divider"
@@ -159,6 +177,8 @@
         android:layout_marginTop="40dp"
         android:text="GPS/Power Saving Mode"
         app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/black"
+
         app:layout_constraintHorizontal_bias="0.685"
         app:layout_constraintStart_toEndOf="@+id/sw_locationupdates"
         app:layout_constraintTop_toBottomOf="@+id/divider" />
@@ -167,28 +187,33 @@
         android:id="@+id/tv_label_updates"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="28dp"
         android:text="Updates:"
-        app:layout_constraintEnd_toStartOf="@+id/tv_updates"
-        app:layout_constraintHorizontal_bias="0.813"
+
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sw_locationupdates" />
 
     <TextView
         android:id="@+id/tv_updates"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="116dp"
+        android:layout_width="106dp"
+        android:layout_height="58dp"
         android:text="Off"
+
+        android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/btn_newWaypoint"
-        app:layout_constraintEnd_toStartOf="@+id/tv_label_sensor"
+        app:layout_constraintStart_toEndOf="@+id/tv_label_updates"
         app:layout_constraintTop_toBottomOf="@+id/sw_locationupdates"
-        app:layout_constraintVertical_bias="0.292" />
+        android:gravity="center"
+        app:layout_constraintVertical_bias="0.279" />
 
     <TextView
         android:id="@+id/tv_label_sensor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/black"
+
         android:layout_marginEnd="8dp"
         android:text="Sensor:"
         app:layout_constraintBottom_toTopOf="@+id/btn_newWaypoint"
@@ -202,6 +227,8 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="316dp"
+        android:textColor="@color/black"
+
         android:text="Cell Tower + Wifi"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -237,6 +264,8 @@
 
     <TextView
         android:id="@+id/tv_labelCrumbCounter"
+        android:textColor="@color/black"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
@@ -250,6 +279,8 @@
         android:id="@+id/tv_CountOfCrumbs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/black"
+
         android:layout_marginBottom="32dp"
         android:text="0"
         app:layout_constraintBottom_toBottomOf="parent"
