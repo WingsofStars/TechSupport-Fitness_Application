@@ -1,56 +1,64 @@
 package delware.apps.techsupport_scampermobile;
 
-import android.Manifest;
+//import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
+//import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
-import android.os.Build;
+//import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
+//import android.widget.Toast;
 
-import androidx.annotation.NonNull;
+//import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
+//import androidx.core.app.ActivityCompat;
 
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationCallback;
+//import com.google.android.gms.location.FusedLocationProviderClient;
+//import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationResult;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnSuccessListener;
+//import com.google.android.gms.location.LocationResult;
+//import com.google.android.gms.location.LocationServices;
+//import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.List;
 
+import delware.apps.techsupport_scampermobile.Screens.trackingScreen;
+
 public class Tracking_Settings extends AppCompatActivity {
-    public static final int DEFAULT_UPDATE_INTERVAL = 30;
-    public static final int FAST_UPDATE_INTERVAL = 5;
-    private static final int PERMISSIONS_FINE_LOCATION = 69;
+    public delware.apps.techsupport_scampermobile.Screens.trackingScreen trackingScreen = new trackingScreen();
+//    public static final int DEFAULT_UPDATE_INTERVAL = 10;
+//    public static final int FAST_UPDATE_INTERVAL = 5;
+//    private static final int PERMISSIONS_FINE_LOCATION = 69;
+    //For calculating Distance Between Cords
+    static final double _eQuatorialEarthRadius = 6378.1370D;
+    static final double _d2r = (Math.PI / 180D);
     TextView tv_latitude, tv_longitude, tv_altitude, tv_accuracy, tv_speed, tv_sensor, tv_updates, tv_address, tv_wayPointCounts;
     ImageView iv_return;
     Button btn_newWaypoint, btn_showWayPointList, btn_showMap;
     Switch sw_locationupdates, sw_gps;
     public double currentSpeed;
+    public boolean gpsFastState = false;
 
-    //current location
-    Location currentLocation;
+//    //current location
+//    Location currentLocation;
+//
+   //list of saved locations
+   public List<Location> savedLocations;
+//
+//    //config file for settings related to FusedLocationProviderClient
+//    LocationRequest locationRequest;
+//
+//    LocationCallback locationCallBack;
+//
+//    //Google API for location services
+//    private FusedLocationProviderClient fusedLocationClient;
 
-    //list of saved locations
-    List<Location> savedLocations;
-
-    //config file for settings related to FusedLocationProviderClient
-    LocationRequest locationRequest;
-
-    LocationCallback locationCallBack;
-
-    //Google API for location services
-    private FusedLocationProviderClient fusedLocationClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,23 +81,26 @@ public class Tracking_Settings extends AppCompatActivity {
         tv_wayPointCounts = findViewById(R.id.tv_CountOfCrumbs);
         btn_showMap = findViewById(R.id.btn_showMap);
 
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        //set properties of location request
-        locationRequest = LocationRequest.create();
-        locationRequest.setInterval(1000 * DEFAULT_UPDATE_INTERVAL);
-        locationRequest.setFastestInterval(1000 * FAST_UPDATE_INTERVAL);
-        locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+//        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+//        //set properties of location request
+//        locationRequest = LocationRequest.create();
+//        locationRequest.setInterval(1000 * DEFAULT_UPDATE_INTERVAL);
+//        locationRequest.setFastestInterval(1000 * FAST_UPDATE_INTERVAL);
+//        locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
 
         //event that is triggered whenever the update interval is met
-        locationCallBack = new LocationCallback() {
-            @Override
-            public void onLocationResult(@NonNull LocationResult locationResult) {
-                super.onLocationResult(locationResult);
-
-                //save the location
-                updateUIValues(locationResult.getLastLocation());
-            }
-        };
+//        locationCallBack = new LocationCallback() {
+//            @Override
+//            public void onLocationResult(@NonNull LocationResult locationResult) {
+//                super.onLocationResult(locationResult);
+//
+//                //save the location
+//                updateUIValues(locationResult.getLastLocation());
+//                currentLocation = locationResult.getLastLocation();
+//
+//                System.out.println("Location Interval Triggered");
+//            }
+//        };
 
         btn_newWaypoint.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,9 +108,7 @@ public class Tracking_Settings extends AppCompatActivity {
                 //get gps location
 
                 //add items to list
-                LocationList locationList = (LocationList) getApplicationContext();
-                savedLocations = locationList.getMyLocations();
-                savedLocations.add(currentLocation);
+                addLocalToList(trackingScreen.currentLocation);
             }
         });
 
@@ -122,10 +131,12 @@ public class Tracking_Settings extends AppCompatActivity {
         sw_gps.setOnClickListener(v -> {
             if (sw_gps.isChecked()) {
                 //uses GPS - most accurate
-                locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+                gpsFastState = true;
+                trackingScreen.locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
                 tv_sensor.setText("Using GPS sensors");
             } else {
-                locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+                gpsFastState = false;
+                trackingScreen.locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
                 tv_sensor.setText("Using Towers + WIFI");
             }
         });
@@ -133,99 +144,99 @@ public class Tracking_Settings extends AppCompatActivity {
         sw_locationupdates.setOnClickListener(v -> {
             if (sw_locationupdates.isChecked()) {
                 //turn on location tracking
-                startLocationUpdates();
+                trackingScreen.startLocationUpdates();
 
             } else {
                 //turn off location tracking
-                stopLocationUpdates();
+                trackingScreen.stopLocationUpdates();
 
             }
         });
+        //Little bastard keeps crashing the app
+        trackingScreen.updateGPS();
 
-        updateGPS();
-
-    }
-
-
-    private void stopLocationUpdates() {
-        tv_updates.setText("Location is NOT being tracked");
-        tv_latitude.setText("Not tracking location");
-        tv_longitude.setText("Not tracking location");
-        tv_speed.setText("Not tracking location");
-        tv_address.setText("Not tracking location");
-        tv_accuracy.setText("Not tracking location");
-        tv_altitude.setText("Not tracking location");
-
-        fusedLocationClient.removeLocationUpdates(locationCallBack);
-    }
-
-    private void startLocationUpdates() {
-        tv_updates.setText("Location is being tracked");
-
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-
-            fusedLocationClient.requestLocationUpdates(locationRequest, locationCallBack, null);
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-
-        } else{
-
-        }
-
-        updateGPS();
-
+        trackingScreen.updateGPS();
 
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        switch (requestCode) {
-            case PERMISSIONS_FINE_LOCATION:
-                if(grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    updateGPS();
-                } else {
-                    Toast.makeText(this, "This app requires the use of location features to successfully operate", Toast.LENGTH_SHORT).show();
-                    System.out.println("Location permissions failed or where denied");
-                    exitIntent();
-                }
-                break;
-        }    }
+//    public void stopLocationUpdates() {
+//        tv_updates.setText("Location is NOT being tracked");
+//        tv_latitude.setText("Not tracking location");
+//        tv_longitude.setText("Not tracking location");
+//        tv_speed.setText("Not tracking location");
+//        tv_address.setText("Not tracking location");
+//        tv_accuracy.setText("Not tracking location");
+//        tv_altitude.setText("Not tracking location");
+//
+//        fusedLocationClient.removeLocationUpdates(locationCallBack);
+//    }
 
-    private void updateGPS() {
-        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
-            //user has given permission
-            //gets last known location
-            fusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
-                @Override
-                public void onSuccess(Location location) {
+//    public void startLocationUpdates() {
+//        tv_updates.setText("Location is being tracked");
+//        try {
+//            fusedLocationClient.requestLocationUpdates(locationRequest, locationCallBack, null);
+//        }catch(Exception e){
+//            System.out.println();
+//        }
+//        updateGPS();
+//
+//
+//    }
 
-                    updateUIValues(location);
-                    currentLocation = location;
-                    LocationList locationList = (LocationList) getApplicationContext();
-                    savedLocations = locationList.getMyLocations();
-                    savedLocations.add(currentLocation);
-                    if(location != null) {
-                        System.out.println("location is null");
-                    }
-                }
-            });
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//
+//        switch (requestCode) {
+//            case PERMISSIONS_FINE_LOCATION:
+//                if(grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                    updateGPS();
+//                } else {
+//                    Toast.makeText(this, "This app requires the use of location features to successfully operate", Toast.LENGTH_SHORT).show();
+//                    System.out.println("Location permissions failed or was denied");
+//                    exitIntent();
+//                }
+//                break;
+//        }
+//
+//    }
 
-        }else {
-            //permissions not granted yet
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                requestPermissions(new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSIONS_FINE_LOCATION);
-            }
-        }
+    public void addLocalToList(Location location){
+        LocationList locationList = (LocationList) getApplicationContext();
+        savedLocations = locationList.getMyLocations();
+        savedLocations.add(location);
     }
 
-    private void updateUIValues(Location location) {
+//    private void updateGPS() {
+//        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+//            //user has given permission
+//            //gets last known location
+//            fusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+//                @Override
+//                public void onSuccess(Location location) {
+//
+//                    updateUIValues(location);
+//                    currentLocation = location;
+//                    LocationList locationList = (LocationList) getApplicationContext();
+//                    savedLocations = locationList.getMyLocations();
+//                    savedLocations.add(currentLocation);
+//                    System.out.println(currentLocation);
+//                    if(location != null) {
+//                        System.out.println("location is null");
+//                    }
+//                }
+//            });
+//
+//        }else {
+//            //permissions not granted yet
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//                requestPermissions(new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSIONS_FINE_LOCATION);
+//            }
+//        }
+//    }
+
+    public void updateUIValues(Location location) {
 
         // update all of the text view objects with a new location
         tv_latitude.setText(String.valueOf(location.getLatitude()));
@@ -247,22 +258,47 @@ public class Tracking_Settings extends AppCompatActivity {
             tv_speed.setText("Not available");
         }
 
-        //Geocoder
+        getGeocode(location);
+//        Geocoder geocoder = new Geocoder(Tracking_Settings.this);
+//        try{
+//            List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1 );
+//            tv_address.setText(addresses.get(0).getAddressLine(0));
+//
+//        }catch (Exception e) {
+//            tv_address.setText("Unable to get street address");
+//
+//        }
+
+        //show number of items in list
+        tv_wayPointCounts.setText(Integer.toString(savedLocations.size()));
+    }
+
+    public List<Address> getGeocode(Location location){
         Geocoder geocoder = new Geocoder(Tracking_Settings.this);
+        List<Address> addresses = null;
         try{
-            List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1 );
+            addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1 );
             tv_address.setText(addresses.get(0).getAddressLine(0));
 
         }catch (Exception e) {
             tv_address.setText("Unable to get street address");
 
         }
+        return addresses;
+    }
 
-        LocationList locationList = (LocationList)getApplicationContext();
-        savedLocations = locationList.getMyLocations();
-
-        //show number of items in list
-        tv_wayPointCounts.setText(Integer.toString(savedLocations.size()));
+    //uses the Haversine Formula
+    public int getDistanceM(double lat1, double long1, double lat2, double long2){
+        double dlong = (long2 - long1) * _d2r;
+        double dlat = (lat2 - lat1) * _d2r;
+        double a = Math.pow(Math.sin(dlat / 2D), 2D) + Math.cos(lat1 * _d2r) * Math.cos(lat2 * _d2r)
+                * Math.pow(Math.sin(dlong / 2D), 2D);
+        double c = 2D * Math.atan2(Math.sqrt(a), Math.sqrt(1D - a));
+        double d = _eQuatorialEarthRadius * c;
+        //converts d to meters
+        return (int) (1000 * d);
+        //if you want to convert to miles and dont forget to refactor
+        //return (int) (0.62137119 * d);
     }
 
     public void exitIntent(){
