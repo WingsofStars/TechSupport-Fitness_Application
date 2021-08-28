@@ -91,7 +91,7 @@ public class trackingScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        distances = new ArrayList<Double>(10);
+        distances = new ArrayList<>(10);
 
         setContentView(R.layout.activity_tracking_screen);
         timetxt = findViewById(R.id.tvTime);
@@ -107,6 +107,7 @@ public class trackingScreen extends AppCompatActivity {
 
         timetxt.setBase(SystemClock.elapsedRealtime());
         trackingSettings = new Tracking_Settings();
+
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         //set properties of location request
