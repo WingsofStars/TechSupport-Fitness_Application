@@ -86,6 +86,21 @@
         app:layout_constraintVertical_bias="0.029"
         app:srcCompat="@drawable/ic_baseline_info_24" />
 
+    <Button
+        android:id="@+id/button14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="268dp"
+        android:onClick="goToRivalScreen"
+        android:text="Rival is calling..."
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/xpBar"
+        app:layout_constraintVertical_bias="0.866" />
+
 
     <TextView
         android:id="@+id/textView7"

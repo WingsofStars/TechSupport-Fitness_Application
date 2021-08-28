@@ -1,5 +1,7 @@
 package delware.apps.techsupport_scampermobile;
 
+import android.media.MediaPlayer;
+
 public class xpSystem {
     //Max Level is 20, each index corresponds to levelup requirement, goes up by 50 each time
     private final int[] levelValues = { 0, 50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800, 850, 900, 950, 0};
@@ -10,20 +12,22 @@ public class xpSystem {
         int xpReq = levelValues[user.getLevel()];
         int xpAmount = xpGain + user.getXP();
 
-        if(user.getLevel() == 20) {
-            MainActivity.TVXP.setText(String.format(format, "MAX", "MAX", user.getLevel() ));
-        } else if(user.getLevel() == 0) {
+        if (user.getLevel() == 20) {
+            MainActivity.TVXP.setText(String.format(format, "MAX", "MAX", user.getLevel()));
+        } else if (user.getLevel() == 0) {
             user.setLevel(1);
-            MainActivity.TVXP.setText(String.format(format, 0, levelValues[user.getLevel()], user.getLevel() ));
-        } else if(xpAmount > xpReq) {
+            MainActivity.TVXP.setText(String.format(format, 0, levelValues[user.getLevel()], user.getLevel()));
+        } else if (xpAmount > xpReq) {
             xpRollOver(xpAmount, xpReq, user);
-        }else if(xpAmount == xpReq) {
+        } else if (xpAmount == xpReq) {
             user.setLevel(user.getLevel() + 1);
             user.setXP(0);
-            MainActivity.TVXP.setText(String.format(format, 0, levelValues[user.getLevel()], user.getLevel() ));
+            MainActivity.levelup.start();
+            MainActivity.TVXP.setText(String.format(format, 0, levelValues[user.getLevel()], user.getLevel()));
+            MainActivity.levelUp = true;
         } else {
             user.setXP(xpAmount);
-            MainActivity.TVXP.setText(String.format(format, xpAmount, xpReq, user.getLevel() ));
+            MainActivity.TVXP.setText(String.format(format, xpAmount, xpReq, user.getLevel()));
         }
         //Update database
         MainActivity.databaseHandler.updateUser(user);
@@ -33,6 +37,8 @@ public class xpSystem {
         int remainderXP = totalXp - reqXP;
         user.setLevel(user.getLevel() + 1);
         user.setXP(remainderXP);
+        MainActivity.levelup.start();
         MainActivity.TVXP.setText(String.format(format, remainderXP, levelValues[user.getLevel()], user.getLevel() ));
+        MainActivity.levelUp = true;
     }
 }

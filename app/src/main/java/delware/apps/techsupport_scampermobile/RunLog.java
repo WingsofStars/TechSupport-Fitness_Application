@@ -24,7 +24,7 @@ public class RunLog {
         System.out.println("Speed: " + speed);
     }
 
-    public float getDistance() {
+        public float getDistance() {
             return Distance;
         }
 
@@ -72,7 +72,7 @@ public class RunLog {
             this.date = date;
         }
 
-    public String getCardioType() {
+        public String getCardioType() {
         return cardioType;
     }
 
