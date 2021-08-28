@@ -14,7 +14,6 @@ import android.os.SystemClock;
 import android.view.View;
 import android.widget.Chronometer;
 import android.widget.ImageView;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,9 +24,8 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 
-import java.util.List;
+import java.util.ArrayList;
 
-import delware.apps.techsupport_scampermobile.LocationList;
 import delware.apps.techsupport_scampermobile.MainActivity;
 import delware.apps.techsupport_scampermobile.NavigationService;
 import delware.apps.techsupport_scampermobile.R;
@@ -43,6 +41,12 @@ public class TrackingScreen extends AppCompatActivity {
 
     //current location
     public Location currentLocation;
+    //prev location
+    public Location previousLocation;
+    //distance between the newest and previous coordinates
+    public double fractionDistance;
+    //Total distance
+    public double totalDistance;
 
 
     //config file for settings related to FusedLocationProviderClient
@@ -71,13 +75,18 @@ public class TrackingScreen extends AppCompatActivity {
     public int playBtnPresses = 0;
     private boolean running = false;
     private long pauseOffset;
-    public long totaltime; //in seconds
+    public long totalTime; //in seconds
     public static State state;
+
+    private ArrayList<Double> distances;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        distances = new ArrayList<Double>(10);
+
         setContentView(R.layout.activity_tracking_screen);
         timetxt = findViewById(R.id.tvTime);
         distancetxt = findViewById(R.id.tvDistance);
@@ -97,15 +106,31 @@ public class TrackingScreen extends AppCompatActivity {
         locationRequest.setFastestInterval(1000 * FAST_UPDATE_INTERVAL);
         locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
 
+
+
         //event that is triggered whenever the update interval is met
         locationCallBack = new LocationCallback() {
             @Override
             public void onLocationResult(@NonNull LocationResult locationResult) {
                 super.onLocationResult(locationResult);
 
+                //get the previous location
+                previousLocation = currentLocation;
+
                 //save the location
                 currentLocation = locationResult.getLastLocation();
                 trackingSettings.addLocalToList(currentLocation);
+                //if there are at least 2 locations in the list
+                if (trackingSettings.savedLocations.size() >= 2){
+                    fractionDistance = trackingSettings.getDistanceM(previousLocation.getLatitude(), previousLocation.getLongitude(),
+                            currentLocation.getLatitude(),currentLocation.getLongitude());
+
+                    distances.add(fractionDistance);
+                    if(distances.size() > 10)
+                        distances.remove(11);
+
+                    totalDistance += fractionDistance;
+                }
 
                 System.out.println("Location Interval Triggered");
             }
@@ -142,6 +167,7 @@ public class TrackingScreen extends AppCompatActivity {
 
         if(!running) {
             //Start Timer and Tracking for the first time
+            totalDistance = 0.0;
             timetxt.setBase(SystemClock.elapsedRealtime() - pauseOffset);
             timetxt.start();
             running = true;
@@ -187,8 +213,8 @@ public class TrackingScreen extends AppCompatActivity {
         state = State.stopped;
         getRunIntent(state);
         //resets presses so you can restart the run
-        totaltime = SystemClock.elapsedRealtime() - timetxt.getBase();
-        System.out.println(totaltime);
+        totalTime = SystemClock.elapsedRealtime() - timetxt.getBase();
+        System.out.println(totalTime);
         stopLocationUpdates();
 
 
@@ -270,6 +296,21 @@ public class TrackingScreen extends AppCompatActivity {
                 break;
 
         }
+    }
+
+    public double getSpeed()
+    {
+        double interval;
+        if(trackingSettings.gpsFastState)
+            interval = FAST_UPDATE_INTERVAL;
+        else
+            interval = DEFAULT_UPDATE_INTERVAL;
+
+        double sum = 0;
+        for (int i = 0; i < distances.size(); i++)
+            sum += distances.get(i);
+
+        return sum/(interval*1000*distances.size());
     }
 
 }
