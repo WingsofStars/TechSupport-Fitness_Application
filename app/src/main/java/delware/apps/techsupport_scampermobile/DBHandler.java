@@ -201,7 +201,7 @@ public class DBHandler extends SQLiteOpenHelper{
             do {
                 float distance = cursor.getFloat(1);
                 int hours = cursor.getInt(2);
-                float minutes = cursor.getFloat(3);
+                int minutes = cursor.getInt(3);
                 int calories = cursor.getInt(4);
                 String date = cursor.getString(5);
                 String type = cursor.getString(6);
@@ -228,7 +228,7 @@ public class DBHandler extends SQLiteOpenHelper{
                 do {
                     float distance = cursor.getFloat(1);
                     int hours = cursor.getInt(2);
-                    float minutes = cursor.getFloat(3);
+                    int minutes = cursor.getInt(3);
                     int calories = cursor.getInt(4);
                     String date = cursor.getString(5);
                     String type = cursor.getString(6);
@@ -254,7 +254,7 @@ public class DBHandler extends SQLiteOpenHelper{
                 do {
                     float distance = cursor.getFloat(1);
                     int hours = cursor.getInt(2);
-                    float minutes = cursor.getFloat(3);
+                    int minutes = cursor.getInt(3);
                     int calories = cursor.getInt(4);
                     String date = cursor.getString(5);
                     String type = cursor.getString(6);
@@ -367,7 +367,7 @@ public class DBHandler extends SQLiteOpenHelper{
         float distance = cursor.getFloat(1);
         System.out.println(cursor.getFloat(1));
         int hours = cursor.getInt(2);
-        float minutes = cursor.getFloat(3);
+        int minutes = cursor.getInt(3);
         int calories = cursor.getInt(4);
         String  date = cursor.getString(5);
         String  cType = cursor.getString(6);

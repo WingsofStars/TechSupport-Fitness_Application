@@ -161,6 +161,7 @@ public class Tracking_Settings extends AppCompatActivity {
         //Little bastard keeps crashing the app
         //updateGPS();
 
+        updateGPS();
 
     }
 
@@ -220,12 +221,13 @@ public class Tracking_Settings extends AppCompatActivity {
             fusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
                 @Override
                 public void onSuccess(Location location) {
-
+                    LocationList locationList = (LocationList) getApplicationContext();
+                    savedLocations = locationList.getMyLocations();
 
                     currentLocation = location;
                     updateUIValues(currentLocation);
-                    LocationList locationList = (LocationList) getApplicationContext();
-                    savedLocations = locationList.getMyLocations();
+
+
                     savedLocations.add(currentLocation);
                     System.out.println(currentLocation);
                     if(location != null) {
@@ -314,7 +316,7 @@ public class Tracking_Settings extends AppCompatActivity {
 //    }
 
     public void exitIntent(){
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        Intent intent = new Intent(getApplicationContext(), settings.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);//Exits current intent
         intent.putExtra("EXIT", true);
         startActivity(intent);

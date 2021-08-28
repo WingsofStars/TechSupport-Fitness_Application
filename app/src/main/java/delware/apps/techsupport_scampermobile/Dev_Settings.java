@@ -16,5 +16,16 @@ public class Dev_Settings extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dev_settings);
     }
+    public void exitIntent(){
+        Intent intent = new Intent(getApplicationContext(), settings.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);//Exits current intent
+        intent.putExtra("EXIT", true);
+        startActivity(intent);
+    }
+
+    //Clickable Icon Lets the user exit current intent/activity and return to the previous screen
+    public void goBack(View v){
+        exitIntent();
+    }
 
 }

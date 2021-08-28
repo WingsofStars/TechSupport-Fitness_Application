@@ -25,7 +25,9 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import delware.apps.techsupport_scampermobile.CalorieCalculator;
@@ -34,6 +36,7 @@ import delware.apps.techsupport_scampermobile.LocationList;
 import delware.apps.techsupport_scampermobile.MainActivity;
 import delware.apps.techsupport_scampermobile.NavigationService;
 import delware.apps.techsupport_scampermobile.R;
+import delware.apps.techsupport_scampermobile.RunLog;
 import delware.apps.techsupport_scampermobile.Tracking_Settings;
 
 public class trackingScreen extends AppCompatActivity {
@@ -50,7 +53,7 @@ public class trackingScreen extends AppCompatActivity {
     //distance between the newest and previous coordinates
     public double fractionDistance;
     //Total distance
-    public double totalDistance;
+    public double totalDistance = 0;
     //Accelerometer Speed at each interval !not average speed!
     public double currentSpeed;
 
@@ -94,6 +97,7 @@ public class trackingScreen extends AppCompatActivity {
     private ArrayList<Double> distances;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -115,6 +119,8 @@ public class trackingScreen extends AppCompatActivity {
         timetxt.setBase(SystemClock.elapsedRealtime());
         trackingSettings = new Tracking_Settings();
 
+        distanceCalculator = new DistanceCalculator();
+        calorieCalculator = new CalorieCalculator();
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         //set properties of location request
@@ -136,14 +142,16 @@ public class trackingScreen extends AppCompatActivity {
 
                 //save the location
                 currentLocation = locationResult.getLastLocation();
-                if(currentLocation != null) {
-                    System.out.println("location is null");
+                System.out.println(locationResult.getLastLocation());
+                if(currentLocation == null) {
+                    System.out.println("1 location is null");
                     speedtxt.setText("Error");
                 }else {
                     currentSpeed = currentLocation.getSpeed();
+                    System.out.println("Speed: " + currentLocation.getSpeed());
                     addLocalToList(currentLocation);
-                    System.out.println(currentLocation);
-                    speedtxt.setText(String.valueOf(currentSpeed));
+                    System.out.println("Current Location: " + currentLocation + " added to list");
+                    speedtxt.setText(String.valueOf(String.format("%.2f",currentSpeed)) + " MPH");
                 }
 
 
@@ -151,12 +159,15 @@ public class trackingScreen extends AppCompatActivity {
                 if (savedLocations.size() >= 2){
                     fractionDistance = distanceCalculator.getDistanceM(previousLocation.getLatitude(), previousLocation.getLongitude(),
                             currentLocation.getLatitude(),currentLocation.getLongitude());
+                    System.out.println(fractionDistance);
 
                     distances.add(fractionDistance);
                     if(distances.size() > 10)
                         distances.remove(11);
 
                     totalDistance += fractionDistance;
+                    System.out.println(totalDistance);
+                    distancetxt.setText(String.valueOf(String.format("%.3f",totalDistance/1609)) + " miles");
                 }
 
                 System.out.println("Location Interval Triggered");
@@ -246,7 +257,22 @@ public class trackingScreen extends AppCompatActivity {
         state = State.stopped;
         getRunIntent(state);
         //resets presses so you can restart the run
+
+        float distance = (float) (totalDistance/1609);
+        int calories;
+        calories=100;
+        SimpleDateFormat formater = new SimpleDateFormat("MM/dd/yyyy");
+        int hours = (int)totalTime/360;
+        System.out.println("Hours: " + hours);
+        int minutes = (int)totalTime/60;
+        System.out.println("seconds: " + totalTime);
+        System.out.println("minutes: " + minutes);
         totalTime = SystemClock.elapsedRealtime() - timetxt.getBase();
+        String Date = formater.format(Calendar.getInstance().getTime());
+        RunLog runLog = new RunLog(distance, hours, minutes, calories, Date, "Running/Walking"  );
+        System.out.println(runLog.speed);
+        MainActivity.databaseHandler.addLog(runLog);
+        MainActivity.setWeeklyStats();
         System.out.println(totalTime);
         stopLocationUpdates();
         try {
@@ -302,11 +328,15 @@ public class trackingScreen extends AppCompatActivity {
                 public void onSuccess(Location location) {
 
 
-                    currentLocation = location;
-                    addLocalToList(currentLocation);
-                    System.out.println(currentLocation);
-                    if(location != null) {
+
+                    if(location == null) {
                         System.out.println("location is null");
+                    }
+                    else{
+                        currentLocation = location;
+                        System.out.println("location: " + location);
+                        addLocalToList(currentLocation);
+                        System.out.println(currentLocation);
                     }
                 }
             });
@@ -352,6 +382,7 @@ public class trackingScreen extends AppCompatActivity {
         LocationList locationList = (LocationList) getApplicationContext();
         savedLocations = locationList.getMyLocations();
         savedLocations.add(location);
+        System.out.println("Hello" + location);
     }
 
     public double getSpeed()

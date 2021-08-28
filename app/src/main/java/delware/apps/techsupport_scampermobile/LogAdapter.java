@@ -28,9 +28,10 @@ public class LogAdapter extends ArrayAdapter<RunLog> { // adapter so our ListVie
         String date  = getItem(position).getDate();
         float distance  = getItem(position).getDistance();
         int hours  = getItem(position).getHours();
-        float minutes  = getItem(position).getMinutes();
+        int minutes  = getItem(position).getMinutes();
         int calories  = getItem(position).getCalories();
         String type  = getItem(position).getCardioType();
+        float speed = getItem(position).getSpeed();
         int id = getItem(position).UserId;
 
         RunLog runlog = new RunLog(distance, hours, minutes, calories, date, type);
@@ -38,18 +39,18 @@ public class LogAdapter extends ArrayAdapter<RunLog> { // adapter so our ListVie
         LayoutInflater inflater = LayoutInflater.from(mcontext);
         convertView = inflater.inflate(mresource, parent,false);
 
-        TextView Distance = convertView.findViewById(R.id.distance2);
+        TextView Distance = convertView.findViewById(R.id.distance1);
         TextView Date = convertView.findViewById(R.id.date);
-        TextView Time = convertView.findViewById(R.id.time1);
+        TextView Time = (convertView.findViewById(R.id.time1));
         TextView Calories = convertView.findViewById(R.id.calories1);
         TextView Speed = convertView.findViewById(R.id.speed1);
         TextView Type = convertView.findViewById(R.id.cardiotype1);
         TextView IdTXT = convertView.findViewById(R.id.IDtxt);
 
         Date.setText(String.valueOf(date));
-        Time.setText(String.format("%.2f",hours + minutes/60) + " Hours");
+        Time.setText(String.format("%.2f",hours + (float) minutes/60) + " Hours");
         Distance.setText(String.valueOf(distance) + " Miles");
-        Speed.setText(String.format("%.2f",distance/(Float.valueOf(hours)+(minutes/60))) + " MPH");
+        Speed.setText(String.format("%.2f", speed) + " MPH");
         Calories.setText(String.valueOf(calories) + " Calories");
         Type.setText(String.valueOf(type));
         IdTXT.setText(String.valueOf(id));

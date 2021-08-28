@@ -7,4 +7,19 @@
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Dev_Settings"/>
+    tools:context=".Dev_Settings">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="52dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="0dp"
+        android:clickable="true"
+        android:elevation="5dp"
+        android:onClick="goBack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/previous_icon" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+
