@@ -25,14 +25,14 @@
         app:layout_constraintVertical_bias="0.763" />
 
     <TextView
-        android:id="@+id/tvPlaceHolder"
+        android:id="@+id/tvCalories"
         android:layout_width="171dp"
         android:layout_height="87dp"
         android:fontFamily="@font/prompt"
         android:gravity="center"
-        android:textColor="@color/black"
-        android:text="PlaceHolder"
+        android:text="Calories Burned: "
         android:textAlignment="center"
+        android:textColor="@color/black"
         android:textSize="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

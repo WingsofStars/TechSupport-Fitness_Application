@@ -1,7 +1,6 @@
 package delware.apps.techsupport_scampermobile;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -29,21 +28,29 @@ import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.List;
 
+import delware.apps.techsupport_scampermobile.Screens.trackingScreen;
+
 public class Tracking_Settings extends AppCompatActivity {
+
     public static final int DEFAULT_UPDATE_INTERVAL = 10;
     public static final int FAST_UPDATE_INTERVAL = 5;
     private static final int PERMISSIONS_FINE_LOCATION = 69;
-    TextView tv_latitude, tv_longitude, tv_altitude, tv_accuracy, tv_speed, tv_sensor, tv_updates, tv_address, tv_wayPointCounts;
-    ImageView iv_return;
-    Button btn_newWaypoint, btn_showWayPointList, btn_showMap;
-    Switch sw_locationupdates, sw_gps;
+    //For calculating Distance Between Cords
+//    static final double _eQuatorialEarthRadius = 6378.1370D;
+//    static final double _d2r = (Math.PI / 180D);
+    public TextView tv_latitude, tv_longitude, tv_altitude, tv_accuracy, tv_speed, tv_sensor, tv_updates, tv_address, tv_wayPointCounts;
+    public ImageView iv_return;
+    public Button btn_newWaypoint, btn_showWayPointList, btn_showMap;
+    public Switch sw_locationupdates, sw_gps;
     public double currentSpeed;
+    public boolean gpsFastState = false;
+    public LocationList locationList;
 
     //current location
     Location currentLocation;
 
-    //list of saved locations
-    List<Location> savedLocations;
+   //list of saved locations
+   private List<Location> savedLocations;
 
     //config file for settings related to FusedLocationProviderClient
     LocationRequest locationRequest;
@@ -88,7 +95,16 @@ public class Tracking_Settings extends AppCompatActivity {
                 super.onLocationResult(locationResult);
 
                 //save the location
+                currentLocation = locationResult.getLastLocation();
+                if(currentLocation != null) {
+                    System.out.println("location is null");
+                }
+                addLocalToList(currentLocation);
+                System.out.println(currentLocation);
+                //update ui
                 updateUIValues(locationResult.getLastLocation());
+
+                System.out.println("Location Interval Triggered");
             }
         };
 
@@ -98,9 +114,7 @@ public class Tracking_Settings extends AppCompatActivity {
                 //get gps location
 
                 //add items to list
-                LocationList locationList = (LocationList) getApplicationContext();
-                savedLocations = locationList.getMyLocations();
-                savedLocations.add(currentLocation);
+                addLocalToList(currentLocation);
             }
         });
 
@@ -123,9 +137,11 @@ public class Tracking_Settings extends AppCompatActivity {
         sw_gps.setOnClickListener(v -> {
             if (sw_gps.isChecked()) {
                 //uses GPS - most accurate
+                gpsFastState = true;
                 locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
                 tv_sensor.setText("Using GPS sensors");
             } else {
+                gpsFastState = false;
                 locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
                 tv_sensor.setText("Using Towers + WIFI");
             }
@@ -142,6 +158,8 @@ public class Tracking_Settings extends AppCompatActivity {
 
             }
         });
+        //Little bastard keeps crashing the app
+        //updateGPS();
 
         updateGPS();
 
@@ -160,25 +178,13 @@ public class Tracking_Settings extends AppCompatActivity {
         fusedLocationClient.removeLocationUpdates(locationCallBack);
     }
 
-    @SuppressLint("MissingPermission")
     private void startLocationUpdates() {
         tv_updates.setText("Location is being tracked");
-
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-
+        try {
             fusedLocationClient.requestLocationUpdates(locationRequest, locationCallBack, null);
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-
-        } else{
-
+        }catch(Exception e){
+            System.out.println();
         }
-
         updateGPS();
 
 
@@ -194,12 +200,20 @@ public class Tracking_Settings extends AppCompatActivity {
                     updateGPS();
                 } else {
                     Toast.makeText(this, "This app requires the use of location features to successfully operate", Toast.LENGTH_SHORT).show();
-                    System.out.println("Location permissions failed or where denied");
+                    System.out.println("Location permissions failed or was denied");
                     exitIntent();
                 }
                 break;
-        }    }
+        }
 
+    }
+
+//    public void addLocalToList(Location location){
+//        LocationList locationList = (LocationList) getApplicationContext();
+//        savedLocations = locationList.getMyLocations();
+//        savedLocations.add(location);
+//    }
+    //For first time location
     private void updateGPS() {
         if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
             //user has given permission
@@ -208,11 +222,13 @@ public class Tracking_Settings extends AppCompatActivity {
                 @Override
                 public void onSuccess(Location location) {
 
-                    updateUIValues(location);
+
                     currentLocation = location;
+                    updateUIValues(currentLocation);
                     LocationList locationList = (LocationList) getApplicationContext();
                     savedLocations = locationList.getMyLocations();
                     savedLocations.add(currentLocation);
+                    System.out.println(currentLocation);
                     if(location != null) {
                         System.out.println("location is null");
                     }
@@ -226,8 +242,8 @@ public class Tracking_Settings extends AppCompatActivity {
             }
         }
     }
-
-    private void updateUIValues(Location location) {
+//:)
+    public void updateUIValues(Location location) {
 
         // update all of the text view objects with a new location
         tv_latitude.setText(String.valueOf(location.getLatitude()));
@@ -249,23 +265,54 @@ public class Tracking_Settings extends AppCompatActivity {
             tv_speed.setText("Not available");
         }
 
-        //Geocoder
+        getGeocode(location);
+//        Geocoder geocoder = new Geocoder(Tracking_Settings.this);
+//        try{
+//            List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1 );
+//            tv_address.setText(addresses.get(0).getAddressLine(0));
+//
+//        }catch (Exception e) {
+//            tv_address.setText("Unable to get street address");
+//
+//        }
+
+        //show number of items in list
+        tv_wayPointCounts.setText(Integer.toString(savedLocations.size()));
+    }
+
+    private List<Address> getGeocode(Location location){
         Geocoder geocoder = new Geocoder(Tracking_Settings.this);
+        List<Address> addresses = null;
         try{
-            List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1 );
+            addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1 );
             tv_address.setText(addresses.get(0).getAddressLine(0));
 
         }catch (Exception e) {
             tv_address.setText("Unable to get street address");
 
         }
-
-        LocationList locationList = (LocationList)getApplicationContext();
-        savedLocations = locationList.getMyLocations();
-
-        //show number of items in list
-        tv_wayPointCounts.setText(Integer.toString(savedLocations.size()));
+        return addresses;
     }
+
+    private void addLocalToList(Location location){
+        LocationList locationList = (LocationList) getApplicationContext();
+        savedLocations = locationList.getMyLocations();
+        savedLocations.add(location);
+    }
+
+    //uses the Haversine Formula
+//    public int getDistanceM(double lat1, double long1, double lat2, double long2){
+//        double dlong = (long2 - long1) * _d2r;
+//        double dlat = (lat2 - lat1) * _d2r;
+//        double a = Math.pow(Math.sin(dlat / 2D), 2D) + Math.cos(lat1 * _d2r) * Math.cos(lat2 * _d2r)
+//                * Math.pow(Math.sin(dlong / 2D), 2D);
+//        double c = 2D * Math.atan2(Math.sqrt(a), Math.sqrt(1D - a));
+//        double d = _eQuatorialEarthRadius * c;
+//        //converts d to meters
+//        return (int) (1000 * d);
+//        //if you want to convert to miles and dont forget to refactor
+//        //return (int) (0.62137119 * d);
+//    }
 
     public void exitIntent(){
         Intent intent = new Intent(getApplicationContext(), settings.class);
