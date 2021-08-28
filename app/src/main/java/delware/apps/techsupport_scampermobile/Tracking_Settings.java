@@ -38,10 +38,10 @@ public class Tracking_Settings extends AppCompatActivity {
     //For calculating Distance Between Cords
     static final double _eQuatorialEarthRadius = 6378.1370D;
     static final double _d2r = (Math.PI / 180D);
-    TextView tv_latitude, tv_longitude, tv_altitude, tv_accuracy, tv_speed, tv_sensor, tv_updates, tv_address, tv_wayPointCounts;
-    ImageView iv_return;
-    Button btn_newWaypoint, btn_showWayPointList, btn_showMap;
-    Switch sw_locationupdates, sw_gps;
+    public TextView tv_latitude, tv_longitude, tv_altitude, tv_accuracy, tv_speed, tv_sensor, tv_updates, tv_address, tv_wayPointCounts;
+    public ImageView iv_return;
+    public Button btn_newWaypoint, btn_showWayPointList, btn_showMap;
+    public Switch sw_locationupdates, sw_gps;
     public double currentSpeed;
     public boolean gpsFastState = false;
 
@@ -58,7 +58,6 @@ public class Tracking_Settings extends AppCompatActivity {
 //
 //    //Google API for location services
 //    private FusedLocationProviderClient fusedLocationClient;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
