@@ -26,6 +26,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.ArrayList;
 
+import delware.apps.techsupport_scampermobile.CalorieCalculator;
 import delware.apps.techsupport_scampermobile.MainActivity;
 import delware.apps.techsupport_scampermobile.NavigationService;
 import delware.apps.techsupport_scampermobile.R;
@@ -37,7 +38,6 @@ public class TrackingScreen extends AppCompatActivity {
     public static final int FAST_UPDATE_INTERVAL = 5;
     private static final int PERMISSIONS_FINE_LOCATION = 69;
 
-    public double currentSpeed;
 
     //current location
     public Location currentLocation;
@@ -59,7 +59,10 @@ public class TrackingScreen extends AppCompatActivity {
 
 
     public static final String INTENT_START_NAME = "inputStart";
+
     public Tracking_Settings trackingSettings;
+    public CalorieCalculator calorieCalculator;
+
     public enum State
     {
         running,
@@ -69,6 +72,7 @@ public class TrackingScreen extends AppCompatActivity {
     public Chronometer timetxt;
     public TextView distancetxt;
     public TextView speedtxt;
+    public TextView caloriestxt;
     public ImageView pausebtn;
     public ImageView playbtn;
     public ImageView stopbtn;
@@ -94,6 +98,7 @@ public class TrackingScreen extends AppCompatActivity {
         pausebtn = findViewById(R.id.btnPause);
         playbtn = findViewById(R.id.btnPlay);
         stopbtn = findViewById(R.id.btnStop);
+        caloriestxt = findViewById(R.id.tvCalories);
 
         stopbtn.setEnabled(false);
         pausebtn.setEnabled(false);
@@ -216,6 +221,7 @@ public class TrackingScreen extends AppCompatActivity {
         totalTime = SystemClock.elapsedRealtime() - timetxt.getBase();
         System.out.println(totalTime);
         stopLocationUpdates();
+        caloriestxt.setText("Calories Burned" + calorieCalculator.caloriesBurned());
 
 
     }
