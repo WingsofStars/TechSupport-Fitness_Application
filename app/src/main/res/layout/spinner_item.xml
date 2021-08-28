@@ -5,6 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:textSize="23sp"
+    android:textColorHint="@color/black"
+    android:backgroundTint="@color/lightGrey"
+
     android:textColor="#546E7A"
     android:fontFamily="@font/prompt"
     android:padding="5dip"

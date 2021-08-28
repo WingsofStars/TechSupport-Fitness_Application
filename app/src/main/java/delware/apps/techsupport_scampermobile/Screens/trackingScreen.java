@@ -14,6 +14,7 @@ import android.os.SystemClock;
 import android.view.View;
 import android.widget.Chronometer;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -140,11 +141,14 @@ public class trackingScreen extends AppCompatActivity {
                 System.out.println("Location Interval Triggered");
             }
         };
+
+        timetxt.setBase(SystemClock.elapsedRealtime());
     }
 
 
     //    THIS IS AN IMPORTANT FUNCTION TO EXIT THE CURRENT INTENT AND GO BACK TO THE PREVIOUS ACTIVITY
     public void exitIntent() {
+        ScrapRun();
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);//Exits current intent
         intent.putExtra("EXIT", true);
@@ -180,7 +184,7 @@ public class trackingScreen extends AppCompatActivity {
 
         }
         else {
-            //resume
+            //Resume
         }
 
 
@@ -212,6 +216,9 @@ public class trackingScreen extends AppCompatActivity {
 
         playbtn.setVisibility(View.VISIBLE);
         playbtn.setEnabled(true);
+        timetxt.stop();
+        totalTime = (SystemClock.elapsedRealtime() - timetxt.getBase())/1000;
+        System.out.println(totalTime);
         timetxt.setBase(SystemClock.elapsedRealtime());
         pauseOffset=0;
         running = false;
@@ -283,6 +290,16 @@ public class trackingScreen extends AppCompatActivity {
                 requestPermissions(new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSIONS_FINE_LOCATION);
             }
         }
+    }
+    public void ScrapRun(){
+        timetxt.stop();
+        totalTime = 0;
+        timetxt.setBase(SystemClock.elapsedRealtime());
+        pauseOffset=0;
+        running = false;
+        state = State.stopped;
+        getRunIntent(state);
+        Toast.makeText(getApplicationContext(), "Run Cancelled", Toast.LENGTH_LONG).show();
     }
 
     public void getRunIntent(State state){
