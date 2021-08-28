@@ -221,12 +221,13 @@ public class Tracking_Settings extends AppCompatActivity {
             fusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
                 @Override
                 public void onSuccess(Location location) {
-
+                    LocationList locationList = (LocationList) getApplicationContext();
+                    savedLocations = locationList.getMyLocations();
 
                     currentLocation = location;
                     updateUIValues(currentLocation);
-                    LocationList locationList = (LocationList) getApplicationContext();
-                    savedLocations = locationList.getMyLocations();
+
+
                     savedLocations.add(currentLocation);
                     System.out.println(currentLocation);
                     if(location != null) {

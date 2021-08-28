@@ -31,6 +31,7 @@ public class LogAdapter extends ArrayAdapter<RunLog> { // adapter so our ListVie
         int minutes  = getItem(position).getMinutes();
         int calories  = getItem(position).getCalories();
         String type  = getItem(position).getCardioType();
+        float speed = getItem(position).getSpeed();
         int id = getItem(position).UserId;
 
         RunLog runlog = new RunLog(distance, hours, minutes, calories, date, type);
@@ -49,7 +50,7 @@ public class LogAdapter extends ArrayAdapter<RunLog> { // adapter so our ListVie
         Date.setText(String.valueOf(date));
         Time.setText(String.format("%.2f",hours + (float) minutes/60) + " Hours");
         Distance.setText(String.valueOf(distance) + " Miles");
-        Speed.setText(String.format("%.2f",distance/(Float.valueOf(hours)+(minutes/60))) + " MPH");
+        Speed.setText(String.format("%.2f", speed) + " MPH");
         Calories.setText(String.valueOf(calories) + " Calories");
         Type.setText(String.valueOf(type));
         IdTXT.setText(String.valueOf(id));

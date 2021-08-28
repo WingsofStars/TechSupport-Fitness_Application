@@ -86,7 +86,7 @@ public class newUserScreen extends AppCompatActivity {
         String strHeight = etHeight.getText().toString();
         String strWeight = etWeight.getText().toString();
         if(strHeight.isEmpty() || strWeight.isEmpty()) {
-            txtException.setText("height and weight cant be null");
+            txtException.setText("Height and Weight cant be empty");
             return;
         }
         //calculates Age

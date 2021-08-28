@@ -18,7 +18,10 @@ public class RunLog {
         this.calories = calories;;
         this.date = date;
         this.cardioType = cardioType;
-        speed = distance / (hours + (minutes/60));
+        float minutePlaceHolder = (float) minutes;
+        System.out.println(minutePlaceHolder);
+        speed = distance / (hours + (minutePlaceHolder/60));
+        System.out.println("Speed: " + speed);
     }
 
     public float getDistance() {

@@ -175,7 +175,7 @@ SharedPreferences.OnSharedPreferenceChangeListener {
                         textViewException.setText("Provided Username or Password is invalid.");
                     }
                 } catch (Exception e) {
-                    textViewException.setText("ERROR");
+                    textViewException.setText("Provided Username or Password is invalid.");
                     return;
                 }
 
