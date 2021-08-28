@@ -26,8 +26,11 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import delware.apps.techsupport_scampermobile.CalorieCalculator;
+import delware.apps.techsupport_scampermobile.DistanceCalculator;
+import delware.apps.techsupport_scampermobile.LocationList;
 import delware.apps.techsupport_scampermobile.MainActivity;
 import delware.apps.techsupport_scampermobile.NavigationService;
 import delware.apps.techsupport_scampermobile.R;
@@ -48,6 +51,10 @@ public class trackingScreen extends AppCompatActivity {
     public double fractionDistance;
     //Total distance
     public double totalDistance;
+    //Accelerometer Speed at each interval !not average speed!
+    public double currentSpeed;
+
+    private List<Location> savedLocations;
 
 
     //config file for settings related to FusedLocationProviderClient
@@ -62,6 +69,7 @@ public class trackingScreen extends AppCompatActivity {
     public static final String INTENT_START_NAME = "inputStart";
 
     public Tracking_Settings trackingSettings;
+    public DistanceCalculator distanceCalculator;
     public CalorieCalculator calorieCalculator;
 
     public enum State
@@ -128,10 +136,20 @@ public class trackingScreen extends AppCompatActivity {
 
                 //save the location
                 currentLocation = locationResult.getLastLocation();
-                trackingSettings.addLocalToList(currentLocation);
+                if(currentLocation != null) {
+                    System.out.println("location is null");
+                    speedtxt.setText("Error");
+                }else {
+                    currentSpeed = currentLocation.getSpeed();
+                    addLocalToList(currentLocation);
+                    System.out.println(currentLocation);
+                    speedtxt.setText(String.valueOf(currentSpeed));
+                }
+
+
                 //if there are at least 2 locations in the list
-                if (trackingSettings.savedLocations.size() >= 2){
-                    fractionDistance = trackingSettings.getDistanceM(previousLocation.getLatitude(), previousLocation.getLongitude(),
+                if (savedLocations.size() >= 2){
+                    fractionDistance = distanceCalculator.getDistanceM(previousLocation.getLatitude(), previousLocation.getLongitude(),
                             currentLocation.getLatitude(),currentLocation.getLongitude());
 
                     distances.add(fractionDistance);
@@ -231,16 +249,22 @@ public class trackingScreen extends AppCompatActivity {
         totalTime = SystemClock.elapsedRealtime() - timetxt.getBase();
         System.out.println(totalTime);
         stopLocationUpdates();
-        caloriestxt.setText("Calories Burned" + calorieCalculator.caloriesBurned());
+        try {
+            caloriestxt.setText("Calories Burned" + calorieCalculator.caloriesBurned());
+        }catch (Exception e) {
+            System.out.println("Can't Calculate Calories");
+            caloriestxt.setText("Error");
+        }
+
 
 
     }
 
-    public void stopLocationUpdates() {
+    private void stopLocationUpdates() {
         fusedLocationClient.removeLocationUpdates(locationCallBack);
     }
 
-    public void startLocationUpdates() {
+    private void startLocationUpdates() {
         try {
             fusedLocationClient.requestLocationUpdates(locationRequest, locationCallBack, null);
         }catch(Exception e){
@@ -268,8 +292,8 @@ public class trackingScreen extends AppCompatActivity {
         }
 
     }
-
-    public void updateGPS() {
+//For first time location
+    private void updateGPS() {
         if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
             //user has given permission
             //gets last known location
@@ -277,9 +301,9 @@ public class trackingScreen extends AppCompatActivity {
                 @Override
                 public void onSuccess(Location location) {
 
-                    trackingSettings.updateUIValues(location);
+
                     currentLocation = location;
-                    trackingSettings.addLocalToList(currentLocation);
+                    addLocalToList(currentLocation);
                     System.out.println(currentLocation);
                     if(location != null) {
                         System.out.println("location is null");
@@ -322,6 +346,12 @@ public class trackingScreen extends AppCompatActivity {
                 break;
 
         }
+    }
+
+    private void addLocalToList(Location location){
+        LocationList locationList = (LocationList) getApplicationContext();
+        savedLocations = locationList.getMyLocations();
+        savedLocations.add(location);
     }
 
     public double getSpeed()
