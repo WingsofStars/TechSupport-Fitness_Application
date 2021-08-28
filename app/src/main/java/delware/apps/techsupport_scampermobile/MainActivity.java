@@ -287,4 +287,6 @@ SharedPreferences.OnSharedPreferenceChangeListener {
         Time.setText(String.format("%.2f", totalTime) + " Hours"); // float formatting
     }
 
+
+
 }

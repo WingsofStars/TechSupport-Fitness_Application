@@ -1,6 +1,7 @@
 package delware.apps.techsupport_scampermobile;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -29,7 +30,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import java.util.List;
 
 public class Tracking_Settings extends AppCompatActivity {
-    public static final int DEFAULT_UPDATE_INTERVAL = 30;
+    public static final int DEFAULT_UPDATE_INTERVAL = 10;
     public static final int FAST_UPDATE_INTERVAL = 5;
     private static final int PERMISSIONS_FINE_LOCATION = 69;
     TextView tv_latitude, tv_longitude, tv_altitude, tv_accuracy, tv_speed, tv_sensor, tv_updates, tv_address, tv_wayPointCounts;
@@ -159,6 +160,7 @@ public class Tracking_Settings extends AppCompatActivity {
         fusedLocationClient.removeLocationUpdates(locationCallBack);
     }
 
+    @SuppressLint("MissingPermission")
     private void startLocationUpdates() {
         tv_updates.setText("Location is being tracked");
 
@@ -266,7 +268,7 @@ public class Tracking_Settings extends AppCompatActivity {
     }
 
     public void exitIntent(){
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        Intent intent = new Intent(getApplicationContext(), settings.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);//Exits current intent
         intent.putExtra("EXIT", true);
         startActivity(intent);

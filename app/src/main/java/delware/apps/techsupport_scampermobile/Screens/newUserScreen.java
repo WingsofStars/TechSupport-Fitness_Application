@@ -127,7 +127,7 @@ public class newUserScreen extends AppCompatActivity {
         MainActivity.dialogue.dismiss();
         }
         else if(!MainActivity.isFromMain){
-            Profile_Settings.dialogue.dismiss();
+            //Profile_Settings.dialogue.dismiss();
         }
     }
 
