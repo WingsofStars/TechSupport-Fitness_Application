@@ -70,7 +70,7 @@ public class trackingScreen extends AppCompatActivity {
         paused,
         stopped
     }
-    //:)
+
     public Chronometer timetxt;
     public TextView distancetxt;
     public TextView speedtxt;
