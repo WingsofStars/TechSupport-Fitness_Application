@@ -32,7 +32,7 @@ import delware.apps.techsupport_scampermobile.NavigationService;
 import delware.apps.techsupport_scampermobile.R;
 import delware.apps.techsupport_scampermobile.Tracking_Settings;
 
-public class TrackingScreen extends AppCompatActivity {
+public class trackingScreen extends AppCompatActivity {
 
     public static final int DEFAULT_UPDATE_INTERVAL = 10;
     public static final int FAST_UPDATE_INTERVAL = 5;

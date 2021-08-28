@@ -1,7 +1,7 @@
 package delware.apps.techsupport_scampermobile;
 
 import static delware.apps.techsupport_scampermobile.MainActivity.CHANNEL_ID;
-import static delware.apps.techsupport_scampermobile.Screens.TrackingScreen.INTENT_START_NAME;
+import static delware.apps.techsupport_scampermobile.Screens.trackingScreen.INTENT_START_NAME;
 
 import android.app.Notification;
 import android.app.PendingIntent;
@@ -12,10 +12,10 @@ import android.os.IBinder;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
-import delware.apps.techsupport_scampermobile.Screens.TrackingScreen;
+import delware.apps.techsupport_scampermobile.Screens.trackingScreen;
 
 public class NavigationService extends Service {
-    public static TrackingScreen.State state;
+    public static trackingScreen.State state;
 
 
     @Override
@@ -27,7 +27,7 @@ public class NavigationService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
 
         String input = intent.getStringExtra(INTENT_START_NAME);
-        Intent notificationIntent = new Intent(this, TrackingScreen.class);
+        Intent notificationIntent = new Intent(this, trackingScreen.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this,
                 0, notificationIntent, 0);
 
@@ -38,7 +38,7 @@ public class NavigationService extends Service {
 
        startForeground(1, notification);
 
-       if (state == TrackingScreen.State.stopped){
+       if (state == trackingScreen.State.stopped){
            stopSelf();
        }
 

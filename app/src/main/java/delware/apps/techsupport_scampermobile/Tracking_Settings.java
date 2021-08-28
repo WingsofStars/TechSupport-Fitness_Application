@@ -28,10 +28,10 @@ import com.google.android.gms.location.LocationRequest;
 
 import java.util.List;
 
-import delware.apps.techsupport_scampermobile.Screens.TrackingScreen;
+import delware.apps.techsupport_scampermobile.Screens.trackingScreen;
 
 public class Tracking_Settings extends AppCompatActivity {
-    public TrackingScreen trackingScreen = new TrackingScreen();
+    public delware.apps.techsupport_scampermobile.Screens.trackingScreen trackingScreen = new trackingScreen();
 //    public static final int DEFAULT_UPDATE_INTERVAL = 10;
 //    public static final int FAST_UPDATE_INTERVAL = 5;
 //    private static final int PERMISSIONS_FINE_LOCATION = 69;

@@ -2,10 +2,10 @@ package delware.apps.techsupport_scampermobile;
 
 import java.util.ArrayList;
 
-import delware.apps.techsupport_scampermobile.Screens.TrackingScreen;
+import delware.apps.techsupport_scampermobile.Screens.trackingScreen;
 
 public class CalorieCalculator {
-    public TrackingScreen trackingScreen = new TrackingScreen();
+    public delware.apps.techsupport_scampermobile.Screens.trackingScreen trackingScreen = new trackingScreen();
     //used to assign a MET value via speed
     private static class METCutoff
     {

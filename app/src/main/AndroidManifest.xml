@@ -62,7 +62,7 @@
             android:name=".stickerWallScreen"
             android:exported="true" />
         <activity
-            android:name=".Screens.TrackingScreen"
+            android:name=".Screens.trackingScreen"
             android:exported="true" />        <activity
             android:name=".cardioDisplayScreen"
             android:exported="true" />

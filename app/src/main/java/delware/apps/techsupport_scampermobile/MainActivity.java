@@ -16,10 +16,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.EditText;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import delware.apps.techsupport_scampermobile.Screens.newUserScreen;
-import delware.apps.techsupport_scampermobile.Screens.TrackingScreen;
+import delware.apps.techsupport_scampermobile.Screens.trackingScreen;
 
 public class MainActivity extends AppCompatActivity implements
 SharedPreferences.OnSharedPreferenceChangeListener {
@@ -38,11 +41,16 @@ SharedPreferences.OnSharedPreferenceChangeListener {
     public static boolean isFromMain;
     ImageView infoBtn;
     public static final String CHANNEL_ID = "foregroundServiceChannel";
+    public static TextView Time, Distance, Calories;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
+        Time = findViewById(R.id.time);
+        Distance = findViewById(R.id.distance);
+        Calories = findViewById(R.id.calories);
+
         infoBtn=findViewById(R.id.btnInfo);
 
         databaseHandler = new DBHandler(MainActivity.this);
@@ -87,6 +95,9 @@ SharedPreferences.OnSharedPreferenceChangeListener {
 //            editor.putBoolean("isThisFirstStart", false);//Changes Value to False
 //            editor.apply();
 //        }
+
+        setWeeklyStats();
+
     }
 
     public void goToSettings(View v) {
@@ -100,7 +111,7 @@ SharedPreferences.OnSharedPreferenceChangeListener {
     }
 
     public void goToTrackingScreen(View v) {
-        Intent goToSettings = new Intent(MainActivity.this, TrackingScreen.class);
+        Intent goToSettings = new Intent(MainActivity.this, trackingScreen.class);
         startActivity(goToSettings);
     }
 
@@ -241,4 +252,36 @@ SharedPreferences.OnSharedPreferenceChangeListener {
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
 
     }
+    public static void setWeeklyStats(){
+        RunLogs = databaseHandler.getAllLogs("All");
+        ArrayList<RunLog> last7DaysLog = new ArrayList<>();
+        long DAY_IN_MS = 1000 * 60 * 60 * 24;
+
+        Date todaysDate = new Date();
+        Date previousWeekDate = new Date(todaysDate.getTime() - (7*DAY_IN_MS));
+
+        for (int i = 0; i < RunLogs.size(); i++) {
+            try {
+                Date date = new SimpleDateFormat("MM/dd/yyyy").parse(RunLogs.get(i).date);
+                if(date.after(previousWeekDate) && date.before(new Date(todaysDate.getTime() + (1*DAY_IN_MS)))) {
+                    last7DaysLog.add(RunLogs.get(i));
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        float totaldistance = 0f;
+        int totalCalories = 0;
+        float totalTime = 0f;
+
+        for( int i = 0; i < last7DaysLog.size(); i++) {
+            totalCalories += last7DaysLog.get(i).calories;
+            totaldistance += last7DaysLog.get(i).Distance;
+            totalTime +=( (last7DaysLog.get(i).Hours) + (RunLogs.get(i).Minutes/60));
+        }
+        Calories.setText(String.valueOf(totalCalories) + " Calories");
+        Distance.setText(String.format("%.2f", totaldistance) + " Miles");
+        Time.setText(String.format("%.2f", totalTime) + " Hours"); // float formatting
+    }
+
 }
