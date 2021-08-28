@@ -41,7 +41,8 @@ SharedPreferences.OnSharedPreferenceChangeListener {
     static TextView TVXP;
     public static Boolean levelUp = false;
     public static String currentID;
-    //    MediaPlayer mp;
+    public static MediaPlayer levelup;
+    MediaPlayer mp;
     public static DBHandler databaseHandler;
     public static xpSystem xpSystem;
     static ArrayList<RunLog> RunLogs = new ArrayList<>();
@@ -66,7 +67,7 @@ SharedPreferences.OnSharedPreferenceChangeListener {
         databaseHandler = new DBHandler(MainActivity.this);
         xpSystem = new xpSystem();
         TVXP = findViewById(R.id.xpBar);
-//        mp = MediaPlayer.create(this, R.raw.duckquack);
+        levelup = MediaPlayer.create(this, R.raw.levelup);
 
 
         prefs = getSharedPreferences("prefs", MODE_PRIVATE);
@@ -121,6 +122,8 @@ SharedPreferences.OnSharedPreferenceChangeListener {
     }
 
     public void goToTrackingScreen(View v) {
+        mp = MediaPlayer.create(this, R.raw.starttrack);
+        mp.start();
         Intent goToSettings = new Intent(MainActivity.this, trackingScreen.class);
         startActivity(goToSettings);
     }
@@ -220,21 +223,27 @@ SharedPreferences.OnSharedPreferenceChangeListener {
                 x2 = touchEvent.getX();
                 y2 = touchEvent.getY();
                 if (x1 > x2) {
+                    mp = MediaPlayer.create(this, R.raw.stickerwalltransition);
+                    mp.start();
                     Intent i = new Intent(MainActivity.this, stickerWallScreen.class);
                     startActivity(i);
-            }else if(x1 < x2){
+                }else if(x1 < x2){
                     //Rival Call Button, triggered on Sunday
                     Button callBtn = findViewById(R.id.button14);
                     LocalDate day = LocalDate.now();
                     DayOfWeek targetDay = DayOfWeek.SUNDAY;
                     if(day.getDayOfWeek().equals(targetDay) )
                     {
+                        mp = MediaPlayer.create(this, R.raw.rivalcall);
+                        mp.start();
                         Intent i = new Intent(MainActivity.this, rivalScreen.class);
                         startActivity(i);
                     }
                     //Call on Level up logic
                     if(levelUp) {
                         levelUp = false;
+                        mp = MediaPlayer.create(this, R.raw.rivalcall);
+                        mp.start();
                         Intent i = new Intent(MainActivity.this, rivalScreen.class);
                         startActivity(i);
                     }

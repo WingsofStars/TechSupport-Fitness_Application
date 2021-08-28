@@ -1,5 +1,7 @@
 package delware.apps.techsupport_scampermobile;
 
+import android.media.MediaPlayer;
+
 public class xpSystem {
     //Max Level is 20, each index corresponds to levelup requirement, goes up by 50 each time
     private final int[] levelValues = { 0, 50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800, 850, 900, 950, 0};
@@ -20,6 +22,7 @@ public class xpSystem {
         } else if (xpAmount == xpReq) {
             user.setLevel(user.getLevel() + 1);
             user.setXP(0);
+            MainActivity.levelup.start();
             MainActivity.TVXP.setText(String.format(format, 0, levelValues[user.getLevel()], user.getLevel()));
             MainActivity.levelUp = true;
         } else {
@@ -34,6 +37,7 @@ public class xpSystem {
         int remainderXP = totalXp - reqXP;
         user.setLevel(user.getLevel() + 1);
         user.setXP(remainderXP);
+        MainActivity.levelup.start();
         MainActivity.TVXP.setText(String.format(format, remainderXP, levelValues[user.getLevel()], user.getLevel() ));
         MainActivity.levelUp = true;
     }
