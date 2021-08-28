@@ -1,8 +1,14 @@
 package delware.apps.techsupport_scampermobile.Screens;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.View;
@@ -12,12 +18,60 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import delware.apps.techsupport_scampermobile.CalorieCalculator;
+import delware.apps.techsupport_scampermobile.DistanceCalculator;
+import delware.apps.techsupport_scampermobile.LocationList;
 import delware.apps.techsupport_scampermobile.MainActivity;
 import delware.apps.techsupport_scampermobile.NavigationService;
 import delware.apps.techsupport_scampermobile.R;
+import delware.apps.techsupport_scampermobile.Tracking_Settings;
 
 public class trackingScreen extends AppCompatActivity {
+
+    public static final int DEFAULT_UPDATE_INTERVAL = 10;
+    public static final int FAST_UPDATE_INTERVAL = 5;
+    private static final int PERMISSIONS_FINE_LOCATION = 69;
+
+
+    //current location
+    public Location currentLocation;
+    //prev location
+    public Location previousLocation;
+    //distance between the newest and previous coordinates
+    public double fractionDistance;
+    //Total distance
+    public double totalDistance;
+    //Accelerometer Speed at each interval !not average speed!
+    public double currentSpeed;
+
+    private List<Location> savedLocations;
+
+
+    //config file for settings related to FusedLocationProviderClient
+    public LocationRequest locationRequest;
+
+    LocationCallback locationCallBack;
+
+    //Google API for location services
+    private FusedLocationProviderClient fusedLocationClient;
+
+
     public static final String INTENT_START_NAME = "inputStart";
+
+    public Tracking_Settings trackingSettings;
+    public DistanceCalculator distanceCalculator;
+    public CalorieCalculator calorieCalculator;
+
     public enum State
     {
         running,
@@ -27,19 +81,25 @@ public class trackingScreen extends AppCompatActivity {
     public Chronometer timetxt;
     public TextView distancetxt;
     public TextView speedtxt;
+    public TextView caloriestxt;
     public ImageView pausebtn;
     public ImageView playbtn;
     public ImageView stopbtn;
     public int playBtnPresses = 0;
     private boolean running = false;
     private long pauseOffset;
-    public long totaltime; //in seconds
+    public long totalTime; //in seconds
     public static State state;
+
+    private ArrayList<Double> distances;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        distances = new ArrayList<>(10);
+
         setContentView(R.layout.activity_tracking_screen);
         timetxt = findViewById(R.id.tvTime);
         distancetxt = findViewById(R.id.tvDistance);
@@ -47,9 +107,61 @@ public class trackingScreen extends AppCompatActivity {
         pausebtn = findViewById(R.id.btnPause);
         playbtn = findViewById(R.id.btnPlay);
         stopbtn = findViewById(R.id.btnStop);
+        caloriestxt = findViewById(R.id.tvCalories);
 
         stopbtn.setEnabled(false);
         pausebtn.setEnabled(false);
+
+        timetxt.setBase(SystemClock.elapsedRealtime());
+        trackingSettings = new Tracking_Settings();
+
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        //set properties of location request
+        locationRequest = LocationRequest.create();
+        locationRequest.setInterval(1000 * DEFAULT_UPDATE_INTERVAL);
+        locationRequest.setFastestInterval(1000 * FAST_UPDATE_INTERVAL);
+        locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+
+
+
+        //event that is triggered whenever the update interval is met
+        locationCallBack = new LocationCallback() {
+            @Override
+            public void onLocationResult(@NonNull LocationResult locationResult) {
+                super.onLocationResult(locationResult);
+
+                //get the previous location
+                previousLocation = currentLocation;
+
+                //save the location
+                currentLocation = locationResult.getLastLocation();
+                if(currentLocation != null) {
+                    System.out.println("location is null");
+                    speedtxt.setText("Error");
+                }else {
+                    currentSpeed = currentLocation.getSpeed();
+                    addLocalToList(currentLocation);
+                    System.out.println(currentLocation);
+                    speedtxt.setText(String.valueOf(currentSpeed));
+                }
+
+
+                //if there are at least 2 locations in the list
+                if (savedLocations.size() >= 2){
+                    fractionDistance = distanceCalculator.getDistanceM(previousLocation.getLatitude(), previousLocation.getLongitude(),
+                            currentLocation.getLatitude(),currentLocation.getLongitude());
+
+                    distances.add(fractionDistance);
+                    if(distances.size() > 10)
+                        distances.remove(11);
+
+                    totalDistance += fractionDistance;
+                }
+
+                System.out.println("Location Interval Triggered");
+            }
+        };
 
         timetxt.setBase(SystemClock.elapsedRealtime());
     }
@@ -62,8 +174,6 @@ public class trackingScreen extends AppCompatActivity {
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);//Exits current intent
         intent.putExtra("EXIT", true);
         startActivity(intent);
-
-
     }
 
     //Clickable Icon Lets the user exit current intent/activity and return to the previous screen
@@ -87,9 +197,11 @@ public class trackingScreen extends AppCompatActivity {
 
         if(!running) {
             //Start Timer and Tracking for the first time
+            totalDistance = 0.0;
             timetxt.setBase(SystemClock.elapsedRealtime() - pauseOffset);
             timetxt.start();
             running = true;
+            startLocationUpdates();
 
         }
         else {
@@ -126,20 +238,89 @@ public class trackingScreen extends AppCompatActivity {
         playbtn.setVisibility(View.VISIBLE);
         playbtn.setEnabled(true);
         timetxt.stop();
-        totaltime = (SystemClock.elapsedRealtime() - timetxt.getBase())/1000;
-        System.out.println(totaltime);
+        totalTime = (SystemClock.elapsedRealtime() - timetxt.getBase())/1000;
+        System.out.println(totalTime);
         timetxt.setBase(SystemClock.elapsedRealtime());
         pauseOffset=0;
         running = false;
         state = State.stopped;
         getRunIntent(state);
         //resets presses so you can restart the run
+        totalTime = SystemClock.elapsedRealtime() - timetxt.getBase();
+        System.out.println(totalTime);
+        stopLocationUpdates();
+        try {
+            caloriestxt.setText("Calories Burned" + calorieCalculator.caloriesBurned());
+        }catch (Exception e) {
+            System.out.println("Can't Calculate Calories");
+            caloriestxt.setText("Error");
+        }
+
 
 
     }
+
+    private void stopLocationUpdates() {
+        fusedLocationClient.removeLocationUpdates(locationCallBack);
+    }
+
+    private void startLocationUpdates() {
+        try {
+            fusedLocationClient.requestLocationUpdates(locationRequest, locationCallBack, null);
+        }catch(Exception e){
+            System.out.println("Congrats you broke it");
+        }
+        updateGPS();
+
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        switch (requestCode) {
+            case PERMISSIONS_FINE_LOCATION:
+                if(grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    updateGPS();
+                } else {
+                    Toast.makeText(this, "This app requires the use of location features to successfully operate", Toast.LENGTH_SHORT).show();
+                    System.out.println("Location permissions failed or was denied");
+                    exitIntent();
+                }
+                break;
+        }
+
+    }
+//For first time location
+    private void updateGPS() {
+        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+            //user has given permission
+            //gets last known location
+            fusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                @Override
+                public void onSuccess(Location location) {
+
+
+                    currentLocation = location;
+                    addLocalToList(currentLocation);
+                    System.out.println(currentLocation);
+                    if(location != null) {
+                        System.out.println("location is null");
+                    }
+                }
+            });
+
+        }else {
+            //permissions not granted yet
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                requestPermissions(new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSIONS_FINE_LOCATION);
+            }
+        }
+    }
     public void ScrapRun(){
         timetxt.stop();
-        totaltime = 0;
+        totalTime = 0;
         timetxt.setBase(SystemClock.elapsedRealtime());
         pauseOffset=0;
         running = false;
@@ -165,6 +346,27 @@ public class trackingScreen extends AppCompatActivity {
                 break;
 
         }
+    }
+
+    private void addLocalToList(Location location){
+        LocationList locationList = (LocationList) getApplicationContext();
+        savedLocations = locationList.getMyLocations();
+        savedLocations.add(location);
+    }
+
+    public double getSpeed()
+    {
+        double interval;
+        if(trackingSettings.gpsFastState)
+            interval = FAST_UPDATE_INTERVAL;
+        else
+            interval = DEFAULT_UPDATE_INTERVAL;
+
+        double sum = 0;
+        for (int i = 0; i < distances.size(); i++)
+            sum += distances.get(i);
+
+        return sum/(interval*1000*distances.size());
     }
 
 }
