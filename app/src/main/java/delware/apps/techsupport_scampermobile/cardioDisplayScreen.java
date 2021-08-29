@@ -91,6 +91,8 @@ int Position2;
                 TextView IdTxt = view.findViewById(R.id.IDtxt);
                 id = Integer.parseInt(IdTxt.getText().toString());
                 Update((int) id);
+                listView.setAdapter(null);
+                Refresh();
             }
         });
     }
@@ -260,6 +262,11 @@ int Position2;
             LogAdapter adapter = new LogAdapter(this, R.layout.adapter_view_layout, MainActivity.databaseHandler.getAllLogs(typeSelector1.getItemAtPosition(Position1).toString()));
             listView.setAdapter(adapter);
         }
+        else {
+            listView.setAdapter(null);
+            LogAdapter adapter = new LogAdapter(this, R.layout.adapter_view_layout, MainActivity.databaseHandler.getAllLogs(typeSelector1.getItemAtPosition(Position1).toString()));
+            listView.setAdapter(adapter);
+        }
         MainActivity.setWeeklyStats();
 
 
@@ -313,7 +320,7 @@ int Position2;
             public void onClick(View v) {
                 MainActivity.databaseHandler.delete(id);
                 dialog.dismiss();
-
+                Refresh();
             }
         });
         Save.setOnClickListener(new View.OnClickListener() {
@@ -321,7 +328,7 @@ int Position2;
             public void onClick(View v) {
                 MainActivity.databaseHandler.updateLogs(id, Integer.parseInt(hours.getText().toString()), Integer.parseInt(minutes.getText().toString()), Float.valueOf(distance.getText().toString()), Integer.parseInt(calories.getText().toString()));
                 dialog.dismiss();
-
+                Refresh();
             }
         });
         Refresh();
