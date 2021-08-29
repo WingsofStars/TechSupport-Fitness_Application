@@ -3,7 +3,7 @@ package delware.apps.techsupport_scampermobile;
 public class RunLog {
         public float Distance;
         public int Hours;
-        public float Minutes;
+        public int Minutes;
         public int calories;
         public float speed;
         public String date;
@@ -11,14 +11,17 @@ public class RunLog {
         public int UserId;
 
 
-    public RunLog(float distance, int hours, float minutes, int calories, String date, String cardioType) {
+    public RunLog(float distance, int hours, int minutes, int calories, String date, String cardioType) {
         Distance = distance;
         Hours = hours;
         Minutes = minutes;
         this.calories = calories;;
         this.date = date;
         this.cardioType = cardioType;
-        speed = distance / (hours + (minutes/60));
+        float minutePlaceHolder = (float) minutes;
+        System.out.println(minutePlaceHolder);
+        speed = distance / (hours + (minutePlaceHolder/60));
+        System.out.println("Speed: " + speed);
     }
 
         public float getDistance() {
@@ -37,11 +40,11 @@ public class RunLog {
             Hours = hours;
         }
 
-        public float getMinutes() {
+        public int getMinutes() {
             return Minutes;
         }
 
-        public void setMinutes(float minutes) {
+        public void setMinutes(int minutes) {
             Minutes = minutes;
         }
 

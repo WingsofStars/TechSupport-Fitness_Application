@@ -30,6 +30,7 @@ public class Profile_Settings extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_settings);
+        SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
         userNameTxt = findViewById(R.id.username);
         //Age = findViewById(R.id.);
         Height1 = findViewById(R.id.Height1);
@@ -37,7 +38,7 @@ public class Profile_Settings extends AppCompatActivity {
         Weight = findViewById(R.id.Weight);
         btn = findViewById(R.id.button3);
         TextView newUserTxt;
-        if (MainActivity.prefs.getBoolean("LoggedIn", false)) {
+        if (prefs.getBoolean("LoggedIn", false)) {
             Profile profile = MainActivity.databaseHandler.getUserByID(Integer.valueOf(MainActivity.currentID));
             userNameTxt.setText(profile.getUserName());
             int Height = (int) profile.getHeight();
@@ -109,8 +110,18 @@ public class Profile_Settings extends AppCompatActivity {
                                     editor.putBoolean("LoggedIn", true);
                                     editor.apply();
                                     MainActivity.currentID = String.valueOf(MainActivity.prefs.getInt("id", 0));
-
+                                    btn.setText("Sign Out");
                                     dialogue.dismiss();
+                                    MainActivity.setWeeklyStats();
+
+                                    Profile profile = MainActivity.databaseHandler.getUserByID(Integer.valueOf(MainActivity.currentID));
+                                    userNameTxt.setText(profile.getUserName());
+                                    int Height = (int) profile.getHeight();
+
+                                    Height1.setText(String.valueOf(Height / 12) + " ft");
+                                    Height2.setText(String.valueOf(Height % 12) + " inches");
+                                    Weight.setText(String.valueOf(profile.getWeight()) + " lbs");
+
                                 }
                                 else {
                                     textViewException.setText("Provided Username or Password is invalid.");
@@ -122,26 +133,8 @@ public class Profile_Settings extends AppCompatActivity {
                             }
 
 
-                            //When everything is logged in:
-                            SharedPreferences.Editor editor = MainActivity.prefs.edit();
-                            editor.putString("Username", givenUserName);
-                            editor.putInt("id", id);
-                            editor.putBoolean("LoggedIn", true);
-                            editor.apply();
-                            MainActivity.currentID = String.valueOf(MainActivity.prefs.getInt("id", 0));
-                            btn.setText("Sign Out");
-
-                            dialogue.dismiss();
 
 
-
-                            Profile profile = MainActivity.databaseHandler.getUserByID(Integer.valueOf(MainActivity.currentID));
-                            userNameTxt.setText(profile.getUserName());
-                            int Height = (int) profile.getHeight();
-
-                            Height1.setText(String.valueOf(Height / 12) + " ft");
-                            Height2.setText(String.valueOf(Height % 12) + " inches");
-                            Weight.setText(String.valueOf(profile.getWeight()) + " lbs");
                         }
 
 
@@ -196,5 +189,9 @@ public class Profile_Settings extends AppCompatActivity {
                 intent.putExtra("EXIT", true);
                 startActivity(intent);
             }
+
+            public void closePopUp(View v) {
+        dialogue.dismiss();
+    }
         }
 

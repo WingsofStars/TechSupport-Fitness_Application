@@ -179,11 +179,12 @@ SharedPreferences.OnSharedPreferenceChangeListener {
                         currentID = String.valueOf(prefs.getInt("id", 0));
 
                         dialogue.dismiss();
+                        setWeeklyStats();
                     } else {
                         textViewException.setText("Provided Username or Password is invalid.");
                     }
                 } catch (Exception e) {
-                    textViewException.setText("ERROR");
+                    textViewException.setText("Provided Username or Password is invalid.");
                     return;
                 }
 
@@ -314,11 +315,13 @@ SharedPreferences.OnSharedPreferenceChangeListener {
         for( int i = 0; i < last7DaysLog.size(); i++) {
             totalCalories += last7DaysLog.get(i).calories;
             totaldistance += last7DaysLog.get(i).Distance;
-            totalTime +=( (last7DaysLog.get(i).Hours) + (RunLogs.get(i).Minutes/60));
+            totalTime +=( (last7DaysLog.get(i).Hours) + (((float)RunLogs.get(i).Minutes)/60));
         }
         Calories.setText(String.valueOf(totalCalories) + " Calories");
         Distance.setText(String.format("%.2f", totaldistance) + " Miles");
         Time.setText(String.format("%.2f", totalTime) + " Hours"); // float formatting
     }
+
+
 
 }

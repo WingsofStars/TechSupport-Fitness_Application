@@ -65,11 +65,11 @@
 
     <EditText
         android:id="@+id/Height1"
-        android:layout_width="97dp"
+        android:layout_width="135dp"
         android:layout_height="51dp"
         android:backgroundTint="@color/lightGrey"
         android:ems="10"
-        android:hint="Height"
+        android:hint="Height (Inches)"
         android:inputType="number"
         android:maxLength="2"
         android:textAlignment="center"

@@ -86,7 +86,7 @@ public class newUserScreen extends AppCompatActivity {
         String strHeight = etHeight.getText().toString();
         String strWeight = etWeight.getText().toString();
         if(strHeight.isEmpty() || strWeight.isEmpty()) {
-            txtException.setText("height and weight cant be null");
+            txtException.setText("Height and Weight cant be empty");
             return;
         }
         //calculates Age
@@ -126,9 +126,11 @@ public class newUserScreen extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), "User Created", Toast.LENGTH_LONG).show();//Makes a dialogue box that says the user is created
         if(MainActivity.isFromMain) {
         MainActivity.dialogue.dismiss();
+        MainActivity.setWeeklyStats();
         }
         else if(!MainActivity.isFromMain){
-            Profile_Settings.dialogue.dismiss();
+            //Profile_Settings.dialogue.dismiss();
+            MainActivity.setWeeklyStats();
         }
     }
 
