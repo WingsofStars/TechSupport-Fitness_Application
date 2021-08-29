@@ -7,13 +7,18 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.text.DecimalFormat;
+
 public class rivalScreen extends RivalGuts{
 
-    public int num =0;
+    public int num = 0;
     public int difficulty = 0;
-    Profile p = new Profile(10,"cj","123@","salt",5.3,120.5,19,"male",0,0);
-    RunLog r = new RunLog(3,2,12,200,"8/19/2021","running");
-    //DBHandler data = new DBHandler();
+    DecimalFormat df = new DecimalFormat("0.00");
+    Profile p = MainActivity.databaseHandler.getUserByID(Integer.parseInt(MainActivity.currentID));
+    ArrayList<RunLog> logs = MainActivity.databaseHandler.getAllLogs("All");
+    RunLog mostCurrent = logs.get(0);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,15 +32,15 @@ public class rivalScreen extends RivalGuts{
                 num++;
                 break;
             case 1:
-                setText("I see your level right now is " + p.getLevel() + " with " + p.getXP() +", keep it up!");
+                setText("I see your level right now is " + p.getLevel()  + ", keep it up!");
                 num++;
                 break;
             case 2:
-                setText("I see you went " + r.getCardioType() + " today! A whole " + (int)r.getDistance() + " miles, amazing!");
+                setText("I see you went " + mostCurrent.getCardioType() + " today! A whole " + df.format((double)mostCurrent.getDistance()) + " miles, amazing!");
                 num++;
                 break;
             case 3:
-                setText("I went " + r.getCardioType() + " this week for " + (int)(r.getDistance()+1) + " miles, better luck next week.");
+                setText("I went " + mostCurrent.getCardioType() + " this week for " + df.format((double)(mostCurrent.getDistance()+ 0.4)) + " miles, better luck next week.");
                 num++;
                 break;
             case 4:
@@ -52,13 +57,13 @@ public class rivalScreen extends RivalGuts{
 
     public void randomSaying(){
 
-            int num = (int) (Math.random() *6)+1;
+            int num = (int) (Math.random() * 10)+1;
             switch(num){
                 case 1:
                     setText("There is only one thing better then whey protein, our savor jesus christ bro!");
                     break;
                 case 2:
-                    setText("yeah!");
+                    setText("Yeah!");
                     break;
                 case 3:
                     setText("Whey protein!");
@@ -71,6 +76,18 @@ public class rivalScreen extends RivalGuts{
                     break;
                 case 6:
                     setText("God is good.");
+                    break;
+                case 7:
+                    setText("Keep pushing dude!");
+                    break;
+                case 8:
+                    setText("Make your dreams come true and live on bro!");
+                    break;
+                case 9:
+                    setText("Get out there, move, exercise, explore your boundaries bro!");
+                    break;
+                case 10:
+                    setText("Got to talk to you later bro, got to hit the gym and pump the iron!");
                     break;
             }
     }

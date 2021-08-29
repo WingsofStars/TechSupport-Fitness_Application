@@ -39,7 +39,7 @@ SharedPreferences.OnSharedPreferenceChangeListener {
     public AlertDialog.Builder dBuilder;
     public static AlertDialog dialogue;
     static TextView TVXP;
-    public static Boolean levelUp = false;
+    public static boolean levelUp = false;
     public static String currentID;
     public static MediaPlayer levelup;
     MediaPlayer mp;
@@ -232,7 +232,8 @@ SharedPreferences.OnSharedPreferenceChangeListener {
                     Button callBtn = findViewById(R.id.button14);
                     LocalDate day = LocalDate.now();
                     DayOfWeek targetDay = DayOfWeek.SUNDAY;
-                    if(day.getDayOfWeek().equals(targetDay) )
+//                    if(day.getDayOfWeek().equals(targetDay) )
+                    if(true)
                     {
                         mp = MediaPlayer.create(this, R.raw.rivalcall);
                         mp.start();
