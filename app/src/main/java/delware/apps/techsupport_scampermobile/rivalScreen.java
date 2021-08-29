@@ -32,7 +32,7 @@ public class rivalScreen extends RivalGuts{
                 num++;
                 break;
             case 1:
-                setText("I see your level right now is " + p.getLevel()  + ", keep it up!");
+                setText("I see you are at level " + p.getLevel()  + " right now, keep it up!");
                 num++;
                 break;
             case 2:

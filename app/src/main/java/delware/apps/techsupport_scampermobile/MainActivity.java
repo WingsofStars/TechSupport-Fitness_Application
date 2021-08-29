@@ -233,8 +233,7 @@ SharedPreferences.OnSharedPreferenceChangeListener {
                     Button callBtn = findViewById(R.id.button14);
                     LocalDate day = LocalDate.now();
                     DayOfWeek targetDay = DayOfWeek.SUNDAY;
-//                    if(day.getDayOfWeek().equals(targetDay) )
-                    if(true)
+                    if(day.getDayOfWeek().equals(targetDay) )
                     {
                         mp = MediaPlayer.create(this, R.raw.rivalcall);
                         mp.start();
