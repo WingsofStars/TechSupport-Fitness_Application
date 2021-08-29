@@ -126,9 +126,11 @@ public class newUserScreen extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), "User Created", Toast.LENGTH_LONG).show();//Makes a dialogue box that says the user is created
         if(MainActivity.isFromMain) {
         MainActivity.dialogue.dismiss();
+        MainActivity.setWeeklyStats();
         }
         else if(!MainActivity.isFromMain){
             //Profile_Settings.dialogue.dismiss();
+            MainActivity.setWeeklyStats();
         }
     }
 

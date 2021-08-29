@@ -179,6 +179,7 @@ SharedPreferences.OnSharedPreferenceChangeListener {
                         currentID = String.valueOf(prefs.getInt("id", 0));
 
                         dialogue.dismiss();
+                        setWeeklyStats();
                     } else {
                         textViewException.setText("Provided Username or Password is invalid.");
                     }
