@@ -130,6 +130,7 @@ public class newUserScreen extends AppCompatActivity {
         }
         else if(!MainActivity.isFromMain){
             //Profile_Settings.dialogue.dismiss();
+            MainActivity.setWeeklyStats();
         }
     }
 
