@@ -175,6 +175,7 @@ public class trackingScreen extends AppCompatActivity {
         };
 
         timetxt.setBase(SystemClock.elapsedRealtime());
+        caloriestxt.setText(String.valueOf(calorieCalculator.caloriesBurned()));
     }
 
 

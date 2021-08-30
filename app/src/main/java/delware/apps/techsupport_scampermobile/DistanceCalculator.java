@@ -12,7 +12,7 @@ public class DistanceCalculator {
         double c = 2D * Math.atan2(Math.sqrt(a), Math.sqrt(1D - a));
         double d = _eQuatorialEarthRadius * c;
         //converts d to meters
-        return (double) (1000 * d);
+        return (1000 * d);
         //if you want to convert to miles and don't forget to refactor
         //return (int) (0.62137119 * d);
     }
