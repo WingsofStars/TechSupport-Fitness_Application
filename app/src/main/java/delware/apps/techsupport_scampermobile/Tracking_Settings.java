@@ -243,7 +243,7 @@ public class Tracking_Settings extends AppCompatActivity {
             }
         }
     }
-//:)
+
     public void updateUIValues(Location location) {
 
         // update all of the text view objects with a new location

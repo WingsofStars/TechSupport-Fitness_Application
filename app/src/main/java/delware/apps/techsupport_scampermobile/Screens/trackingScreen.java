@@ -54,6 +54,8 @@ public class trackingScreen extends AppCompatActivity {
     public double fractionDistance;
     //Total distance
     public double totalDistance = 0;
+
+    public double totalCalories = 0.0;
     //Accelerometer Speed at each interval !not average speed!
     public double currentSpeed;
 
@@ -170,8 +172,10 @@ public class trackingScreen extends AppCompatActivity {
                     distancetxt.setText(String.valueOf(String.format("%.3f",totalDistance/1609)) + " miles");
                 }
 
+                totalCalories += calorieCalculator.caloriesBurned(currentSpeed);
+
                 System.out.println("Location Interval Triggered");
-                caloriestxt.setText(String.valueOf(calorieCalculator.caloriesBurned(currentSpeed)));
+                caloriestxt.setText(String.valueOf(totalCalories));
             }
         };
 
