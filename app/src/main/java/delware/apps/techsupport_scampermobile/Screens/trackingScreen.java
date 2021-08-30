@@ -6,6 +6,7 @@ import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
@@ -76,6 +77,7 @@ public class trackingScreen extends AppCompatActivity {
     public Tracking_Settings trackingSettings;
     public DistanceCalculator distanceCalculator;
     public CalorieCalculator calorieCalculator;
+    public SharedPreferences prefs;
 
     public enum State
     {
@@ -107,6 +109,7 @@ public class trackingScreen extends AppCompatActivity {
         distances = new ArrayList<>(10);
 
         setContentView(R.layout.activity_tracking_screen);
+        prefs = getSharedPreferences("prefs", MODE_PRIVATE);
         timetxt = findViewById(R.id.tvTime);
         distancetxt = findViewById(R.id.tvDistance);
         speedtxt = findViewById(R.id.tvSpeed);
@@ -172,10 +175,15 @@ public class trackingScreen extends AppCompatActivity {
                     distancetxt.setText(String.valueOf(String.format("%.3f",totalDistance/1609)) + " miles");
                 }
 
-                totalCalories += calorieCalculator.caloriesBurned(currentSpeed);
+                if(prefs.getBoolean("LoggedIn", false)){
+                    totalCalories += calorieCalculator.caloriesBurned(currentSpeed);
+                    caloriestxt.setText(String.valueOf(totalCalories));
+                }else{
+                    caloriestxt.setText("Login For Cal");
+                }
 
                 System.out.println("Location Interval Triggered");
-                caloriestxt.setText(String.valueOf(totalCalories));
+
             }
         };
 
