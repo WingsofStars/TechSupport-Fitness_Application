@@ -39,7 +39,7 @@ SharedPreferences.OnSharedPreferenceChangeListener {
     public AlertDialog.Builder dBuilder;
     public static AlertDialog dialogue;
     static TextView TVXP;
-    public static Boolean levelUp = false;
+    public static boolean levelUp = false;
     public static String currentID;
     public static MediaPlayer levelup;
     MediaPlayer mp;

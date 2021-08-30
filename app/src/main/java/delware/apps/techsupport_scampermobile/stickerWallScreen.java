@@ -62,11 +62,16 @@ public class stickerWallScreen extends AppCompatActivity {
             v = findViewById(R.id.A02);
             v.setImageResource(android.R.drawable.btn_star_big_on);
         }
-        //Rival check
+        if(user.getLevel() >= 1) {
+            v = findViewById(R.id.A03);
+            v.setImageResource(android.R.drawable.btn_star_big_on);
+        }
         if(user.getLevel() >= 2) {
             v = findViewById(R.id.A04);
             v.setImageResource(android.R.drawable.btn_star_big_on);
+            v.getDrawable();
         }
+
         if(user.getLevel() >= 4) {
             v = findViewById(R.id.A11);
             v.setImageResource(android.R.drawable.btn_star_big_on);
@@ -83,6 +88,7 @@ public class stickerWallScreen extends AppCompatActivity {
             v = findViewById(R.id.A14);
             v.setImageResource(android.R.drawable.btn_star_big_on);
         }
+
         if(user.getLevel() >= 14) {
             v = findViewById(R.id.A21);
             v.setImageResource(android.R.drawable.btn_star_big_on);
@@ -123,6 +129,7 @@ public class stickerWallScreen extends AppCompatActivity {
             v = findViewById(R.id.A34);
             v.setImageResource(android.R.drawable.btn_star_big_on);
         }
+
         if(totalCalories >= 1500) {
             v = findViewById(R.id.A41);
             v.setImageResource(android.R.drawable.btn_star_big_on);
@@ -139,6 +146,7 @@ public class stickerWallScreen extends AppCompatActivity {
             v = findViewById(R.id.A44);
             v.setImageResource(android.R.drawable.btn_star_big_on);
         }
+
     }
 
     class Wrapper {
@@ -184,7 +192,7 @@ public class stickerWallScreen extends AppCompatActivity {
                 TV.setText("Track or log your first activity...");
                 break;
             case R.id.A03:
-                TV.setText("Beat your rival for the first time, you know you can do it...");
+                TV.setText("Talk with your rival for the first time, on Sunday or when you level up...");
                 break;
             case R.id.A04:
                 TV.setText("Achieve level 2...");
