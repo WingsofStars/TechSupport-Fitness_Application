@@ -34,12 +34,6 @@ public class Game_Settings extends RivalGuts {
             }
         });
     }
-    public void pickRivalOne(View v){
-
-    }
-    public void pickRivalTwo(View v){
-
-    }
 
     public void exitIntent(){
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);

@@ -1,19 +1,17 @@
 package delware.apps.techsupport_scampermobile;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import java.util.ArrayList;
 
 public class rivalScreen extends RivalGuts{
 
     public int num =0;
-    public int difficulty = 0;
-    Profile p = new Profile(10,"cj","123@","salt",5.3,120.5,19,"male",0,0);
-    RunLog r = new RunLog(3,2,12,200,"8/19/2021","running");
-    //DBHandler data = new DBHandler();
+    private Profile p = MainActivity.databaseHandler.getUserByID(Integer.parseInt(MainActivity.currentID));
+    private int goal = 5 * (difficulty+1);
+    //DBHandler data = new DBHandler(context);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,21 +19,31 @@ public class rivalScreen extends RivalGuts{
     }
 
     public void updateText(View v){
+        ArrayList<RunLog> RunLogs = MainActivity.databaseHandler.getAllLogs("ALL");
+        int distance = 0;
+        for( int i = 0; i < MainActivity.databaseHandler.size("ALL"); i++) {
+            distance += RunLogs.get(i).Distance;
+        }
         switch (num){
             case 0:
                 setText(p.getUserName() + ", good to see you!");
                 num++;
                 break;
             case 1:
-                setText("I see your level right now is " + p.getLevel() + " with " + p.getXP() +", keep it up!");
+                setText("I see your level right now is " + p.getLevel() + " with " + p.getXP() +" xp, keep it up!");
                 num++;
                 break;
             case 2:
-                setText("I see you went " + r.getCardioType() + " today! A whole " + (int)r.getDistance() + " miles, amazing!");
+                setText("I see you went a whole " + distance + " miles, amazing!");
                 num++;
                 break;
             case 3:
-                setText("I went " + r.getCardioType() + " this week for " + (int)(r.getDistance()+1) + " miles, better luck next week.");
+                if(goal > distance)
+                    setText("I went " + goal + " miles, better luck next week.");
+                else if(goal == distance)
+                    setText("We both went " + distance + " miles this week, awesome!");
+                else
+                    setText("I only went " + goal + " miles this week, you win!");
                 num++;
                 break;
             case 4:
