@@ -261,7 +261,6 @@ public class trackingScreen extends AppCompatActivity {
 
         float distance = (float) (totalDistance/1609);
         int calories;
-        calories=100;
         SimpleDateFormat formater = new SimpleDateFormat("MM/dd/yyyy");
         int hours = (int)totalTime/360;
         System.out.println("Hours: " + hours);
@@ -269,6 +268,7 @@ public class trackingScreen extends AppCompatActivity {
         System.out.println("seconds: " + totalTime);
         System.out.println("minutes: " + minutes);
         totalTime = SystemClock.elapsedRealtime() - timetxt.getBase();
+        calories=(int)calorieCalculator.caloriesBurned((double)((double)distance/(double)hours+(double)minutes/60));
         String Date = formater.format(Calendar.getInstance().getTime());
         RunLog runLog = new RunLog(distance, hours, minutes, calories, Date, "Running/Walking"  );
         System.out.println(runLog.speed);
@@ -277,7 +277,7 @@ public class trackingScreen extends AppCompatActivity {
         System.out.println(totalTime);
         stopLocationUpdates();
         try {
-            caloriestxt.setText("Calories Burned" + calorieCalculator.caloriesBurned());
+            caloriestxt.setText("Calories Burned" + calorieCalculator.caloriesBurned(currentSpeed));
         }catch (Exception e) {
             System.out.println("Can't Calculate Calories");
             caloriestxt.setText("Error");
