@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -68,6 +69,7 @@ int Position2;
         typeSelector1.setOnItemSelectedListener(this);
 
 
+
         listView = (ListView) findViewById(R.id.listView);
 
 
@@ -89,6 +91,8 @@ int Position2;
                 TextView IdTxt = view.findViewById(R.id.IDtxt);
                 id = Integer.parseInt(IdTxt.getText().toString());
                 Update((int) id);
+                listView.setAdapter(null);
+                Refresh();
             }
         });
     }
@@ -105,10 +109,11 @@ int Position2;
                 //runsymbol.setImageResource(R.drawable.runempty);
                 //emptymessage.setText("");
 
-                Refresh();
+
                 Toast.makeText(this, parent.getItemAtPosition(position).toString() + " selected", Toast.LENGTH_LONG).show();
 
             }
+            Refresh();
         }
         else {
             Position2 = position;
@@ -126,7 +131,7 @@ int Position2;
 
     public void createNewLog(View view){//Creates a popup window to take inputs to Log
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.CardioTypeSelection, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.CardioTypeSelection, R.layout.spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 
@@ -142,6 +147,7 @@ int Position2;
         hours = addNewLogPopup.findViewById(R.id.Hours);
         date = addNewLogPopup.findViewById(R.id.Date);
         type = addNewLogPopup.findViewById(R.id.Type);
+
 
         TextView Error = addNewLogPopup.findViewById(R.id.Error);
 
@@ -167,23 +173,23 @@ int Position2;
                 int Hours;
                 float Distance;
                 int Calories;
-                float Minutes;
+                int Minutes;
                 if(hours.getText().toString().equals("")){
                     Hours = 0;
                 }
                 else {
-                    Hours = Integer.valueOf(hours.getText().toString());
+                    Hours = Integer.parseInt(hours.getText().toString());
                 }
 
                 try {
-                    Distance = Float.valueOf(distance.getText().toString());
+                    Distance = Float.parseFloat(distance.getText().toString());
                     if (Distance == 0 ){
                         Error.setText("Zero is not an acceptable entry for Distance.");
                         return;
                     }
-                    Minutes = Float.valueOf(minutes.getText().toString());
+                    Minutes = Integer.parseInt(minutes.getText().toString());
 
-                    Calories = Integer.valueOf(calories.getText().toString());
+                    Calories = Integer.parseInt(calories.getText().toString());
 
                     String Type = type.getItemAtPosition(Position2).toString();
                     String Date = date.getText().toString();
@@ -243,19 +249,25 @@ int Position2;
     public void Refresh() {
 //        if(MainActivity.Logs.Log.size() > MainActivity.LogsforDisplay.size()){
 //        MainActivity.updateDisplayLog();}
-//        ImageView runsymbol = findViewById(R.id.runsymboll);
-//        runsymbol.setImageResource(R.drawable.runsymbol);
-//        TextView emptymessage = findViewById(R.id.message);
-//        emptymessage.setText(R.string.newlogmessage);
+        ImageView runsymbol = findViewById(R.id.runsymboll);
+        runsymbol.setImageResource(R.drawable.runsymbol);
+        TextView emptymessage = findViewById(R.id.message);
+        emptymessage.setText(R.string.newlogmessage);
         if(MainActivity.databaseHandler.size(typeSelector1.getItemAtPosition(Position1).toString()) >= 1) {
-            //runsymbol.setImageResource(R.drawable.runempty);
-            //emptymessage.setText("");
+            runsymbol.setImageResource(0);
+            emptymessage.setText("");
 
             listView.setAdapter(null);
 
             LogAdapter adapter = new LogAdapter(this, R.layout.adapter_view_layout, MainActivity.databaseHandler.getAllLogs(typeSelector1.getItemAtPosition(Position1).toString()));
             listView.setAdapter(adapter);
         }
+        else {
+            listView.setAdapter(null);
+            LogAdapter adapter = new LogAdapter(this, R.layout.adapter_view_layout, MainActivity.databaseHandler.getAllLogs(typeSelector1.getItemAtPosition(Position1).toString()));
+            listView.setAdapter(adapter);
+        }
+        MainActivity.setWeeklyStats();
 
 
     }
@@ -319,6 +331,7 @@ int Position2;
                 Refresh();
             }
         });
+        Refresh();
     }
 
 

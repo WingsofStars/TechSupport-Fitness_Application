@@ -3,10 +3,13 @@ package delware.apps.techsupport_scampermobile;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -15,19 +18,31 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.EditText;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 
 import delware.apps.techsupport_scampermobile.Screens.newUserScreen;
 import delware.apps.techsupport_scampermobile.Screens.trackingScreen;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements
+SharedPreferences.OnSharedPreferenceChangeListener {
 
     static SharedPreferences prefs; // uses small save files know as "Shared Preferences"
     public AlertDialog.Builder dBuilder;
     public static AlertDialog dialogue;
     static TextView TVXP;
+    public static boolean levelUp = false;
     public static String currentID;
-    //    MediaPlayer mp;
+    public static MediaPlayer levelup;
+    MediaPlayer mp;
     public static DBHandler databaseHandler;
     public static xpSystem xpSystem;
     static ArrayList<RunLog> RunLogs = new ArrayList<>();
@@ -35,23 +50,29 @@ public class MainActivity extends AppCompatActivity {
     float x1, y1, x2, y2;
     public static boolean isFromMain;
     ImageView infoBtn;
+    public static final String CHANNEL_ID = "foregroundServiceChannel";
+    public static TextView Time, Distance, Calories;
 
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
+        Time = findViewById(R.id.time);
+        Distance = findViewById(R.id.distance);
+        Calories = findViewById(R.id.calories);
+
         //infoBtn=findViewById(R.id.btnInfo);
 
         databaseHandler = new DBHandler(MainActivity.this);
         xpSystem = new xpSystem();
         TVXP = findViewById(R.id.xpBar);
-//        mp = MediaPlayer.create(this, R.raw.duckquack);
+        levelup = MediaPlayer.create(this, R.raw.levelup);
 
 
         prefs = getSharedPreferences("prefs", MODE_PRIVATE);
 
-
+        createNotificationChannel();
 
 
         boolean isUserLoggedIn = prefs.getBoolean("LoggedIn", false); //Checks for user account if it doesn't exists, it creates a SP(Shared Preference) saying it Doesn't
@@ -70,15 +91,12 @@ public class MainActivity extends AppCompatActivity {
             TVXP.setText("0 / 0 | Level 0");
         }
 
-        /*
         infoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showInfoPopup();
             }
         });
-
-         */
 //        boolean firstStart = prefs.getBoolean("isThisFirstStart", true);// Searches for a Shared  Preferences Value, if one doesn't exists, it is created with the default value of true
 ////
 //        if (firstStart){
@@ -88,8 +106,10 @@ public class MainActivity extends AppCompatActivity {
 //            editor.putBoolean("isThisFirstStart", false);//Changes Value to False
 //            editor.apply();
 //        }
-    }
 
+        setWeeklyStats();
+
+    }
 
     public void goToSettings(View v) {
         Intent goToSettings = new Intent(MainActivity.this, settings.class);
@@ -102,6 +122,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void goToTrackingScreen(View v) {
+        mp = MediaPlayer.create(this, R.raw.starttrack);
+        mp.start();
         Intent goToSettings = new Intent(MainActivity.this, trackingScreen.class);
         startActivity(goToSettings);
     }
@@ -157,17 +179,18 @@ public class MainActivity extends AppCompatActivity {
                         currentID = String.valueOf(prefs.getInt("id", 0));
 
                         dialogue.dismiss();
+                        setWeeklyStats();
                     } else {
                         textViewException.setText("Provided Username or Password is invalid.");
                     }
                 } catch (Exception e) {
-                    textViewException.setText("ERROR");
+                    textViewException.setText("Provided Username or Password is invalid.");
                     return;
                 }
 
 
                 //When everything is logged in:
-
+                xpSystem.xpCheck(0, p);
             }
         });
 
@@ -201,15 +224,34 @@ public class MainActivity extends AppCompatActivity {
                 x2 = touchEvent.getX();
                 y2 = touchEvent.getY();
                 if (x1 > x2) {
+                    mp = MediaPlayer.create(this, R.raw.stickerwalltransition);
+                    mp.start();
                     Intent i = new Intent(MainActivity.this, stickerWallScreen.class);
                     startActivity(i);
-//            }else if(x1 greater than x2){
-//                Intent i = new Intent(MainActivity.this, SwipeRight.class);
-//                startActivity(i);
-//            }
-                }
-                break;
+                }else if(x1 < x2){
+                    //Rival Call Button, triggered on Sunday
+                    Button callBtn = findViewById(R.id.button14);
+                    LocalDate day = LocalDate.now();
+                    DayOfWeek targetDay = DayOfWeek.SUNDAY;
+                    if(day.getDayOfWeek().equals(targetDay) )
+                    {
+                        mp = MediaPlayer.create(this, R.raw.rivalcall);
+                        mp.start();
+                        Intent i = new Intent(MainActivity.this, rivalScreen.class);
+                        startActivity(i);
+                    }
+                    //Call on Level up logic
+                    if(levelUp) {
+                        levelUp = false;
+                        mp = MediaPlayer.create(this, R.raw.rivalcall);
+                        mp.start();
+                        Intent i = new Intent(MainActivity.this, rivalScreen.class);
+                        startActivity(i);
+                    }
+
             }
+                break;
+        }
             return false;
 
     }
@@ -231,4 +273,54 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    private void createNotificationChannel() {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel serviceChannel = new NotificationChannel(
+                    CHANNEL_ID, "Location Service Channel",
+                    NotificationManager.IMPORTANCE_DEFAULT
+            );
+
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(serviceChannel);
+        }
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+
+    }
+    public static void setWeeklyStats(){
+        RunLogs = databaseHandler.getAllLogs("All");
+        ArrayList<RunLog> last7DaysLog = new ArrayList<>();
+        long DAY_IN_MS = 1000 * 60 * 60 * 24;
+
+        Date todaysDate = new Date();
+        Date previousWeekDate = new Date(todaysDate.getTime() - (7*DAY_IN_MS));
+
+        for (int i = 0; i < RunLogs.size(); i++) {
+            try {
+                Date date = new SimpleDateFormat("MM/dd/yyyy").parse(RunLogs.get(i).date);
+                if(date.after(previousWeekDate) && date.before(new Date(todaysDate.getTime() + (1*DAY_IN_MS)))) {
+                    last7DaysLog.add(RunLogs.get(i));
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        float totaldistance = 0f;
+        int totalCalories = 0;
+        float totalTime = 0f;
+
+        for( int i = 0; i < last7DaysLog.size(); i++) {
+            totalCalories += last7DaysLog.get(i).calories;
+            totaldistance += last7DaysLog.get(i).Distance;
+            totalTime +=( (last7DaysLog.get(i).Hours) + (((float)RunLogs.get(i).Minutes)/60));
+        }
+        Calories.setText(String.valueOf(totalCalories) + " Calories");
+        Distance.setText(String.format("%.2f", totaldistance) + " Miles");
+        Time.setText(String.format("%.2f", totalTime) + " Hours"); // float formatting
+    }
+
+
+
 }

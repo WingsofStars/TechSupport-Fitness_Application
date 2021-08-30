@@ -2,7 +2,10 @@ package delware.apps.techsupport_scampermobile;
 
 import java.util.ArrayList;
 
+import delware.apps.techsupport_scampermobile.Screens.trackingScreen;
+
 public class CalorieCalculator {
+    public delware.apps.techsupport_scampermobile.Screens.trackingScreen trackingScreen = new trackingScreen();
     //used to assign a MET value via speed
     private static class METCutoff
     {
@@ -15,13 +18,13 @@ public class CalorieCalculator {
     }
 
     static Profile profile;// = MainActivity.databaseHandler.getUserByID(Integer.parseInt(MainActivity.currentID));
-    static Tracking_Settings s = new Tracking_Settings();
 
     private static double BMR;
     private static double weightKg;
     private static double heightCm;
     private static int age;
     private static String sex;
+
 
     private static ArrayList<METCutoff> walkrunMET = new ArrayList<>();
 
@@ -66,14 +69,14 @@ public class CalorieCalculator {
         }
         return BMR;
     }
-    //use if Tracking settings has speed already
-    public static double caloriesBurned(){
-        double calories = (getMETValue(s.currentSpeed) * 3.5 * BMR);
+    //call this to get the total estimated calories burned
+    public double caloriesBurned(){
+        double calories = (getMETValue(trackingScreen.getSpeed()) * 3.5 * BMR);
         return calories;
     }
 
 
-    public static double getMETValue(double speedMPS){
+    private double getMETValue(double speedMPS){
         double speedMPH = speedMPS * 2.2369362920544;
 
         for(int i = 0; i < walkrunMET.size(); i++)

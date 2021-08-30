@@ -20,4 +20,7 @@
         <item>Female</item>
     </string-array>
     <string name="welcome">Thank you for using TechSupport\'s Runnning Instructor, <u>Scamper</u> \nTry Swiping Left and Right</string>
+    <string name="weeklyInfo"><b>This Week\'s Statistics</b></string>
+    <string name="newlogmessage"><![CDATA[Looks Like You Don\'t Have Any Runs Logged Yet. To Log A Run, Press The Button With A "+" On It]]></string>
+    <string name="loginWelcome">Hello and Welcome to Scamper. To enjoy the all the benefits we have to offer please Login or Signup.</string>
 </resources>

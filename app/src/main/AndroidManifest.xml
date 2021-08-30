@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="delware.apps.techsupport_scampermobile" >
 
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:name=".LocationList"
@@ -24,9 +23,12 @@
              project's local.properties file (e.g. MAPS_API_KEY=Aiza...), and replace the
              "YOUR_API_KEY" string in this file with "${MAPS_API_KEY}".
         -->
-<!--        <meta-data-->
-<!--            android:name="com.google.android.geo.API_KEY"-->
-<!--            android:value="${MAPS_API_KEY}" /> -->
+        <service android:name=".NavigationService"
+            android:foregroundServiceType="location"
+            android:exported="false"/>
+<!--       <meta-data-->
+<!--           android:name="com.google.android.geo.API_KEY"-->
+<!--           android:value="${MAPS_API_KEY}" />-->
 
         <activity
             android:name=".MapsActivity"
@@ -58,8 +60,7 @@
             android:exported="true" />
         <activity
             android:name=".Screens.trackingScreen"
-            android:exported="true" />
-        <activity
+            android:exported="true" />        <activity
             android:name=".cardioDisplayScreen"
             android:exported="true" />
         <activity
@@ -67,9 +68,6 @@
             android:exported="true" />
         <activity
             android:name=".settings"
-            android:exported="true" />
-        <activity
-            android:name=".discRackScreen"
             android:exported="true" />
         <activity
             android:name=".MainActivity"
@@ -80,6 +78,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
     </application>
+
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
 </manifest>

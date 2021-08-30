@@ -6,12 +6,18 @@ import android.view.View;
 import android.widget.TextView;
 import java.util.ArrayList;
 
+import java.util.ArrayList;
+import java.text.DecimalFormat;
+
 public class rivalScreen extends RivalGuts{
 
     public int num =0;
     private Profile p = MainActivity.databaseHandler.getUserByID(Integer.parseInt(MainActivity.currentID));
     private int goal = 5 * (difficulty+1);
     //DBHandler data = new DBHandler(context);
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,7 +26,7 @@ public class rivalScreen extends RivalGuts{
 
     public void updateText(View v){
         ArrayList<RunLog> RunLogs = MainActivity.databaseHandler.getAllLogs("ALL");
-        int distance = 0;
+        float distance = 0;
         for( int i = 0; i < MainActivity.databaseHandler.size("ALL"); i++) {
             distance += RunLogs.get(i).Distance;
         }
@@ -60,27 +66,39 @@ public class rivalScreen extends RivalGuts{
 
     public void randomSaying(){
 
-            int num = (int) (Math.random() *6)+1;
-            switch(num){
-                case 1:
-                    setText("There is only one thing better then whey protein, our savor jesus christ bro!");
-                    break;
-                case 2:
-                    setText("yeah!");
-                    break;
-                case 3:
-                    setText("Whey protein!");
-                    break;
-                case 4:
-                    setText("Looking good dude!");
-                    break;
-                case 5:
-                    setText("More whey protein!");
-                    break;
-                case 6:
-                    setText("God is good.");
-                    break;
-            }
+        int num = (int) (Math.random() * 10)+1;
+        switch(num){
+            case 1:
+                setText("There is only one thing better then whey protein, our savor jesus christ bro!");
+                break;
+            case 2:
+                setText("Yeah!");
+                break;
+            case 3:
+                setText("Whey protein!");
+                break;
+            case 4:
+                setText("Looking good dude!");
+                break;
+            case 5:
+                setText("More whey protein!");
+                break;
+            case 6:
+                setText("God is good.");
+                break;
+            case 7:
+                setText("Keep pushing dude!");
+                break;
+            case 8:
+                setText("Make your dreams come true and live on bro!");
+                break;
+            case 9:
+                setText("Get out there, move, exercise, explore your boundaries bro!");
+                break;
+            case 10:
+                setText("Got to talk to you later bro, got to hit the gym and pump the iron!");
+                break;
+        }
     }
     public void setText(String text){
         TextView textOutput = findViewById(R.id.textOutput);

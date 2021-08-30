@@ -34,7 +34,7 @@ public class Statistics extends AppCompatActivity {
         for( int i = 0; i < MainActivity.databaseHandler.size("All"); i++) {
             totalCalories += RunLogs.get(i).calories;
             totaldistance += RunLogs.get(i).Distance;
-            totalTime +=( (RunLogs.get(i).Hours) + (RunLogs.get(i).Minutes/60));
+            totalTime +=( (RunLogs.get(i).Hours) + (((float)(RunLogs.get(i).Minutes))/60));
         }
         calories.setText(String.valueOf(totalCalories) + " Calories");
         distance.setText(String.format("%.2f", totaldistance) + " Miles");

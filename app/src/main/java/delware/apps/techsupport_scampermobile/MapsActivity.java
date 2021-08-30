@@ -67,7 +67,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         for (Location location: savedLocations){
             LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
             mMap.addMarker(new MarkerOptions().position(latLng).title("Latitude: " + location.getLatitude()
-             + "Longitude: " + location.getLongitude()));
+                    + "Longitude: " + location.getLongitude()));
             lastLocationPlaced = latLng;
 
         }

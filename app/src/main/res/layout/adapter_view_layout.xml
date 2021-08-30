@@ -18,7 +18,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:fontFamily="@font/prompt"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardiotype1" />
+        app:layout_constraintTop_toBottomOf="@+id/distance1" />
 
     <TextView
         android:id="@+id/calories1"
@@ -48,22 +48,22 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:fontFamily="@font/prompt"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/distance2" />
+        app:layout_constraintTop_toBottomOf="@+id/time1" />
 
     <TextView
-        android:id="@+id/distance2"
+        android:id="@+id/distance1"
         android:layout_width="251dp"
         android:layout_height="32dp"
 
         android:layout_marginTop="4dp"
+        android:fontFamily="@font/prompt"
         android:text="Distance"
         android:textAlignment="center"
-        android:fontFamily="@font/prompt"
         android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/time1" />
+        app:layout_constraintTop_toBottomOf="@+id/cardiotype1" />
 
     <TextView
         android:id="@+id/date"
@@ -109,7 +109,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:visibility="visible"
+        android:visibility="invisible"
         />
     <!--        android:fontFamily="@font/promt"-->
 </androidx.constraintlayout.widget.ConstraintLayout>
