@@ -158,12 +158,12 @@ public class trackingScreen extends AppCompatActivity {
                     speedtxt.setText(String.valueOf(String.format("%.2f",getSpeed())) + " MPH");
                 }
 
-                //:)
+
                 //if there are at least 2 locations in the list
                 if (savedLocations.size() >= 2){
                     fractionDistance = distanceCalculator.getDistanceM(previousLocation.getLatitude(), previousLocation.getLongitude(),
                             currentLocation.getLatitude(),currentLocation.getLongitude());
-                    System.out.println(fractionDistance);
+                    System.out.println("distance: " + fractionDistance);
 
                     distances.add(fractionDistance);
                     if(distances.size() > 10)
@@ -173,6 +173,7 @@ public class trackingScreen extends AppCompatActivity {
                     System.out.println(totalDistance);
                     distancetxt.setText(String.valueOf(String.format("%.3f",totalDistance/1609)) + " miles");
                 }
+                System.out.println("Calories Burnt: " + calorieCalculator.caloriesBurned(getSpeed()));
 
                 if(prefs.getBoolean("LoggedIn", false)){
                     totalCalories += calorieCalculator.caloriesBurned(getSpeed());
@@ -182,7 +183,8 @@ public class trackingScreen extends AppCompatActivity {
                 }
 
                 System.out.println("Location Interval Triggered");
-
+                caloriestxt.setText(String.valueOf(totalCalories));
+                System.out.println("Total Calories: " + totalCalories);
             }
         };
 
