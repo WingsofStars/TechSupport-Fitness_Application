@@ -109,6 +109,7 @@ public class trackingScreen extends AppCompatActivity {
         distances = new ArrayList<>(10);
 
         setContentView(R.layout.activity_tracking_screen);
+        prefs = getSharedPreferences("prefs", MODE_PRIVATE);
         timetxt = findViewById(R.id.tvTime);
         distancetxt = findViewById(R.id.tvDistance);
         speedtxt = findViewById(R.id.tvSpeed);
@@ -175,7 +176,12 @@ public class trackingScreen extends AppCompatActivity {
                 }
                 System.out.println("Calories Burnt: " + calorieCalculator.caloriesBurned(getSpeed()));
 
-                totalCalories += calorieCalculator.caloriesBurned(getSpeed());
+                if(prefs.getBoolean("LoggedIn", false)){
+                    totalCalories += calorieCalculator.caloriesBurned(currentSpeed);
+                    caloriestxt.setText(String.valueOf(totalCalories));
+                }else{
+                    caloriestxt.setText("Login For Cal");
+                }
 
                 System.out.println("Location Interval Triggered");
                 caloriestxt.setText(String.valueOf(totalCalories));
