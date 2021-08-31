@@ -156,7 +156,7 @@ public class trackingScreen extends AppCompatActivity {
                     System.out.println("Speed: " + currentLocation.getSpeed());
                     addLocalToList(currentLocation);
                     System.out.println("Current Location: " + currentLocation + " added to list");
-                    speedtxt.setText(String.valueOf(String.format("%.2f",currentSpeed)) + " MPH");
+                    speedtxt.setText(String.valueOf(String.format("%.2f",getSpeed())) + " MPH");
                 }
 
 
