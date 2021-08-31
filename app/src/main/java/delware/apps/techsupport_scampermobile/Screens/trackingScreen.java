@@ -158,7 +158,7 @@ public class trackingScreen extends AppCompatActivity {
                     speedtxt.setText(String.valueOf(String.format("%.2f",getSpeed())) + " MPH");
                 }
 
-
+                //:)
                 //if there are at least 2 locations in the list
                 if (savedLocations.size() >= 2){
                     fractionDistance = distanceCalculator.getDistanceM(previousLocation.getLatitude(), previousLocation.getLongitude(),
