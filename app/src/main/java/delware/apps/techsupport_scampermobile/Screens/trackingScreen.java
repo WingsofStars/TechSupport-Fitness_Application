@@ -6,6 +6,7 @@ import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
@@ -76,6 +77,7 @@ public class trackingScreen extends AppCompatActivity {
     public Tracking_Settings trackingSettings;
     public DistanceCalculator distanceCalculator;
     public CalorieCalculator calorieCalculator;
+    public SharedPreferences prefs;
 
     public enum State
     {
@@ -161,7 +163,7 @@ public class trackingScreen extends AppCompatActivity {
                 if (savedLocations.size() >= 2){
                     fractionDistance = distanceCalculator.getDistanceM(previousLocation.getLatitude(), previousLocation.getLongitude(),
                             currentLocation.getLatitude(),currentLocation.getLongitude());
-                    System.out.println(fractionDistance);
+                    System.out.println("distance: " + fractionDistance);
 
                     distances.add(fractionDistance);
                     if(distances.size() > 10)
@@ -171,11 +173,13 @@ public class trackingScreen extends AppCompatActivity {
                     System.out.println(totalDistance);
                     distancetxt.setText(String.valueOf(String.format("%.3f",totalDistance/1609)) + " miles");
                 }
+                System.out.println("Calories Burnt: " + calorieCalculator.caloriesBurned(getSpeed()));
 
-                totalCalories += calorieCalculator.caloriesBurned(currentSpeed);
+                totalCalories += calorieCalculator.caloriesBurned(getSpeed());
 
                 System.out.println("Location Interval Triggered");
                 caloriestxt.setText(String.valueOf(totalCalories));
+                System.out.println("Total Calories: " + totalCalories);
             }
         };
 
@@ -281,6 +285,7 @@ public class trackingScreen extends AppCompatActivity {
         MainActivity.setWeeklyStats();
         System.out.println(totalTime);
         stopLocationUpdates();
+
         try {
             caloriestxt.setText("Calories Burned" + calorieCalculator.caloriesBurned(currentSpeed));
         }catch (Exception e) {

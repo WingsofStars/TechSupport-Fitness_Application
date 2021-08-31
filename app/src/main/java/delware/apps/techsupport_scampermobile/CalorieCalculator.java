@@ -72,6 +72,7 @@ public class CalorieCalculator {
     //call this to get the total estimated calories burned
     public double caloriesBurned(double speed){
         double calories = (getMETValue(speed) * 3.5 * BMR);
+        System.out.println("Calories: " + calories);
         return calories;
     }
 
