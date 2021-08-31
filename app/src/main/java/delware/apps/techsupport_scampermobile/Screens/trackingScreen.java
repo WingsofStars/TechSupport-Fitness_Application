@@ -160,7 +160,7 @@ public class trackingScreen extends AppCompatActivity {
                 }
 
 
-                //if there are at least 2 locations in the list
+                //If there are at least 2 locations in the list
                 if (savedLocations.size() >= 2){
                     fractionDistance = distanceCalculator.getDistanceM(previousLocation.getLatitude(), previousLocation.getLongitude(),
                             currentLocation.getLatitude(),currentLocation.getLongitude());
