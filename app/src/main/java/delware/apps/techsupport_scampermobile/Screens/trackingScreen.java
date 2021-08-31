@@ -15,7 +15,6 @@ import android.os.SystemClock;
 import android.view.View;
 import android.widget.Chronometer;
 import android.widget.ImageView;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,7 +57,7 @@ public class trackingScreen extends AppCompatActivity {
 
     public double totalCalories = 0.0;
     //Accelerometer Speed at each interval !not average speed!
-    public double currentSpeed;
+    public double currentAcSpeed;
 
     private List<Location> savedLocations;
 
@@ -152,14 +151,14 @@ public class trackingScreen extends AppCompatActivity {
                     System.out.println("1 location is null");
                     speedtxt.setText("Error");
                 }else {
-                    currentSpeed = currentLocation.getSpeed();
+                    currentAcSpeed = currentLocation.getSpeed();
                     System.out.println("Speed: " + currentLocation.getSpeed());
                     addLocalToList(currentLocation);
                     System.out.println("Current Location: " + currentLocation + " added to list");
                     speedtxt.setText(String.valueOf(String.format("%.2f",getSpeed())) + " MPH");
                 }
 
-
+                //:)
                 //if there are at least 2 locations in the list
                 if (savedLocations.size() >= 2){
                     fractionDistance = distanceCalculator.getDistanceM(previousLocation.getLatitude(), previousLocation.getLongitude(),
@@ -177,7 +176,7 @@ public class trackingScreen extends AppCompatActivity {
                 System.out.println("Calories Burnt: " + calorieCalculator.caloriesBurned(getSpeed()));
 
                 if(prefs.getBoolean("LoggedIn", false)){
-                    totalCalories += calorieCalculator.caloriesBurned(currentSpeed);
+                    totalCalories += calorieCalculator.caloriesBurned(getSpeed());
                     caloriestxt.setText(String.valueOf(totalCalories));
                 }else{
                     caloriestxt.setText("Login For Cal");
@@ -291,9 +290,8 @@ public class trackingScreen extends AppCompatActivity {
         MainActivity.setWeeklyStats();
         System.out.println(totalTime);
         stopLocationUpdates();
-
         try {
-            caloriestxt.setText("Calories Burned" + calorieCalculator.caloriesBurned(currentSpeed));
+            caloriestxt.setText("Calories Burned" + calorieCalculator.caloriesBurned(currentAcSpeed));
         }catch (Exception e) {
             System.out.println("Can't Calculate Calories");
             caloriestxt.setText("Error");
