@@ -25,6 +25,7 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -105,7 +106,7 @@ public class trackingScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        distances = new ArrayList<>(10);
+        distances = new ArrayList<>();
 
         setContentView(R.layout.activity_tracking_screen);
         prefs = getSharedPreferences("prefs", MODE_PRIVATE);
@@ -166,8 +167,8 @@ public class trackingScreen extends AppCompatActivity {
                     System.out.println("distance: " + fractionDistance);
 
                     distances.add(fractionDistance);
-                    if(distances.size() > 10)
-                        distances.remove(11);
+//                    if(distances.size() > 10)
+//                        distances.remove(11);
 
                     totalDistance += fractionDistance;
                     System.out.println(totalDistance);
@@ -176,8 +177,8 @@ public class trackingScreen extends AppCompatActivity {
                 System.out.println("Calories Burnt: " + calorieCalculator.caloriesBurned(currentAcSpeed));
 
                 if(prefs.getBoolean("LoggedIn", false)){
-                    totalCalories += calorieCalculator.caloriesBurned(currentAcSpeed);
-                    caloriestxt.setText(String.valueOf(totalCalories));
+                    totalCalories += (calorieCalculator.caloriesBurned(currentAcSpeed)/360);
+                    caloriestxt.setText(String.valueOf((int)totalCalories));
                 }else{
                     caloriestxt.setText("Login For Cal");
                 }
@@ -255,46 +256,73 @@ public class trackingScreen extends AppCompatActivity {
     }
 
     public void StopRun(View v){
-        //STOP EVERYTHING
-        pausebtn.setEnabled(false);
-        pausebtn.setVisibility(View.INVISIBLE);
-        stopbtn.setEnabled(false);
-        stopbtn.setVisibility(View.INVISIBLE);
+        totalTime = (SystemClock.elapsedRealtime() - timetxt.getBase()) / 1000;
 
-        playbtn.setVisibility(View.VISIBLE);
-        playbtn.setEnabled(true);
-        timetxt.stop();
-        totalTime = (SystemClock.elapsedRealtime() - timetxt.getBase())/1000;
-        System.out.println(totalTime);
-        timetxt.setBase(SystemClock.elapsedRealtime());
-        pauseOffset=0;
-        running = false;
-        state = State.stopped;
-        getRunIntent(state);
-        //resets presses so you can restart the run
+        if (totalTime <60){
+            pausebtn.setEnabled(false);
+            pausebtn.setVisibility(View.INVISIBLE);
+            stopbtn.setEnabled(false);
+            stopbtn.setVisibility(View.INVISIBLE);
 
-        float distance = (float) (totalDistance/1609);
-        int calories;
-        SimpleDateFormat formater = new SimpleDateFormat("MM/dd/yyyy");
-        int hours = (int)totalTime/360;
-        System.out.println("Hours: " + hours);
-        int minutes = (int)totalTime/60;
-        System.out.println("seconds: " + totalTime);
-        System.out.println("minutes: " + minutes);
-        totalTime = SystemClock.elapsedRealtime() - timetxt.getBase();
-        calories=(int)calorieCalculator.caloriesBurned((double)((double)distance/(double)hours+(double)minutes/60));
-        String Date = formater.format(Calendar.getInstance().getTime());
-        RunLog runLog = new RunLog(distance, hours, minutes, calories, Date, "Running/Walking"  );
-        System.out.println(runLog.speed);
-        MainActivity.databaseHandler.addLog(runLog);
-        MainActivity.setWeeklyStats();
-        System.out.println(totalTime);
-        stopLocationUpdates();
-        try {
-            caloriestxt.setText("Calories Burned" + calorieCalculator.caloriesBurned(currentAcSpeed));
-        }catch (Exception e) {
-            System.out.println("Can't Calculate Calories");
-            caloriestxt.setText("Error");
+            playbtn.setVisibility(View.VISIBLE);
+            playbtn.setEnabled(true);
+            timetxt.stop();
+            timetxt.setBase(SystemClock.elapsedRealtime());
+            pauseOffset = 0;
+            running = false;
+            state = State.stopped;
+            getRunIntent(state);
+            distances.clear();
+            Toast.makeText(getApplicationContext(), "Run is too Short to save", Toast.LENGTH_LONG).show();
+        }
+        else {
+            //STOP EVERYTHING
+            pausebtn.setEnabled(false);
+            pausebtn.setVisibility(View.INVISIBLE);
+            stopbtn.setEnabled(false);
+            stopbtn.setVisibility(View.INVISIBLE);
+
+            playbtn.setVisibility(View.VISIBLE);
+            playbtn.setEnabled(true);
+            timetxt.stop();
+            System.out.println(totalTime);
+            timetxt.setBase(SystemClock.elapsedRealtime());
+            pauseOffset = 0;
+            running = false;
+            state = State.stopped;
+            getRunIntent(state);
+            //resets presses so you can restart the run
+
+            float distance = (float) (totalDistance / 1609);
+            double calories;
+            SimpleDateFormat formater = new SimpleDateFormat("MM/dd/yyyy");
+            int hours = (int) totalTime / 3600;
+            int leftoverSeconds = (int) (totalTime % 3600);
+            System.out.println("leftovers: " + totalTime%3600);
+            System.out.println("Hours: " + hours);
+            int minutes = leftoverSeconds / 60;
+            float hoursConverted =  (float)hours + ((float)minutes/60);
+            System.out.println("seconds: " + totalTime);
+            System.out.println("minutes: " + minutes);
+            totalTime = SystemClock.elapsedRealtime() - timetxt.getBase();
+            calories =  (calorieCalculator.caloriesBurned((double) ((double) distance / ((double) hours + (double) minutes / 60))) * hoursConverted);
+            String Date = formater.format(Calendar.getInstance().getTime());
+            RunLog runLog = new RunLog(distance, hours, minutes, (int) calories, Date, "Running/Walking");
+            System.out.println(runLog.speed);
+            MainActivity.databaseHandler.addLog(runLog);
+            MainActivity.setWeeklyStats();
+            System.out.println(totalTime);
+            stopLocationUpdates();
+            distances.clear();
+            totalDistance = 0;
+            fractionDistance = 0;
+            distancetxt.setText("0.00");
+            try {
+                caloriestxt.setText("Calories Burned: " + String.format("%.2f", calories));
+            } catch (Exception e) {
+                System.out.println("Can't Calculate Calories");
+                caloriestxt.setText("Error");
+            }
         }
 
 

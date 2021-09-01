@@ -48,7 +48,7 @@ public class CalorieCalculator {
         walkrunMET.add(new METCutoff(14, 23.0));
         walkrunMET.add(new METCutoff(100, 24.0));
 
-        //weightKg = profile.getWeight() * 0.45359237;
+        weightKg = profile.getWeight() * 0.45;
         heightCm = profile.getHeight() * 2.54;
         age = profile.getAge();
         sex = profile.getGender();
