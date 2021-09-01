@@ -25,7 +25,6 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -430,18 +429,28 @@ public class trackingScreen extends AppCompatActivity {
 
     public double getSpeed()
     {
+        double sum = 0;
+        for (int i = 0; i < distances.size(); i++){
+            sum += (distances.get(i)) * 0.00062137;
+
+        }
+        //distance over time returns MPH
+        return (sum/(getTime()));
+    }
+//returns in seconds
+    public double getTime(){
         double interval;
+        double time;
         if(trackingSettings.gpsFastState)
             interval = FAST_UPDATE_INTERVAL;
         else
             interval = DEFAULT_UPDATE_INTERVAL;
 
         System.out.println(interval);
-        double sum = 0;
-        for (int i = 0; i < distances.size(); i++)
-            sum += distances.get(i);
+        time = (interval*distances.size()) * 0.00027778;
+        return time;
 
-        return sum/(interval*1000*distances.size());
+
     }
 
 }
