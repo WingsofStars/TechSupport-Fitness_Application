@@ -75,6 +75,11 @@ public class CalorieCalculator {
         System.out.println("Calories: " + calories);
         return calories;
     }
+    public double caloriesBurned(double speed){
+        double calories = ((getMETValue(speed) * BMR)/24);
+        System.out.println("Calories: " + calories);
+        return calories;
+    }
 
 
     private double getMETValue(double speedMPH){

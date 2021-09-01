@@ -176,7 +176,7 @@ public class trackingScreen extends AppCompatActivity {
                 System.out.println("Calories Burnt: " + calorieCalculator.caloriesBurned(currentAcSpeed, getTime()));
 
                 if(prefs.getBoolean("LoggedIn", false)){
-                    totalCalories += (calorieCalculator.caloriesBurned(currentAcSpeed, getTime())/360);
+                    totalCalories += (calorieCalculator.caloriesBurned(currentAcSpeed)/360);
                     caloriestxt.setText(String.valueOf((int)totalCalories));
                 }else{
                     caloriestxt.setText("Login For Cal");
@@ -254,14 +254,10 @@ public class trackingScreen extends AppCompatActivity {
 
     }
 
-    public void StopRun(View v){
-        //STOP EVERYTHING
-        pausebtn.setEnabled(false);
-        pausebtn.setVisibility(View.INVISIBLE);
-        stopbtn.setEnabled(false);
-        stopbtn.setVisibility(View.INVISIBLE);
+    public void StopRun(View v) {
+        totalTime = (SystemClock.elapsedRealtime() - timetxt.getBase()) / 1000;
 
-        if (totalTime <60){
+        if (totalTime < 60) {
             pausebtn.setEnabled(false);
             pausebtn.setVisibility(View.INVISIBLE);
             stopbtn.setEnabled(false);
@@ -277,8 +273,7 @@ public class trackingScreen extends AppCompatActivity {
             getRunIntent(state);
             distances.clear();
             Toast.makeText(getApplicationContext(), "Run is too Short to save", Toast.LENGTH_LONG).show();
-        }
-        else {
+        } else {
             //STOP EVERYTHING
             pausebtn.setEnabled(false);
             pausebtn.setVisibility(View.INVISIBLE);
@@ -301,14 +296,14 @@ public class trackingScreen extends AppCompatActivity {
             SimpleDateFormat formater = new SimpleDateFormat("MM/dd/yyyy");
             int hours = (int) totalTime / 3600;
             int leftoverSeconds = (int) (totalTime % 3600);
-            System.out.println("leftovers: " + totalTime%3600);
+            System.out.println("leftovers: " + totalTime % 3600);
             System.out.println("Hours: " + hours);
             int minutes = leftoverSeconds / 60;
-            float hoursConverted =  (float)hours + ((float)minutes/60);
+            float hoursConverted = (float) hours + ((float) minutes / 60);
             System.out.println("seconds: " + totalTime);
             System.out.println("minutes: " + minutes);
             totalTime = SystemClock.elapsedRealtime() - timetxt.getBase();
-            calories =  calorieCalculator.caloriesBurned(getSpeed(), getTime());
+            calories = calorieCalculator.caloriesBurned(getSpeed(), getTime());
             String Date = formater.format(Calendar.getInstance().getTime());
             RunLog runLog = new RunLog(distance, hours, minutes, (int) calories, Date, "Running/Walking");
             System.out.println(runLog.speed);
@@ -327,9 +322,6 @@ public class trackingScreen extends AppCompatActivity {
                 caloriestxt.setText("Error");
             }
         }
-
-
-
     }
 
     private void stopLocationUpdates() {
