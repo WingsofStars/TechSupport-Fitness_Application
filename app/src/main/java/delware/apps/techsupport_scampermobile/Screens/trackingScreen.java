@@ -408,6 +408,7 @@ public class trackingScreen extends AppCompatActivity {
         else
             interval = DEFAULT_UPDATE_INTERVAL;
 
+        System.out.println(interval);
         double sum = 0;
         for (int i = 0; i < distances.size(); i++)
             sum += distances.get(i);
