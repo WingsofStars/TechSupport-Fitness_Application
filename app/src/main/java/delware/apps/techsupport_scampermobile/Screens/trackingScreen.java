@@ -166,17 +166,15 @@ public class trackingScreen extends AppCompatActivity {
                     System.out.println("distance: " + fractionDistance);
 
                     distances.add(fractionDistance);
-                    if(distances.size() > 10)
-                        distances.remove(11);
 
                     totalDistance += fractionDistance;
                     System.out.println(totalDistance);
                     distancetxt.setText(String.valueOf(String.format("%.3f",totalDistance/1609)) + " miles");
                 }
-                System.out.println("Calories Burnt: " + calorieCalculator.caloriesBurned(getSpeed()));
+                System.out.println("Calories Burnt: " + calorieCalculator.caloriesBurned(getSpeed(), getTime()));
 
                 if(prefs.getBoolean("LoggedIn", false)){
-                    totalCalories += calorieCalculator.caloriesBurned(getSpeed());
+                    totalCalories += calorieCalculator.caloriesBurned(getSpeed(), getTime());
                     caloriestxt.setText(String.valueOf(totalCalories));
                 }else{
                     caloriestxt.setText("Login For Cal");
@@ -282,7 +280,7 @@ public class trackingScreen extends AppCompatActivity {
         System.out.println("seconds: " + totalTime);
         System.out.println("minutes: " + minutes);
         totalTime = SystemClock.elapsedRealtime() - timetxt.getBase();
-        calories=(int)calorieCalculator.caloriesBurned((double)((double)distance/(double)hours+(double)minutes/60));
+        calories=(int)calorieCalculator.caloriesBurned((double)((double)distance/(double)hours+(double)minutes/60), getTime());
         String Date = formater.format(Calendar.getInstance().getTime());
         RunLog runLog = new RunLog(distance, hours, minutes, calories, Date, "Running/Walking"  );
         System.out.println(runLog.speed);
@@ -291,7 +289,7 @@ public class trackingScreen extends AppCompatActivity {
         System.out.println(totalTime);
         stopLocationUpdates();
         try {
-            caloriestxt.setText("Calories Burned" + calorieCalculator.caloriesBurned(currentAcSpeed));
+            caloriestxt.setText("Calories Burned" + calorieCalculator.caloriesBurned(getSpeed(), getTime()));
         }catch (Exception e) {
             System.out.println("Can't Calculate Calories");
             caloriestxt.setText("Error");
@@ -402,18 +400,28 @@ public class trackingScreen extends AppCompatActivity {
 
     public double getSpeed()
     {
+        double sum = 0;
+        for (int i = 0; i < distances.size(); i++){
+            sum += (distances.get(i)) * 0.00062137;
+
+        }
+        //distance over time returns MPH
+        return (sum/(getTime()));
+    }
+//returns in seconds
+    public double getTime(){
         double interval;
+        double time;
         if(trackingSettings.gpsFastState)
             interval = FAST_UPDATE_INTERVAL;
         else
             interval = DEFAULT_UPDATE_INTERVAL;
 
         System.out.println(interval);
-        double sum = 0;
-        for (int i = 0; i < distances.size(); i++)
-            sum += distances.get(i);
+        time = (interval*distances.size()) * 0.00027778;
+        return time;
 
-        return sum/(interval*1000*distances.size());
+
     }
 
 }

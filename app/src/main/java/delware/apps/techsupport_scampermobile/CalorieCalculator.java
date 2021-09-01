@@ -48,7 +48,7 @@ public class CalorieCalculator {
         walkrunMET.add(new METCutoff(14, 23.0));
         walkrunMET.add(new METCutoff(100, 24.0));
 
-        //weightKg = profile.getWeight() * 0.45359237;
+        weightKg = profile.getWeight() * 0.45359237;
         heightCm = profile.getHeight() * 2.54;
         age = profile.getAge();
         sex = profile.getGender();
@@ -69,9 +69,9 @@ public class CalorieCalculator {
         }
         return BMR;
     }
-    //Call this to get the total estimated calories burned
-    public double caloriesBurned(double speed){
-        double calories = ((getMETValue(speed) * BMR)/24);
+
+    public double caloriesBurned(double speed, double time){
+        double calories = ((getMETValue(speed) * BMR)/24 * (time));
         System.out.println("Calories: " + calories);
         return calories;
     }
