@@ -77,13 +77,13 @@ public class CalorieCalculator {
     }
 
 
-    private double getMETValue(double speedMPS){
-        double speedMPH = speedMPS * 2.2369362920544;
+    private double getMETValue(double MPH){
+        //double speedMPH = speedMPS * 2.2369362920544;
 
         for(int i = 0; i < walkrunMET.size(); i++)
         {
             METCutoff cutoff = walkrunMET.get(i);
-            if(speedMPH <= cutoff.cutoff)
+            if(MPH <= cutoff.cutoff)
                 return cutoff.value;
         }
 

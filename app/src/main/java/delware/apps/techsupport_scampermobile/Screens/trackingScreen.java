@@ -155,7 +155,7 @@ public class trackingScreen extends AppCompatActivity {
                     System.out.println("Speed: " + currentLocation.getSpeed());
                     addLocalToList(currentLocation);
                     System.out.println("Current Location: " + currentLocation + " added to list");
-                    speedtxt.setText(String.valueOf(String.format("%.2f",getSpeed())) + " MPH");
+                    speedtxt.setText(String.valueOf(String.format("%.2f",currentLocation.getSpeed())) + " MPH");
                 }
 
                 //:)
@@ -173,10 +173,10 @@ public class trackingScreen extends AppCompatActivity {
                     System.out.println(totalDistance);
                     distancetxt.setText(String.valueOf(String.format("%.3f",totalDistance/1609)) + " miles");
                 }
-                System.out.println("Calories Burnt: " + calorieCalculator.caloriesBurned(getSpeed()));
+                System.out.println("Calories Burnt: " + calorieCalculator.caloriesBurned(currentAcSpeed));
 
                 if(prefs.getBoolean("LoggedIn", false)){
-                    totalCalories += calorieCalculator.caloriesBurned(getSpeed());
+                    totalCalories += calorieCalculator.caloriesBurned(currentAcSpeed);
                     caloriestxt.setText(String.valueOf(totalCalories));
                 }else{
                     caloriestxt.setText("Login For Cal");
