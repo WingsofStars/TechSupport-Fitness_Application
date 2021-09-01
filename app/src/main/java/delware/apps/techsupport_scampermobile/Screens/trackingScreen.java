@@ -390,7 +390,7 @@ public class trackingScreen extends AppCompatActivity {
 
         }
     }
-
+    //:)
     private void addLocalToList(Location location){
         LocationList locationList = (LocationList) getApplicationContext();
         savedLocations = locationList.getMyLocations();
