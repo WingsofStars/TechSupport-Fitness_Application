@@ -33,7 +33,7 @@ public class CalorieCalculator {
         profile = p;
 
         walkrunMET.add(new METCutoff(2.0, 2.0));
-        walkrunMET.add(new METCutoff(3.0, 2.5));
+        walkrunMET.add(new METCutoff(3.0, 3.3));
         walkrunMET.add(new METCutoff(3.5, 4.5));
         walkrunMET.add(new METCutoff(4.5, 6.0));
         walkrunMET.add(new METCutoff(5, 8.3));

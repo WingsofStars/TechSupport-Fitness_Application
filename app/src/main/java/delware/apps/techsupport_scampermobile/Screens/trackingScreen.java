@@ -280,7 +280,7 @@ public class trackingScreen extends AppCompatActivity {
         System.out.println("seconds: " + totalTime);
         System.out.println("minutes: " + minutes);
         totalTime = SystemClock.elapsedRealtime() - timetxt.getBase();
-        calories=(int)calorieCalculator.caloriesBurned((double)((double)distance/(double)hours+(double)minutes/60), getTime());
+        calories=(int)calorieCalculator.caloriesBurned(getSpeed(), getTime());
         String Date = formater.format(Calendar.getInstance().getTime());
         RunLog runLog = new RunLog(distance, hours, minutes, calories, Date, "Running/Walking"  );
         System.out.println(runLog.speed);
