@@ -49,7 +49,7 @@ public class LogAdapter extends ArrayAdapter<RunLog> { // adapter so our ListVie
 
         Date.setText(String.valueOf(date));
         Time.setText(String.format("%.2f",hours + (float) minutes/60) + " Hours");
-        Distance.setText(String.valueOf(distance) + " Miles");
+        Distance.setText(String.format("%.3f", distance) + " Miles");
         Speed.setText(String.format("%.2f", speed) + " MPH");
         Calories.setText(String.valueOf(calories) + " Calories");
         Type.setText(String.valueOf(type));
