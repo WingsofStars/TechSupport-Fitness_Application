@@ -173,10 +173,10 @@ public class trackingScreen extends AppCompatActivity {
                     System.out.println(totalDistance);
                     distancetxt.setText(String.valueOf(String.format("%.3f",totalDistance/1609)) + " miles");
                 }
-                System.out.println("Calories Burnt: " + calorieCalculator.caloriesBurned(currentAcSpeed));
+                System.out.println("Calories Burnt: " + calorieCalculator.caloriesBurned(currentAcSpeed, getTime()));
 
                 if(prefs.getBoolean("LoggedIn", false)){
-                    totalCalories += (calorieCalculator.caloriesBurned(currentAcSpeed)/360);
+                    totalCalories += (calorieCalculator.caloriesBurned(currentAcSpeed, getTime())/360);
                     caloriestxt.setText(String.valueOf((int)totalCalories));
                 }else{
                     caloriestxt.setText("Login For Cal");
@@ -304,7 +304,7 @@ public class trackingScreen extends AppCompatActivity {
             System.out.println("seconds: " + totalTime);
             System.out.println("minutes: " + minutes);
             totalTime = SystemClock.elapsedRealtime() - timetxt.getBase();
-            calories =  (calorieCalculator.caloriesBurned((double) ((double) distance / ((double) hours + (double) minutes / 60))) * hoursConverted);
+            calories =  calorieCalculator.caloriesBurned(getSpeed(), getTime());
             String Date = formater.format(Calendar.getInstance().getTime());
             RunLog runLog = new RunLog(distance, hours, minutes, (int) calories, Date, "Running/Walking");
             System.out.println(runLog.speed);
