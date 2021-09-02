@@ -25,6 +25,7 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -177,13 +178,14 @@ public class trackingScreen extends AppCompatActivity {
 
                 if(prefs.getBoolean("LoggedIn", false)){
                     totalCalories += (calorieCalculator.caloriesBurned(currentAcSpeed)/360);
-                    caloriestxt.setText(String.valueOf((int)totalCalories));
+                    caloriestxt.setText("Calories: " + String.format("%.2f", totalCalories));
                 }else{
                     caloriestxt.setText("Login For Cal");
+                    totalCalories = 100;
                 }
 
                 System.out.println("Location Interval Triggered");
-                caloriestxt.setText(String.valueOf(totalCalories));
+
                 System.out.println("Total Calories: " + totalCalories);
             }
         };
@@ -316,7 +318,8 @@ public class trackingScreen extends AppCompatActivity {
             fractionDistance = 0;
             distancetxt.setText("0.00");
             try {
-                caloriestxt.setText("Calories Burned: " + String.format("%.2f", calories));
+                String calorie = String.format("%.2f", calories);
+                caloriestxt.setText("Calories Burned: " + calorie);
             } catch (Exception e) {
                 System.out.println("Can't Calculate Calories");
                 caloriestxt.setText("Error");
@@ -394,7 +397,7 @@ public class trackingScreen extends AppCompatActivity {
         running = false;
         state = State.stopped;
         getRunIntent(state);
-        Toast.makeText(getApplicationContext(), "Run Cancelled", Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(), "Run Cancelled", Toast.LENGTH_LONG).show();
     }
 
     public void getRunIntent(State state){
