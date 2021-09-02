@@ -6,23 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <Button
-        android:id="@+id/Delete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="0dp"
-        android:background="@drawable/addlogpopupbuttons"
-        android:fontFamily="@font/prompt"
-        android:onClick="createNewLog"
-        android:text="Delete Entry"
-        android:textSize="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline24"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline23"
-        app:layout_constraintTop_toBottomOf="@+id/Calories"
-        app:layout_constraintVertical_bias="0.0" />
+
 
     <EditText
         android:id="@+id/Date"
@@ -126,6 +110,7 @@
         android:textColorHint="@color/lightGrey"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.488"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Minutes" />
 
@@ -133,48 +118,45 @@
         android:id="@+id/Save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
         android:background="@drawable/addlogpopupbuttons"
         android:fontFamily="@font/prompt"
         android:onClick="createNewLog"
-        android:textSize="12dp"
         android:text="Save Changes"
-        app:layout_constraintBottom_toTopOf="@+id/guideline24"
+        android:textSize="12dp"
+        app:layout_constraintBottom_toTopOf="@+id/Cancel"
         app:layout_constraintEnd_toStartOf="@+id/guideline23"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Calories"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.974" />
+
+    <Button
+        android:id="@+id/Delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/addlogpopupbuttons"
+        android:fontFamily="@font/prompt"
+        android:onClick="createNewLog"
+        android:text="Delete Entry"
+        android:textSize="12dp"
+        app:layout_constraintBottom_toTopOf="@+id/Cancel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline23"
+        app:layout_constraintTop_toBottomOf="@+id/Calories"
+        app:layout_constraintVertical_bias="0.974" />
 
     <Button
         android:id="@+id/Cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/addlogpopupbuttons"
-
         android:fontFamily="@font/prompt"
         android:onClick="can"
         android:text="Cancel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline25" />
-
-    <androidx.constraintlayout.widget.Barrier
-        android:id="@+id/barrier8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:barrierDirection="top"
-        app:constraint_referenced_ids="Save"
-        tools:layout_editor_absoluteY="419dp" />
-
-    <androidx.constraintlayout.widget.Barrier
-        android:id="@+id/barrier9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:barrierDirection="top"
-        app:constraint_referenced_ids="Cancel"
-        tools:layout_editor_absoluteY="422dp" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/Error"
@@ -199,14 +181,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.64705884" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline25"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent=".9347" />
+        app:layout_constraintGuide_percent="0.9206566" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
