@@ -39,7 +39,7 @@ public class settings extends AppCompatActivity {
 //        submenuItems.add(GAME);
         submenuItems.add(STATISTICS);
 //        submenuItems.add(DEV);
-        submenuItems.add(GPS);
+//        submenuItems.add(GPS);
         SimpleListAdapter adapter = new SimpleListAdapter(this, R.layout.row , submenuItems);
         subMenu.setAdapter(adapter);
 

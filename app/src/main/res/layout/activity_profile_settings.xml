@@ -67,21 +67,6 @@
         app:layout_constraintVertical_bias="0.298" />
 
     <TextView
-        android:id="@+id/textView6"
-        android:layout_width="140dp"
-        android:layout_height="40dp"
-        android:clickable="true"
-        android:fontFamily="@font/prompt"
-        android:text="@string/ChangeInfo"
-        android:textAlignment="center"
-        android:textColor="@color/lightBlue"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.428" />
-
-    <TextView
         android:id="@+id/Age"
         android:layout_width="185dp"
         android:layout_height="31dp"
