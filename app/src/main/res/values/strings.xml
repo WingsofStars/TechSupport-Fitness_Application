@@ -23,4 +23,14 @@
     <string name="weeklyInfo"><b>This Week\'s Statistics</b></string>
     <string name="newlogmessage"><![CDATA[Looks Like You Don\'t Have Any Runs Logged Yet. To Log A Run, Press The Button With A "+" On It]]></string>
     <string name="loginWelcome">Hello and Welcome to Scamper. To enjoy the all the benefits we have to offer please Login or Signup.</string>
+    <string name="title_activity_test">test</string>
+    <string name="action_settings">Settings</string>
+
+
+    <string name="hello_world">Hello world!</string>
+    <!-- -
+        This is an ad unit ID for a banner test ad. Replace with your own banner ad unit id.
+        For more information, see https://support.google.com/admob/answer/3052638
+    <!- -->
+    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
 </resources>

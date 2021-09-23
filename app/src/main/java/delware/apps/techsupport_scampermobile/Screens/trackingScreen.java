@@ -18,6 +18,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.RequestConfiguration;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -28,6 +35,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
@@ -46,7 +54,7 @@ public class trackingScreen extends AppCompatActivity {
     public static final int FAST_UPDATE_INTERVAL = 5;
     private static final int PERMISSIONS_FINE_LOCATION = 69;
 
-
+    public AdView bannerAd;
     //current location
     public Location currentLocation;
     //prev location
@@ -105,10 +113,24 @@ public class trackingScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_tracking_screen);
+        bannerAd = findViewById(R.id.adView);
+
+        MobileAds.setRequestConfiguration(new RequestConfiguration.Builder().setTestDeviceIds(Arrays.asList("17DC790ACE65C13AC382E329E2098CE0"))
+                        .build());
+
+        // Gets the ad view defined in layout/ad_fragment.xml with ad unit ID set in
+        // values/strings.xml.
+
+        // Create an ad request.
+        AdRequest adRequest = new AdRequest.Builder().build();
+
+        // Start loading the ad in the background.
+        bannerAd.loadAd(adRequest);
 
         distances = new ArrayList<>();
 
-        setContentView(R.layout.activity_tracking_screen);
+
         prefs = getSharedPreferences("prefs", MODE_PRIVATE);
         timetxt = findViewById(R.id.tvTime);
         distancetxt = findViewById(R.id.tvDistance);
@@ -450,6 +472,30 @@ public class trackingScreen extends AppCompatActivity {
         return time;
 
 
+    }
+
+    @Override
+    public void onPause() {
+        if (bannerAd != null) {
+            bannerAd.pause();
+        }
+        super.onPause();
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (bannerAd != null) {
+            bannerAd.resume();
+        }
+    }
+
+    /** Called before the activity is destroyed */
+    @Override
+    public void onDestroy() {
+        if (bannerAd != null) {
+            bannerAd.destroy();
+        }
+        super.onDestroy();
     }
 
 }
