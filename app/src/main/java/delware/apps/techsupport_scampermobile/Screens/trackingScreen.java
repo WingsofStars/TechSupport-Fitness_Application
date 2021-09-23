@@ -298,7 +298,7 @@ public class trackingScreen extends AppCompatActivity {
             distances.clear();
             Toast.makeText(getApplicationContext(), "Run is too Short to save", Toast.LENGTH_LONG).show();
         } else {
-            //STOP EVERYTHING
+            //sTOP EVERYTHING
             pausebtn.setEnabled(false);
             pausebtn.setVisibility(View.INVISIBLE);
             stopbtn.setEnabled(false);
