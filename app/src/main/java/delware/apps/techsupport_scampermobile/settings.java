@@ -8,7 +8,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.RequestConfiguration;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import delware.apps.techsupport_scampermobile.Dev_Settings;
 import delware.apps.techsupport_scampermobile.Game_Settings;
@@ -27,6 +33,7 @@ public class settings extends AppCompatActivity {
     public static final String GPS = "Tracking Settings";
     public ListView subMenu;
     public ArrayList<String> submenuItems = new ArrayList<>();
+    AdView bannerAd;
 
 
     @Override
@@ -77,6 +84,20 @@ public class settings extends AppCompatActivity {
 //                }
             }
         });
+
+        bannerAd = findViewById(R.id.adView);
+
+        MobileAds.setRequestConfiguration(new RequestConfiguration.Builder().setTestDeviceIds(Arrays.asList("17DC790ACE65C13AC382E329E2098CE0"))
+                .build());
+
+        // Gets the ad view defined in layout/ad_fragment.xml with ad unit ID set in
+        // values/strings.xml.
+
+        // Create an ad request.
+        AdRequest adRequest = new AdRequest.Builder().build();
+
+        // Start loading the ad in the background.
+        bannerAd.loadAd(adRequest);
 
     }
 

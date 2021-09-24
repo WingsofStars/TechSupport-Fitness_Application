@@ -7,12 +7,19 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.RequestConfiguration;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Statistics extends AppCompatActivity {
      TextView calories;
     TextView distance;
     TextView time;
+    AdView mediumAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +29,17 @@ public class Statistics extends AppCompatActivity {
         time = findViewById(R.id.time);
         distance = findViewById(R.id.distance);
         setStatsScreen();
+
+
+        mediumAd = findViewById(R.id.adView);
+        MobileAds.setRequestConfiguration(new RequestConfiguration.Builder().setTestDeviceIds(Arrays.asList("17DC790ACE65C13AC382E329E2098CE0"))
+                .build());
+        // Gets the ad view defined in layout/ad_fragment.xml with ad unit ID set in
+        // values/strings.xml.
+        // Create an ad request.
+        AdRequest adRequest = new AdRequest.Builder().build();
+        // Start loading the ad in the background.
+        mediumAd.loadAd(adRequest);
     }
 
      public void setStatsScreen(){//Show Total Stats

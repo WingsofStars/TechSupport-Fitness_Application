@@ -71,6 +71,7 @@
         android:layout_marginBottom="638dp"
         android:backgroundTint="@color/black"
         android:elevation="8dp"
+        android:popupBackground="@color/white"
 
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -155,6 +156,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.05" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

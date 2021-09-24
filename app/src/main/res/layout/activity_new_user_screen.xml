@@ -145,6 +145,7 @@
         android:layout_width="180dp"
         android:layout_height="48dp"
         android:backgroundTint="@color/lightGrey"
+        android:popupBackground="@color/white"
         android:textColor="@color/lightGrey"
         android:textColorHint="#546E7A"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -153,5 +154,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.436" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline25"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.91928864" />
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:adSize="BANNER"
+        app:adUnitId="ca-app-pub-1722662491079932/9702305719"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline25"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

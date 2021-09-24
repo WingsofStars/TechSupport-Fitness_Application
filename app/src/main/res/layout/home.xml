@@ -38,9 +38,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginBottom="0dp"
         android:background="@drawable/tab_button"
         android:onClick="goToCardioDisplay"
+        android:textColor="@color/white"
         android:text="Activity Logs"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -56,6 +56,8 @@
         android:background="@drawable/tab_button"
         android:onClick="goToTrackingScreen"
         android:text="Track"
+        android:textColor="@color/white"
+        android:textStyle="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -107,13 +109,14 @@
         android:layout_width="251dp"
         android:layout_height="42dp"
         android:fontFamily="@font/prompt"
+        android:textColor="@color/lightBlue"
         android:gravity="center"
         android:text="Total Calories"
         android:textAlignment="center"
         android:textAllCaps="true"
-        android:textColor="@color/lightBlue"
-        android:textSize="24sp"
         android:textStyle="bold"
+
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.531"
         app:layout_constraintStart_toStartOf="parent"
@@ -162,11 +165,11 @@
         android:gravity="center"
         android:text="Total Time"
         android:textAlignment="center"
-        android:textAllCaps="true"
         android:textColor="@color/lightBlue"
         android:textSize="24sp"
-
+        android:textAllCaps="true"
         android:textStyle="bold"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline16" />
@@ -201,14 +204,16 @@
 
     <TextView
         android:id="@+id/textView9"
+        android:fontFamily="@font/prompt"
+        android:textColor="@color/lightBlue"
         android:layout_width="280dp"
         android:layout_height="50dp"
         android:layout_marginTop="0dp"
-        android:fontFamily="@font/prompt"
         android:gravity="center"
         android:text="@string/weeklyInfo"
+
         android:textAlignment="center"
-        android:textColor="@color/lightBlue"
+
         android:textSize="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"

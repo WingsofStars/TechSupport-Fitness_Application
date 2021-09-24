@@ -117,6 +117,7 @@
         android:background="@drawable/addlogpopupbuttons"
         android:fontFamily="@font/prompt"
         android:onClick="createNewLog"
+        android:textColor="@color/white"
         android:text="Save"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.216"
@@ -128,6 +129,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
+        android:textColor="@color/white"
         android:layout_marginTop="29dp"
         android:background="@drawable/addlogpopupbuttons"
         android:fontFamily="@font/prompt"
@@ -172,6 +174,7 @@
         android:layout_width="270dp"
         android:layout_height="52dp"
         android:layout_marginTop="14dp"
+        android:popupBackground="@color/white"
         android:backgroundTint="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

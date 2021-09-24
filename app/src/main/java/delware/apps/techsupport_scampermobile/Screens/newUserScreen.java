@@ -14,7 +14,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.RequestConfiguration;
+
 import java.time.LocalDate;
+import java.util.Arrays;
 
 import delware.apps.techsupport_scampermobile.DBHandler;
 import delware.apps.techsupport_scampermobile.MainActivity;
@@ -30,6 +36,7 @@ public class newUserScreen extends AppCompatActivity {
     Spinner sGender;
     public String strGender = "Male";
     LocalDate current = LocalDate.now();
+    AdView bannerAd;
 
 
     @Override
@@ -47,6 +54,16 @@ public class newUserScreen extends AppCompatActivity {
 
 
         sGender.setAdapter(adapter);
+
+        bannerAd = findViewById(R.id.adView);
+        MobileAds.setRequestConfiguration(new RequestConfiguration.Builder().setTestDeviceIds(Arrays.asList("17DC790ACE65C13AC382E329E2098CE0"))
+                .build());
+        // Gets the ad view defined in layout/ad_fragment.xml with ad unit ID set in
+        // values/strings.xml.
+        // Create an ad request.
+        AdRequest adRequest = new AdRequest.Builder().build();
+        // Start loading the ad in the background.
+        bannerAd.loadAd(adRequest);
     }
     //gets text from text box and runs it against regex and passes it to Profile
     public void createUser(View v){
