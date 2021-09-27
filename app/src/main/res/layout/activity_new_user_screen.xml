@@ -105,12 +105,12 @@
 
     <TextView
         android:id="@+id/txtViewException"
-        android:layout_width="206dp"
+        android:layout_width="350dp"
         android:layout_height="90dp"
         android:backgroundTint="@color/lightGrey"
         android:fontFamily="@font/prompt"
         android:textAlignment="center"
-        android:textColor="@color/black"
+        android:textColor="@color/red"
         android:textColorHint="#546E7A"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
