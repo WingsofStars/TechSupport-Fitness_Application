@@ -19,7 +19,7 @@ import java.util.List;
 
 import delware.apps.techsupport_scampermobile.databinding.ActivityMapsBinding;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapsActivity extends FragmentActivity  {//implements OnMapReadyCallback
 
     private GoogleMap mMap;
 
@@ -30,63 +30,63 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityMapsBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-
-        // Obtain The SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
-
-        LocationList locationList = (LocationList)getApplicationContext();
-        savedLocations = locationList.getMyLocations();
-
-    }
-
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        //mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-
-        LatLng lastLocationPlaced = sydney;
-
-        //adds locations from location list to map as markers
-        for (Location location: savedLocations){
-            LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-            mMap.addMarker(new MarkerOptions().position(latLng).title("Latitude: " + location.getLatitude()
-                    + "Longitude: " + location.getLongitude()));
-            lastLocationPlaced = latLng;
-
-        }
-
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(lastLocationPlaced, 12.0f));
-
-        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(@NonNull Marker marker) {
-                Integer clicks = (Integer) marker.getTag();
-                if (clicks == null) {
-                    clicks = 0;
-                }
-                clicks++;
-                marker.setTag(clicks);
-                Toast.makeText(MapsActivity.this, "Marker " + marker.getTitle() + " was clicked "
-                        + marker.getTag() + " times", Toast.LENGTH_SHORT).show();
-                return false;
-            }
-        });
+//        binding = ActivityMapsBinding.inflate(getLayoutInflater());
+//        setContentView(binding.getRoot());
+//
+//        // Obtain The SupportMapFragment and get notified when the map is ready to be used.
+//        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+//                .findFragmentById(R.id.map);
+//        mapFragment.getMapAsync(this);
+//
+//        LocationList locationList = (LocationList)getApplicationContext();
+//        savedLocations = locationList.getMyLocations();
+//
+//    }
+//
+//    /**
+//     * Manipulates the map once available.
+//     * This callback is triggered when the map is ready to be used.
+//     * This is where we can add markers or lines, add listeners or move the camera. In this case,
+//     * we just add a marker near Sydney, Australia.
+//     * If Google Play services is not installed on the device, the user will be prompted to install
+//     * it inside the SupportMapFragment. This method will only be triggered once the user has
+//     * installed Google Play services and returned to the app.
+//     */
+//    @Override
+//    public void onMapReady(GoogleMap googleMap) {
+//        mMap = googleMap;
+//
+//        // Add a marker in Sydney and move the camera
+//        LatLng sydney = new LatLng(-34, 151);
+//        //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+//        //mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+//
+//        LatLng lastLocationPlaced = sydney;
+//
+//        //adds locations from location list to map as markers
+//        for (Location location: savedLocations){
+//            LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+//            mMap.addMarker(new MarkerOptions().position(latLng).title("Latitude: " + location.getLatitude()
+//                    + "Longitude: " + location.getLongitude()));
+//            lastLocationPlaced = latLng;
+//
+//        }
+//
+//        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(lastLocationPlaced, 12.0f));
+//
+//        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+//            @Override
+//            public boolean onMarkerClick(@NonNull Marker marker) {
+//                Integer clicks = (Integer) marker.getTag();
+//                if (clicks == null) {
+//                    clicks = 0;
+//                }
+//                clicks++;
+//                marker.setTag(clicks);
+//                Toast.makeText(MapsActivity.this, "Marker " + marker.getTitle() + " was clicked "
+//                        + marker.getTag() + " times", Toast.LENGTH_SHORT).show();
+//                return false;
+//            }
+//        });
     }
 }

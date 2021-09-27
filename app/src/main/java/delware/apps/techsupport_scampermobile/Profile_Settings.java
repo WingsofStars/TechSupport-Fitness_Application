@@ -128,7 +128,7 @@ public class Profile_Settings extends AppCompatActivity {
                                 }
 
                             } catch (Exception e) {
-                                textViewException.setText("ERROR");
+                                textViewException.setText("Provided Username or Password is invalid.");
                                 return;
                             }
 

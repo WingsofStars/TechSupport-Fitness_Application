@@ -171,7 +171,7 @@ SharedPreferences.OnSharedPreferenceChangeListener {
                 String givenPassword = givenPasswordView.getText().toString();
 
                 try {
-//                    p = databaseHandler.getUserByUsername(givenUserName, givenPassword);
+//                    P = databaseHandler.getUserByUsername(givenUserName, givenPassword);
 //
 //                    id = p.getUserID();
 //

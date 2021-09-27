@@ -164,8 +164,7 @@ public class trackingScreen extends AppCompatActivity {
             public void onLocationResult(@NonNull LocationResult locationResult) {
                 super.onLocationResult(locationResult);
 
-                //get the previous location
-                previousLocation = currentLocation;
+
 
                 //save the location
                 currentLocation = locationResult.getLastLocation();
@@ -174,6 +173,8 @@ public class trackingScreen extends AppCompatActivity {
                     System.out.println("1 location is null");
                     speedtxt.setText("Error");
                 }else {
+                    //get the previous location
+                    previousLocation = currentLocation;
                     currentAcSpeed = currentLocation.getSpeed();
                     System.out.println("Speed: " + currentLocation.getSpeed());
                     addLocalToList(currentLocation);
