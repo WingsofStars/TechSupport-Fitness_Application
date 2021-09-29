@@ -167,35 +167,46 @@ public class trackingScreen extends AppCompatActivity {
 
 
                 //save the location
+                previousLocation = currentLocation;
                 currentLocation = locationResult.getLastLocation();
+                System.out.println("LLLLOOOOOOKKKK Current Location: " + locationResult.getLastLocation());
                 System.out.println(locationResult.getLastLocation());
+
                 if(currentLocation == null) {
                     System.out.println("1 location is null");
                     speedtxt.setText("Error");
-                }else {
+                }
+                else {
+                    System.out.println("LOOOOOOKK, it's the current Location: " + currentLocation);
                     //get the previous location
-                    previousLocation = currentLocation;
+                    addLocalToList(currentLocation);
+                    System.out.println("List Size: " + savedLocations.size());
+
                     currentAcSpeed = currentLocation.getSpeed();
                     System.out.println("Speed: " + currentLocation.getSpeed());
-                    addLocalToList(currentLocation);
+
                     System.out.println("Current Location: " + currentLocation + " added to list");
                     speedtxt.setText(String.valueOf(String.format("%.2f",currentLocation.getSpeed())) + " MPH");
                 }
 
                 //:)
                 //if there are at least 2 locations in the list
-                if (savedLocations.size() >= 2){
+                if (savedLocations.size() > 1){
                     fractionDistance = distanceCalculator.getDistanceM(previousLocation.getLatitude(), previousLocation.getLongitude(),
                             currentLocation.getLatitude(),currentLocation.getLongitude());
+                    System.out.println("Previous Location: " + previousLocation);
+                    System.out.println("Current Location: " + currentLocation);
                     System.out.println("distance: " + fractionDistance);
 
                     distances.add(fractionDistance);
 //                    if(distances.size() > 10)
 //                        distances.remove(11);
 
+                    System.out.println("Fraction Distance: " + fractionDistance);
                     totalDistance += fractionDistance;
-                    System.out.println(totalDistance);
-                    distancetxt.setText(String.valueOf(String.format("%.3f",totalDistance/1609)) + " miles");
+                    System.out.println("total Distance: " + totalDistance);
+                    distancetxt.setText(String.format("%.3f", totalDistance / 1609) + " miles");
+
                 }
                 System.out.println("Calories Burnt: " + calorieCalculator.caloriesBurned(currentAcSpeed, getTime()));
 
@@ -221,10 +232,7 @@ public class trackingScreen extends AppCompatActivity {
     //    THIS IS AN IMPORTANT FUNCTION TO EXIT THE CURRENT INTENT AND GO BACK TO THE PREVIOUS ACTIVITY
     public void exitIntent() {
         ScrapRun();
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);//Exits current intent
-        intent.putExtra("EXIT", true);
-        startActivity(intent);
+        finish();
     }
 
     //Clickable Icon Lets the user exit current intent/activity and return to the previous screen
@@ -500,4 +508,10 @@ public class trackingScreen extends AppCompatActivity {
         super.onDestroy();
     }
 
+    @Override
+    public void finish() {
+        super.finish();
+        ScrapRun();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+    }
 }

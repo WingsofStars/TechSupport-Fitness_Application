@@ -3,11 +3,15 @@ package delware.apps.techsupport_scampermobile;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -20,6 +24,7 @@ import java.util.stream.Collectors;
 
 public class stickerWallScreen extends AppCompatActivity {
     private TextView TV;
+    float x1, y1, x2, y2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,17 +32,19 @@ public class stickerWallScreen extends AppCompatActivity {
         setContentView(R.layout.activity_collection_sticker_wall);
         TV = findViewById(R.id.DescriptionText1);
         TV.setText("Tap on a sticker to learn more...");
-        if(Integer.parseInt(MainActivity.currentID) != 0) {
+        if(Integer.parseInt(MainActivity.currentID) != 0) { //Number Format Exception Here
             updateStickers();
         }
 
     }
 
     public void exitIntent(){
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);//Exits current intent
-        intent.putExtra("EXIT", true);
-        startActivity(intent);
+//        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);//Exits current intent
+//        intent.putExtra("EXIT", true);
+//        startActivity(intent);
+        finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
     public void goBack(View v){
@@ -174,13 +181,21 @@ public class stickerWallScreen extends AppCompatActivity {
 
         LocalDate current = LocalDate.now();
         LocalDate weekBehind = current.minusWeeks(1);
-
-        List<RunLog> logsOfThatWeek = logs.stream()
-                .filter(log -> (LocalDate.parse(log.date, format).isAfter(weekBehind) && LocalDate.parse(log.date, format).isBefore(current))
-                        || LocalDate.parse(log.date, format).equals(weekBehind))
-                .collect(Collectors.toList());
-        long countDistinctWeekLogs = logsOfThatWeek.stream().map(Wrapper::new).distinct().map(Wrapper::unwrap).count();
-        return countDistinctWeekLogs == 7;
+        boolean isValid = false;
+        try {
+            List<RunLog> logsOfThatWeek = logs.stream()
+                    .filter(log -> (LocalDate.parse(log.date, format).isAfter(weekBehind) && LocalDate.parse(log.date, format).isBefore(current))
+                            || LocalDate.parse(log.date, format).equals(weekBehind))
+                    .collect(Collectors.toList());
+            long countDistinctWeekLogs = logsOfThatWeek.stream().map(Wrapper::new).distinct().map(Wrapper::unwrap).count();
+            if(countDistinctWeekLogs == 7){
+                isValid = true;
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return isValid;
     }
 
     public void showStickerDescription(View v) {
@@ -249,5 +264,31 @@ public class stickerWallScreen extends AppCompatActivity {
                 TV.setText("Invalid sticker, tap to select another one...");
                 break;
         }
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+    }
+
+    public boolean onTouchEvent(MotionEvent touchEvent) {
+        switch (touchEvent.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                x1 = touchEvent.getX();
+                y1 = touchEvent.getY();
+                break;
+            case MotionEvent.ACTION_UP:
+                x2 = touchEvent.getX();
+                y2 = touchEvent.getY();
+                if(x1 < x2){
+                   finish();
+                    }
+
+
+                break;
+        }
+        return false;
+
     }
 }

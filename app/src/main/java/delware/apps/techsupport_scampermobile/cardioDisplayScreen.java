@@ -34,10 +34,11 @@ int Position2;
 
     //    THIS IS AN IMPORTANT FUNCTION TO EXIT THE CURRENT INTENT AND GO BACK TO THE PREVIOUS ACTIVITY
     public void exitIntent(){
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);//Exits current intent
-        intent.putExtra("EXIT", true);
-        startActivity(intent);
+//        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);//Exits current intent
+//        intent.putExtra("EXIT", true);
+//        startActivity(intent);
+        finish();
     }
 
     //Clickable Icon Lets the user exit current intent/activity and return to the previous screen
@@ -258,11 +259,12 @@ int Position2;
     public void Refresh() {
 //        if(MainActivity.Logs.Log.size() > MainActivity.LogsforDisplay.size()){
 //        MainActivity.updateDisplayLog();}
+        TextView emptymessage;
         ImageView runsymbol = findViewById(R.id.runsymboll);
         runsymbol.setImageResource(R.drawable.runsymbol);
-        TextView emptymessage = findViewById(R.id.message);
+        emptymessage = findViewById(R.id.message);
         emptymessage.setText(R.string.newlogmessage);
-        if(MainActivity.databaseHandler.size(typeSelector1.getItemAtPosition(Position1).toString()) >= 1) {
+        if(MainActivity.databaseHandler.size(typeSelector1.getItemAtPosition(Position1).toString()) >= 1) { //Null Pointer Exception Here
             runsymbol.setImageResource(0);
             emptymessage.setText("");
 
@@ -343,5 +345,9 @@ int Position2;
         Refresh();
     }
 
-
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+    }
 }

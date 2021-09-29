@@ -164,10 +164,7 @@ public class Profile_Settings extends AppCompatActivity {
 
             //    THIS IS AN IMPORTANT FUNCTION TO EXIT THE CURRENT INTENT AND GO BACK TO THE PREVIOUS ACTIVITY
             public void exitIntent() {
-                Intent intent = new Intent(getApplicationContext(), settings.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);//Exits current intent
-                intent.putExtra("EXIT", true);
-                startActivity(intent);
+                finish();
             }
 
             //Clickable Icon Lets the user exit current intent/activity and return to the previous screen

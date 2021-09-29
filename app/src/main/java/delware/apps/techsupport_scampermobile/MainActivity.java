@@ -131,6 +131,7 @@ SharedPreferences.OnSharedPreferenceChangeListener {
     public void goToCardioDisplay(View v) {
         Intent goToSettings = new Intent(MainActivity.this, cardioDisplayScreen.class);
         startActivity(goToSettings);
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
     public void goToTrackingScreen(View v) {
@@ -138,6 +139,7 @@ SharedPreferences.OnSharedPreferenceChangeListener {
         mp.start();
         Intent goToSettings = new Intent(MainActivity.this, trackingScreen.class);
         startActivity(goToSettings);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     public void goToNewUserScreen(View v) {
@@ -240,6 +242,7 @@ SharedPreferences.OnSharedPreferenceChangeListener {
                     mp.start();
                     Intent i = new Intent(MainActivity.this, stickerWallScreen.class);
                     startActivity(i);
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 }else if(x1 < x2){
                     //Rival Call Button, triggered on Sunday
                     Button callBtn = findViewById(R.id.button14);

@@ -113,11 +113,11 @@ public class settings extends AppCompatActivity {
 
 //    THIS IS AN IMPORTANT FUNCTION TO EXIT THE CURRENT INTENT AND GO BACK TO THE PREVIOUS ACTIVITY
     public void exitIntent(){
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);//Exits current intent
-        intent.putExtra("EXIT", true);
-        startActivity(intent);
-
+//        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);//Exits current intent
+//        intent.putExtra("EXIT", true);
+//        startActivity(intent);
+        finish();
         if(Integer.parseInt(MainActivity.currentID) != 0) {
             MainActivity.xpSystem.xpCheck(0, MainActivity.databaseHandler.getUserByID(Integer.parseInt(MainActivity.currentID)));
         } else {
