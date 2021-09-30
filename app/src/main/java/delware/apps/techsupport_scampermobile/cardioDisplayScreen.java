@@ -91,23 +91,34 @@ int Position2;
                                         public boolean onTouch(View v, MotionEvent event) {
 
                                             switch (event.getAction()) {
+                                                case MotionEvent.ACTION_SCROLL:
+                                                    break;
                                                 case MotionEvent.ACTION_DOWN:
                                                     x1 = event.getX();
                                                     y1 = event.getY();
                                                     break;
                                                 case MotionEvent.ACTION_UP:
+                                                    System.out.println(event);
+                                                    //if(x1>700){
                                                     x2 = event.getX();
                                                     y2 = event.getY();
-                                                    if (x1 > x2) {
-                                                        //left Swipe?
-                                                        finish();
-                                                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                                                    } else if (x1 < x2) {
-                                                    }
+                                                    System.out.println("Y1: " + y1 + "\nY2: " + y2);
+                                                    if(Math.abs(x1-x2) >= 150){
+                                                        if(x1>x2 && (x1>620)){
+                                                            finish();
+                                                            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                                                        }
+                                                        else{}
+                                                    }//}
                                                     break;
                                             }
+                                            System.out.println("X1: " + x1 + " \nX2 : " +x2 + " \nY1 " + y1 + " \nY2: " + y2);
+
+                                            pulltoRefresh.setEnabled(true);
                                             return false;
+
                                         }
+
                                     });
 
 
@@ -119,8 +130,11 @@ int Position2;
         pulltoRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                listView.setEnabled(false);
                 Refresh();
                 pulltoRefresh.setRefreshing(false);
+                listView.setEnabled(true);
+
             }
         });
         //Log Modification
@@ -394,8 +408,8 @@ int Position2;
                 y2 = touchEvent.getY();
                 if (x1 > x2) {
                     //left Swipe?
-                    finish();
-                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+//                    finish();
+//                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 } else if (x1 < x2) {
                 }
                 break;
