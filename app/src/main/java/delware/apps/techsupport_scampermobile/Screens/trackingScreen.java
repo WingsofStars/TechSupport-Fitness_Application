@@ -12,6 +12,7 @@ import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Chronometer;
 import android.widget.ImageView;
@@ -86,6 +87,7 @@ public class trackingScreen extends AppCompatActivity {
     public DistanceCalculator distanceCalculator;
     public CalorieCalculator calorieCalculator;
     public SharedPreferences prefs;
+    float x1,x2,y1,y2;
 
     public enum State
     {
@@ -513,5 +515,27 @@ public class trackingScreen extends AppCompatActivity {
         super.finish();
         ScrapRun();
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+    }
+
+
+    public boolean onTouchEvent(MotionEvent touchEvent) {
+
+        switch (touchEvent.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                x1 = touchEvent.getX();
+                y1 = touchEvent.getY();
+                break;
+            case MotionEvent.ACTION_UP:
+                x2 = touchEvent.getX();
+                y2 = touchEvent.getY();
+                if (x1 > x2) {
+                    //left Swipe?
+
+                } else if (x1 < x2) {
+                    finish();
+                }
+                break;
+        }
+        return false;
     }
 }

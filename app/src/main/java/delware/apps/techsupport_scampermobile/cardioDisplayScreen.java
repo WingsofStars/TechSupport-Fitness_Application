@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -23,6 +25,8 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.RequestConfiguration;
 
 import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Calendar;
 
@@ -31,6 +35,8 @@ public class cardioDisplayScreen extends AppCompatActivity implements AdapterVie
 
 int Position1;
 int Position2;
+
+    float x1,x2,y1,y2;
 
     //    THIS IS AN IMPORTANT FUNCTION TO EXIT THE CURRENT INTENT AND GO BACK TO THE PREVIOUS ACTIVITY
     public void exitIntent(){
@@ -79,6 +85,31 @@ int Position2;
 
 
         listView = (ListView) findViewById(R.id.listView);
+//allows swipe out
+        listView.setOnTouchListener(new View.OnTouchListener() {
+                                        @Override
+                                        public boolean onTouch(View v, MotionEvent event) {
+
+                                            switch (event.getAction()) {
+                                                case MotionEvent.ACTION_DOWN:
+                                                    x1 = event.getX();
+                                                    y1 = event.getY();
+                                                    break;
+                                                case MotionEvent.ACTION_UP:
+                                                    x2 = event.getX();
+                                                    y2 = event.getY();
+                                                    if (x1 > x2) {
+                                                        //left Swipe?
+                                                        finish();
+                                                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                                                    } else if (x1 < x2) {
+                                                    }
+                                                    break;
+                                            }
+                                            return false;
+                                        }
+                                    });
+
 
 
         Refresh();
@@ -349,5 +380,26 @@ int Position2;
     public void finish() {
         super.finish();
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+    }
+
+    public boolean onTouchEvent(MotionEvent touchEvent) {
+
+        switch (touchEvent.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                x1 = touchEvent.getX();
+                y1 = touchEvent.getY();
+                break;
+            case MotionEvent.ACTION_UP:
+                x2 = touchEvent.getX();
+                y2 = touchEvent.getY();
+                if (x1 > x2) {
+                    //left Swipe?
+                    finish();
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                } else if (x1 < x2) {
+                }
+                break;
+        }
+        return false;
     }
 }
