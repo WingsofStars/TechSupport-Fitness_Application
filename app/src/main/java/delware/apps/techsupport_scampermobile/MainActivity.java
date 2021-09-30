@@ -172,6 +172,9 @@ SharedPreferences.OnSharedPreferenceChangeListener {
                 String givenUserName = givenUsernameView.getText().toString();
                 String givenPassword = givenPasswordView.getText().toString();
 
+                if(givenPassword.isEmpty()){
+                    givenPassword = "1";
+                }
                 try {
 //                    P = databaseHandler.getUserByUsername(givenUserName, givenPassword);
 //

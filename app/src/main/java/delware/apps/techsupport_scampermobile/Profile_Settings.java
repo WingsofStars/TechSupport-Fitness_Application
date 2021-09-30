@@ -16,12 +16,12 @@ import delware.apps.techsupport_scampermobile.Screens.newUserScreen;
 
 
 public class Profile_Settings extends AppCompatActivity {
-    TextView userNameTxt;
+    static TextView userNameTxt;
     TextView Age;
-    TextView Height1;
-    TextView Height2;
-    TextView Weight;
-    Button btn;
+    static TextView Height1;
+    static TextView Height2;
+    static TextView Weight;
+    static Button btn;
     public AlertDialog.Builder dBuilder;
     public static AlertDialog dialogue;
     public Utils utils;
@@ -30,6 +30,8 @@ public class Profile_Settings extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_settings);
+
+
         SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
         userNameTxt = findViewById(R.id.username);
         //Age = findViewById(R.id.);
@@ -68,11 +70,8 @@ public class Profile_Settings extends AppCompatActivity {
                     MainActivity.currentID = String.valueOf(MainActivity.prefs.getInt("id", 0));
                     editor.apply();
                     Toast.makeText(Profile_Settings.this, "User Signed Out", Toast.LENGTH_LONG);
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);//Exits current intent
-                    intent.putExtra("EXIT", true);
                     MainActivity.TVXP.setText("0 / 0 | Level 0");
-                    startActivity(intent);
+                    recreate();
                     btn.setText("Log In");
                 } else if (btn.getText().toString().equalsIgnoreCase("Log In")) {
                     Button button;
@@ -98,6 +97,9 @@ public class Profile_Settings extends AppCompatActivity {
 
                             String givenUserName = givenUsernameView.getText().toString();
                             String givenPassword = givenPasswordView.getText().toString();
+                            if(givenPassword.isEmpty()){
+                                givenPassword = "1";
+                            }
                             //String encLoginPassword = utils.getSha256Hash(givenPassword);
                             try {
                                 p = MainActivity.databaseHandler.getUserByUsername(givenUserName);
@@ -160,6 +162,7 @@ public class Profile_Settings extends AppCompatActivity {
     public void goToNewUserScreen(View v){
         Intent goToCreateUser = new Intent(getApplicationContext(), newUserScreen.class);
         startActivity(goToCreateUser); // Got to the create user Screen
+        dialogue.dismiss();
     }
 
             //    THIS IS AN IMPORTANT FUNCTION TO EXIT THE CURRENT INTENT AND GO BACK TO THE PREVIOUS ACTIVITY
@@ -181,14 +184,31 @@ public class Profile_Settings extends AppCompatActivity {
                 MainActivity.currentID = String.valueOf(MainActivity.prefs.getInt("id", 0));
                 editor.apply();
                 Toast.makeText(Profile_Settings.this, "User Signed Out", Toast.LENGTH_LONG);
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);//Exits current intent
-                intent.putExtra("EXIT", true);
-                startActivity(intent);
+                recreate();
             }
 
             public void closePopUp(View v) {
         dialogue.dismiss();
+        recreate();
     }
-        }
+
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        recreate();
+//    }
+    //infinite loop
+    public static void setProfileScreen(){
+        Profile profile = MainActivity.databaseHandler.getUserByID(Integer.valueOf(MainActivity.currentID));
+        userNameTxt.setText(profile.getUserName());
+        int Height = (int) profile.getHeight();
+
+        Height1.setText(String.valueOf(Height / 12) + " ft");
+        Height2.setText(String.valueOf(Height % 12) + " inches");
+        Weight.setText(String.valueOf(profile.getWeight()) + " lbs");
+    }
+    public static void setButton(){
+        btn.setText("SIGN OUT");
+    }
+}
 

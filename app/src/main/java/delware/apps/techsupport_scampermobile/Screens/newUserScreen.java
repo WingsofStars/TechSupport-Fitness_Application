@@ -148,6 +148,9 @@ public class newUserScreen extends AppCompatActivity {
         else if(!MainActivity.isFromMain){
             //Profile_Settings.dialogue.dismiss();
             MainActivity.setWeeklyStats();
+            Profile_Settings.setProfileScreen();
+            Profile_Settings.setButton();
+
         }
     }
 
