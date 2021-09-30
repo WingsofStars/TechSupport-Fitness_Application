@@ -437,15 +437,15 @@ public class trackingScreen extends AppCompatActivity {
         String txtBody = "Run Still In Progress \n" + "Time Elapsed: " + SystemClock.elapsedRealtime();
         switch(state){
             case running:
-                System.out.println("running case triggered");
-                serviceIntent.putExtra(INTENT_START_NAME, txtBody);
+                //System.out.println("running case triggered");
+                //serviceIntent.putExtra(INTENT_START_NAME, txtBody);
 
-                startService(serviceIntent);
+                //startService(serviceIntent);
                 break;
 
 
             case stopped:
-                stopService(serviceIntent);
+                //stopService(serviceIntent);
                 break;
 
         }
